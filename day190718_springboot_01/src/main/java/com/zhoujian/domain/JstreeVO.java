@@ -43,4 +43,14 @@ public class JstreeVO implements Serializable {
     public void setData(User data) {
         this.data = data;
     }
+
+    @Override
+    public String toString() {
+        return "JstreeVO{" +
+                "id='" + id + '\'' +
+                ", text='" + text + '\'' +
+                ", parent='" + parent + '\'' +
+                ", data=" + data +
+                '}';
+    }
 }
