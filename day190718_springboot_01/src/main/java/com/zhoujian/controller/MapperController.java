@@ -78,6 +78,8 @@ public class MapperController {
         lists.add(jstreeVO5);
 
         vo.setData(lists);
+        System.out.println(lists);
+        System.out.println(vo.toString());
         return vo;
     }
 

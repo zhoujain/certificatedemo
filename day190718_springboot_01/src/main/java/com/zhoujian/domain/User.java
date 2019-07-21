@@ -1,17 +1,19 @@
 package com.zhoujian.domain;
 
 public class User {
-    private Integer id;
+    private int uid;
     private String username;
-    private String password;
-    private String name;
+    private String upwd;
+    private int utid;
+    private String uaccess;
+    private int ustate;
 
-    public Integer getId() {
-        return id;
+    public int getUid() {
+        return uid;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setUid(int uid) {
+        this.uid = uid;
     }
 
     public String getUsername() {
@@ -22,29 +24,47 @@ public class User {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
+    public String getUpwd() {
+        return upwd;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setUpwd(String upwd) {
+        this.upwd = upwd;
     }
 
-    public String getName() {
-        return name;
+    public int getUtid() {
+        return utid;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUtid(int utid) {
+        this.utid = utid;
+    }
+
+    public String getUaccess() {
+        return uaccess;
+    }
+
+    public void setUaccess(String uaccess) {
+        this.uaccess = uaccess;
+    }
+
+    public int getUstate() {
+        return ustate;
+    }
+
+    public void setUstate(int ustate) {
+        this.ustate = ustate;
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
+                "uid=" + uid +
                 ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", name='" + name + '\'' +
+                ", upwd='" + upwd + '\'' +
+                ", utid=" + utid +
+                ", uaccess='" + uaccess + '\'' +
+                ", ustate=" + ustate +
                 '}';
     }
 }

@@ -89,4 +89,13 @@ public class ResponseVO<T> implements Serializable{
         ResponseVO<T> responseVO = new ResponseVO<T>();
         return responseVO.setCode(ResponseCode.ERROR);
     }
+
+    @Override
+    public String toString() {
+        return "ResponseVO{" +
+                "code='" + code + '\'' +
+                ", msg='" + msg + '\'' +
+                ", data=" + data +
+                '}';
+    }
 }

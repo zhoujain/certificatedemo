@@ -308,7 +308,7 @@
             });
 
             //树节点左键相应函数（监听）
-            $('#myJstree').on("select_node.jstree",function (node,selected,event) {
+            $('#using_json').on("select_node.jstree",function (node,selected,event) {
                 //当前点击的对象的id
                 alert(selected.node.id);
             })
