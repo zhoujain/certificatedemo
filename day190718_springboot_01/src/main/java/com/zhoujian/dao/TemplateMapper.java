@@ -25,4 +25,9 @@ public interface TemplateMapper {
      * 删除模板
      */
     public Integer deleteTemplate(Integer tid);
+
+    /**
+     * 根据id查模板
+     */
+    public Template getTemplateById(Integer tid);
 }
