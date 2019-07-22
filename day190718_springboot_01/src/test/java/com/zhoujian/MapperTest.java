@@ -21,8 +21,7 @@ public class MapperTest {
     @Autowired
     private UserMapper userMapper;
 
-    @Autowired
-    private MapperController mapperController;
+
 
     @Test
     public void test(){
@@ -30,9 +29,56 @@ public class MapperTest {
         System.out.println(users);
 
     }
+
     @Test
     public void test1(){
-        User user = mapperController.findUserByUsername("zhoujian");
+        User user = userMapper.findUserByUsername("zhoujian");
         System.out.println(user);
     }
+
+    @Test
+    public void test2(){
+        User user = userMapper.findUserByUid(1001);
+        System.out.println(user);
+    }
+
+    @Test
+    public void test3(){
+        String pwd = userMapper.findUpwdByUsername("zhoujian");
+        System.out.println(pwd);
+    }
+
+    @Test
+    public void test4(){
+        User user = new User();
+        user.setUsername("lisi");
+        user.setUpwd("123456");
+        user.setUaccess("1&2&3");
+        user.setUstate(1);
+        user.setUtid(1);
+        Boolean isAdd = userMapper.insertUser(user);
+        System.out.println(isAdd);
+    }
+
+    @Test
+    public void test5(){
+        User user = userMapper.findUserByUid(1003);
+        user.setUsername("lisi1");
+        user.setUpwd("123");
+        user.setUtid(2);
+        user.setUstate(2);
+        user.setUaccess("1&2&3&4");
+        Boolean isUpdate = userMapper.updateUser(user);
+        System.out.println(isUpdate);
+    }
+
+    @Test
+    public void test6(){
+        Boolean isDelete = userMapper.deleteUser(1003);
+        System.out.println(isDelete);
+    }
+
+
+
+
 }
