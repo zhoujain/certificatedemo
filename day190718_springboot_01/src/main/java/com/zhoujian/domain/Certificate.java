@@ -20,8 +20,17 @@ public class Certificate implements Serializable {
     private Date cprintdate;
     private Double cmoney;
     private Integer tid;
+    private Integer cstate;
 
-    public Certificate(Integer cid, String cname, String cnumber, String ccompany, String ctoolname, String cmodel, String coutnumber, String cmanufacturer, String cdelegate, Date ccheckdate, String ccheckdepartment, Integer uid, Integer puid, Date cprintdate, Double cmoney, Integer tid) {
+    public Integer getCstate() {
+        return cstate;
+    }
+
+    public void setCstate(Integer cstate) {
+        this.cstate = cstate;
+    }
+
+    public Certificate(Integer cid, String cname, String cnumber, String ccompany, String ctoolname, String cmodel, String coutnumber, String cmanufacturer, String cdelegate, Date ccheckdate, String ccheckdepartment, Integer uid, Integer puid, Date cprintdate, Double cmoney, Integer tid, Integer cstate) {
         this.cid = cid;
         this.cname = cname;
         this.cnumber = cnumber;
@@ -38,6 +47,7 @@ public class Certificate implements Serializable {
         this.cprintdate = cprintdate;
         this.cmoney = cmoney;
         this.tid = tid;
+        this.cstate = cstate;
     }
 
     public Certificate() {

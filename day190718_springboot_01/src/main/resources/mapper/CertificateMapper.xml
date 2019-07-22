@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhoujian.dao.CertificateMapper">
+    <select id="getAllCertificates" resultType="Certificate">
+        select * from tb_certificate
+    </select>
+    <select id="getCertificateById" resultType="com.zhoujian.domain.Certificate" parameterType="Integer">
+        select * from tb_certificate where cid=#{id}
+    </select>
+
+
+    <insert id="addCertificate" parameterType="Certificate">
+        insert into tb_certificate values (null ,#{cname},#{cnumber},#{ccompany},#{ctoolname},#{cmodel},#{coutnumber},#{cmanufacturer},#{cdelegate},#{ccheckdate},#{ccheckdepartment},#{uid},#{puid},#{cprintdate},#{cmoney},#{tid},#{cstate},1)
+    </insert>
+
+    <update id="delCertificate" parameterType="Integer">
+        update tb_certificate set cisdel="0" where cid=#{id}
+    </update>
+
+    <update id="updateCertificate" parameterType="Certificate">
+        update tb_certificate set cname=#{cname},cnumber=#{cnumber},ccompany=#{ccompany},ctoolname=#{ctoolname},cmodel=#{cmodel},coutnumber=#{coutnumber},cmanufacturer=#{cmanufacturer},cdelegate=#{cdelegate},ccheckdate=#{ccheckdate},ccheckdepartment=#{ccheckdepartment},uid=#{uid},puid=#{puid},cprintdate=#{cprintdate},cmoney=#{cmoney},tid=#{tid} where cid=#{cid}
+    </update>
+</mapper>
