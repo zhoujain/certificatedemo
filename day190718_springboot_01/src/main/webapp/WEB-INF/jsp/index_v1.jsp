@@ -297,7 +297,7 @@
         event : function(){
         },
         doCreateTree : function(){
-            $.getJSON("/queryJsTree",function(rs){
+            $.getJSON("/template/templateTree",function(rs){
                 $('#using_json').jstree({
                     "core" : {
                         "mutiple" : false,

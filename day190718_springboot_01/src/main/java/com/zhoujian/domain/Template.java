@@ -6,8 +6,9 @@ public class Template implements Serializable {
     private Integer tid;
     private String tname;
     private String turl;
-    private int tpid;
-    private int ttype;
+    private Integer tpid;
+    private Integer ttype;
+    private Integer tisdel;
 
     public Integer getTid() {
         return tid;
@@ -33,20 +34,28 @@ public class Template implements Serializable {
         this.turl = turl;
     }
 
-    public int getTpid() {
+    public Integer getTpid() {
         return tpid;
     }
 
-    public void setTpid(int tpid) {
+    public void setTpid(Integer tpid) {
         this.tpid = tpid;
     }
 
-    public int getTtype() {
+    public Integer getTtype() {
         return ttype;
     }
 
-    public void setTtype(int ttype) {
+    public void setTtype(Integer ttype) {
         this.ttype = ttype;
+    }
+
+    public Integer getTisdel() {
+        return tisdel;
+    }
+
+    public void setTisdel(Integer tisdel) {
+        this.tisdel = tisdel;
     }
 
     @Override
@@ -57,6 +66,7 @@ public class Template implements Serializable {
                 ", turl='" + turl + '\'' +
                 ", tpid=" + tpid +
                 ", ttype=" + ttype +
+                ", tisdel=" + tisdel +
                 '}';
     }
 }

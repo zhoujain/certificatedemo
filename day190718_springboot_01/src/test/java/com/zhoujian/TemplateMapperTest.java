@@ -35,7 +35,7 @@ public class TemplateMapperTest {
 
     @Test
     public void editTemplate(){
-        Template template = templateMapper.getTemplateById(4);
+        Template template = templateMapper.getTemplateById(5);
         template.setTurl("没有url");
         Integer result = templateMapper.editTemplate(template);
         System.out.println(result);
@@ -44,7 +44,7 @@ public class TemplateMapperTest {
 
     @Test
     public void deleteTemplate(){
-        Integer tid=4;
+        Integer tid=5;
         Integer result = templateMapper.deleteTemplate(tid);
         System.out.println(result);
     }

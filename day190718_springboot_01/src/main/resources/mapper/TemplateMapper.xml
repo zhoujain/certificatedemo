@@ -7,16 +7,16 @@
     </select>
 
     <insert id="addTemplate">
-        insert into tb_template (tname,turl,tpid,ttype) values (#{tname},#{turl},#{tpid},#{ttype})
+        insert into tb_template (tname,turl,tpid,ttype,tisdel) values (#{tname},#{turl},#{tpid},#{ttype},1)
     </insert>
 
     <update id="editTemplate">
-        update tb_template set tname=#{tname},turl=#{turl},tpid=#{tpid},ttype=#{ttype} where tid=#{tid}
+        update tb_template set tname=#{tname},turl=#{turl},tpid=#{tpid},ttype=#{ttype},tisdel=#{tisdel} where tid=#{tid}
     </update>
 
-    <delete id="deleteTemplate">
-        DELETE from tb_template where tid=#{tid}
-    </delete>
+    <update id="deleteTemplate">
+        update tb_template set tisdel=0 where tid=#{tid}
+    </update>
 
     <select id="getTemplateById" resultType="Template">
         select * from tb_template where tid=#{tid}
