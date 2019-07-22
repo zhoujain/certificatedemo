@@ -1,6 +1,8 @@
 package com.zhoujian.domain;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     private int uid;
     private String username;
     private String upwd;
