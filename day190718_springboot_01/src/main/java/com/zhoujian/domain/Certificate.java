@@ -21,6 +21,28 @@ public class Certificate implements Serializable {
     private Double cmoney;
     private Integer tid;
 
+    public Certificate(Integer cid, String cname, String cnumber, String ccompany, String ctoolname, String cmodel, String coutnumber, String cmanufacturer, String cdelegate, Date ccheckdate, String ccheckdepartment, Integer uid, Integer puid, Date cprintdate, Double cmoney, Integer tid) {
+        this.cid = cid;
+        this.cname = cname;
+        this.cnumber = cnumber;
+        this.ccompany = ccompany;
+        this.ctoolname = ctoolname;
+        this.cmodel = cmodel;
+        this.coutnumber = coutnumber;
+        this.cmanufacturer = cmanufacturer;
+        this.cdelegate = cdelegate;
+        this.ccheckdate = ccheckdate;
+        this.ccheckdepartment = ccheckdepartment;
+        this.uid = uid;
+        this.puid = puid;
+        this.cprintdate = cprintdate;
+        this.cmoney = cmoney;
+        this.tid = tid;
+    }
+
+    public Certificate() {
+    }
+
     public Integer getCid() {
         return cid;
     }
