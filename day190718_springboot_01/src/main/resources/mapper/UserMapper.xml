@@ -2,24 +2,60 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zhoujian.dao.UserMapper">
-    <select id="queryUserList" resultType="user">
-        select * from user
-    </select>
+
     
-    <resultMap id="BaseResultMap" type="com.zhoujian.domain.User">
-        <result column="id" property="id"/>
-        <result column="username" property="username"/>
-        <result column="password" property="password"/>
-        <result column="name" property="name"/>
-    </resultMap>
+<!--    <resultMap id="BaseResultMap" type="com.zhoujian.domain.User">-->
+<!--        <result column="uid" property="uid"/>-->
+<!--        <result column="username" property="username"/>-->
+<!--        <result column="upwd" property="upwd"/>-->
+<!--        <result column="utid" property="utid"/>-->
+<!--        <result column="uaccess" property="uaccess"/>-->
+<!--        <result column="ustate" property="ustate"/>-->
+<!--    </resultMap>-->
     
-    <sql id="Base_Column_List">
-        id,username,password,name
-    </sql>
-    <select id="findUserByUsername" resultMap="BaseResultMap">
+<!--    <sql id="Base_Column_List">-->
+<!--        id,username,password,name-->
+<!--    </sql>-->
+
+    <select id="queryUserList" resultType="User">
         select
-        <include refid="Base_Column_List"></include>
-        from user
+        *
+        from tb_user
+    </select>
+
+    <select id="findUserByUsername" resultType="User">
+        select
+        *
+        from tb_user
         where username = #{username}
     </select>
+
+    <select id="findUserByUid" resultType="User">
+        select
+        *
+        from tb_user
+        where uid = #{uid}
+    </select>
+
+    <select id="findUpwdByUsername" resultType="String">
+        select
+        upwd
+        from tb_user
+        where username=#{username}
+    </select>
+
+    <insert id="insertUser">
+        insert into tb_user (username,upwd,utid,uaccess,ustate)
+        values (#{username},#{upwd},#{utid},#{uaccess},#{ustate})
+    </insert>
+
+    <delete id="deleteUser">
+        delete from tb_user where uid =#{uid}
+    </delete>
+
+    <update id="updateUser">
+        update  tb_user
+        set username=#{username},upwd=#{upwd},utid=#{utid},uaccess=#{uaccess},ustate=#{ustate}
+        where uid=#{uid}
+    </update>
 </mapper>
