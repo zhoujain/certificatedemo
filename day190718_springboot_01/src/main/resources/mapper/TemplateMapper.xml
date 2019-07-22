@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper>
+    <select id="queryTemplateList" resultType="Template">
+        select * from tb_template
+    </select>
+
+    <insert id="addTemplate">
+        insert into tb_template (tname,turl,tpid,ttype) values (#{tname},#{turl},#{tpid},#{ttype})
+    </insert>
+
+    <update id="editTemplate">
+        update tb_template set tname=#{tname},turl=#{turl},tpid=#{tpid},ttype=#{ttype} where tid=#{tid}
+    </update>
+
+    <delete id="deleteTemplate">
+        DELETE from tb_template where tid=#{tid}
+    </delete>
+</mapper>
