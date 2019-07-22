@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhoujian.dao.CertificateMapper">
+    <select id="getAllCertificates" resultType="com.zhoujian.domain.Certificate">
+        select * from tb_certificate
+    </select>
+    <select id="getCertificateById" resultType="com.zhoujian.domain.Certificate" parameterType="Integer">
+        select * from tb_certificate where cid=#{id}
+    </select>
+
+    //返回插入的cid
+    <insert id="addCertificate"  parameterType="Certificate" useGeneratedKeys="true" keyProperty="cid">
+        insert into tb_certificate values (null ,#{cname},#{cnumber},#{ccompany},#{ctoolname},#{cmodel},#{coutnumber},#{cmanufacturer},#{cdelegate},#{ccheckdate},#{ccheckdepartment},#{uid},#{puid},#{cprintdate},#{cmoney},#{tid});
+    </insert>
+</mapper>
