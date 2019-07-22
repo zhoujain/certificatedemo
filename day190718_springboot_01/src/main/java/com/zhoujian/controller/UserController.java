@@ -26,6 +26,10 @@ public class UserController {
         Boolean islogin = userService.loginUser(username,upwd);
         if(islogin){
             session.setAttribute("username",username);
+            session.setAttribute("utid",userService.uTidByUsername(username));
+            //1 表示管理员
+            //2 表示有审核功能人员
+            //3 表示普通人员
             return "index";
         }
         return "login";

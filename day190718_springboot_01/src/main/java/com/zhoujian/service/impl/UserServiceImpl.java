@@ -35,4 +35,13 @@ public class UserServiceImpl implements UserService {
         }
         return false;
     }
+
+    @Override
+    public Integer uTidByUsername(String username) {
+        User user = userMapper.findUserByUsername(username);
+        if(user!=null){
+            return user.getUtid();
+        }
+        return 0;
+    }
 }
