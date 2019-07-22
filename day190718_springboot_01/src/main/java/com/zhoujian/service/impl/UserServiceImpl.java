@@ -16,4 +16,23 @@ public class UserServiceImpl implements UserService {
     public User findUserByUsername(String username) {
         return userMapper.findUserByUsername(username);
     }
+
+    /**
+     * 用户名和密码验证
+     * @param username
+     * @param upwd
+     * @return
+     */
+    @Override
+    public Boolean loginUser(String username, String upwd) {
+        User user = userMapper.findUserByUsername(username);
+        if(user!=null){
+            String password = userMapper.findUpwdByUsername(username);
+            if(upwd.equals(password)){
+                return  true;
+            }
+            return false;
+        }
+        return false;
+    }
 }

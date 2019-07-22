@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+
 public class MapperController {
 //    @Autowired
 //    private UserMapper userMapper;
@@ -81,6 +82,11 @@ public class MapperController {
         //System.out.println(lists);
         //System.out.println(vo.toString());
         return vo;
+    }
+
+    @RequestMapping("/login")
+    public String login(){
+        return "login";
     }
 
 

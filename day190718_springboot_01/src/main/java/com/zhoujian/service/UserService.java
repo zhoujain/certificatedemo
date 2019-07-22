@@ -11,4 +11,6 @@ public interface UserService {
      * @return
      */
     User findUserByUsername(String username);
+
+    Boolean loginUser(String username,String upwd);
 }

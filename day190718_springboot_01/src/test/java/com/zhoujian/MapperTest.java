@@ -62,7 +62,7 @@ public class MapperTest {
 
     @Test
     public void test5(){
-        User user = userMapper.findUserByUid(1003);
+        User user = userMapper.findUserByUid(1004);
         user.setUsername("lisi1");
         user.setUpwd("123");
         user.setUtid(2);
@@ -74,7 +74,7 @@ public class MapperTest {
 
     @Test
     public void test6(){
-        Boolean isDelete = userMapper.deleteUser(1003);
+        Boolean isDelete = userMapper.deleteUser(1004);
         System.out.println(isDelete);
     }
 
