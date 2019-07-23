@@ -104,7 +104,7 @@
                     </li>
                 </ul>
             </div>
-            <a href="/logoutUser" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
+            <a onclick="logoutUser()" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
         </div>
         <div class="row J_mainContent" id="content-main">
             <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="index_v148b2.html?v=4.0" frameborder="0" data-id="index_v1.html" seamless></iframe>
@@ -217,6 +217,17 @@
 <script type="text/javascript" src="../../js/contabs.min.js"></script>
 <script src="../../js/plugins/pace/pace.min.js"></script>
 
+<script>
+    function logoutUser() {
+        var r = confirm("确认要退出登录吗")
+        if (r == true) {
+            window.location.href="/logoutUser";
+        } else {
+
+        }
+    }
+
+</script>
 </body>
 
 </html>
