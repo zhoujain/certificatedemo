@@ -27,6 +27,6 @@ public class MySpringMVCConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(myInterceptor).addPathPatterns("/**");
+        registry.addInterceptor(myInterceptor).addPathPatterns("/qqqq");
     }
 }

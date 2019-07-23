@@ -6,6 +6,9 @@ import com.zhoujian.domain.ResponseVO;
 import com.zhoujian.domain.User;
 import com.zhoujian.exception.SysException;
 import com.zhoujian.service.UserService;
+import com.zhuozhengsoft.pageoffice.FileSaver;
+import com.zhuozhengsoft.pageoffice.OpenModeType;
+import com.zhuozhengsoft.pageoffice.PageOfficeCtrl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,9 +16,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 
@@ -90,6 +96,29 @@ public class MapperController {
 
         return "login";
     }
+
+    @RequestMapping(value="/word", method=RequestMethod.GET)
+    public String openWord(HttpServletRequest request, Map<String,Object> map){
+        //--- PageOffice的调用代码 开始 -----
+        PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
+        poCtrl.setServerPage("/poserver.zz");//设置授权程序
+        poCtrl.addCustomToolButton("保存","Save",1); //添加自定义按钮
+        poCtrl.setSaveFilePage("/save");//设置保存的action
+        poCtrl.webOpen("d:\\test.doc", OpenModeType.docAdmin,"张三");
+        map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
+        //--- PageOffice的调用代码 结束 -----
+
+        return "word";
+    }
+
+    @RequestMapping("/save")
+    public void saveFile(HttpServletRequest request, HttpServletResponse response){
+        FileSaver fs = new FileSaver(request, response);
+        fs.saveToFile("d:\\" + fs.getFileName());
+        fs.close();
+    }
+
+
 
 
 }
