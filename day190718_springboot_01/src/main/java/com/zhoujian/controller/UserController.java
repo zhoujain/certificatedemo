@@ -44,7 +44,27 @@ public class UserController {
 
     }
 
-    //用户权限 转 菜单的HTML内容
+    /**
+     * 用户登出
+     * @param session
+     * @return
+     */
+    @RequestMapping("/logoutUser")
+    public String logoutUser(HttpSession session){
+        if (session.getAttribute("username")!=null){
+            session.removeAttribute("username");
+        }
+        if (session.getAttribute("utid")!=null) {
+            session.removeAttribute("utid");
+        }
+        return "login";
+    }
+
+    /**
+     * 用户权限 转 菜单的HTML内容
+     * @param access
+     * @return
+     */
     private String uaccessToMenuHtml(String access){
 
         StringBuilder menuHtml= new StringBuilder();
