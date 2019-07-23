@@ -15,4 +15,6 @@ public interface UserService {
     Boolean loginUser(String username,String upwd);
 
     Integer uTidByUsername(String username);
+
+    String uAccessByUsername(String username);
 }
