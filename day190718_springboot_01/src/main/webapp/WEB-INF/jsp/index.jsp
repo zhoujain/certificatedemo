@@ -33,8 +33,18 @@
                         <span><img alt="image" class="img-circle" src="img/profile_small.jpg" /></span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <span class="clear">
-                               <span class="block m-t-xs"><strong class="font-bold">Beaut-zihan</strong></span>
-                                <span class="text-muted text-xs block">超级管理员<b class="caret"></b></span>
+                               <span class="block m-t-xs"><strong class="font-bold">${username}</strong></span>
+                                <span class="text-muted text-xs block">
+                                    <c:if test="${utid==1}">
+                                        管理员
+                                    </c:if>
+                                    <c:if test="${utid==2}">
+                                        审核
+                                    </c:if>
+                                    <c:if test="${utid==2}">
+                                        普通人员
+                                    </c:if>
+                                    <b class="caret"></b></span>
                                 </span>
                         </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
