@@ -1,7 +1,9 @@
 package com.zhoujian.service;
 
 import com.zhoujian.domain.Template;
+import com.zhoujian.exception.SysException;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public interface TemplateService {
@@ -12,7 +14,7 @@ public interface TemplateService {
     List<Template> queryTemplateList();
 
     /**
-     * 文件上传
+     * 根据请求进行文件文件上传
      */
-
+    void fileupload(HttpServletRequest request) throws SysException;
 }

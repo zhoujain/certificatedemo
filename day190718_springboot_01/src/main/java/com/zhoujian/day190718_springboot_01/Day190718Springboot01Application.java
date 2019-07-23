@@ -5,10 +5,13 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Component;
 
 @ComponentScan("com.zhoujian.controller")
 @MapperScan("com.zhoujian.dao")
 @ComponentScan("com.zhoujian.service")
+@ComponentScan("com.zhoujian.exception")
+@ComponentScan("com.zhoujian.Interceptor")
 @SpringBootApplication
 public class Day190718Springboot01Application {
 
