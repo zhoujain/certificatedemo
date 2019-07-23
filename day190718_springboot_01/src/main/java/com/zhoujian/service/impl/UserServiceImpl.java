@@ -44,4 +44,18 @@ public class UserServiceImpl implements UserService {
         }
         return 0;
     }
+
+    /**
+     * 用户名获取权限
+     * @param username
+     * @return
+     */
+    @Override
+    public String uAccessByUsername(String username) {
+        User user = userMapper.findUserByUsername(username);
+        if(user!=null){
+            return user.getUaccess();
+        }
+        return null;
+    }
 }
