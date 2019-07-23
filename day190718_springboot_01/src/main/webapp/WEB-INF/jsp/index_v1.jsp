@@ -309,13 +309,56 @@
                             "ellipsis":true//过长省略
                         }
                     },
-                    "plugins":["types","contextmenu"],//types：设置样式，contextmenu：右键菜单可用
+                    "plugins":["dnd","contextmenu","search",
+                        "state", "types", "wholerow"],//types：设置样式，contextmenu：右键菜单可用
                     "types":{
                         "default":{
                             "icon": "fa fa-folder tree-item-icon-color icon-lg"
                         },
                         "file":{
                             "icon":"fa fa-file tree-item-icon-color icon-lg"
+                        }
+                    },
+                    "contextmenu":{
+                        "items":{
+                            "create":null,
+                            "rename":null,
+                            "remove":null,
+                            "ccp":null,
+                            "add": {
+                                "label": "新建文件夹",
+                                "action": function (obj) {
+                                    var inst = jQuery.jstree.reference(obj.reference);
+                                    var clickedNode = inst.get_node(obj.reference);
+                                    var newNode = inst.create_node(inst.get_node(obj.reference), '请输入分类名称', "after", "", "");
+                                    inst.edit(newNode, newNode.val);
+                                }
+                            },
+                            "rename":{
+                                    "label":"修改文件夹",
+                                    "action":function (obj) {
+                                        // alert("修改分类");
+                                        var inst = jQuery.jstree.reference(obj.reference);
+                                        var clickedNode = inst.get_node(obj.reference);
+                                        inst.edit(obj.reference,clickedNode.val);
+                                    }
+                                },
+                            "delete":{
+                                    "label":"删除文件夹",
+                                    "action":function (obj) {
+                                        // alert("删除分类");
+                                        var inst = jQuery.jstree.reference(obj.reference);
+                                        var clickedNode = inst.get_node(obj.reference);
+                                        // var result = inst.delete_node(clickedNode);
+                                        inst.delete_node(obj.reference);
+                                    }
+                            },
+                            "addTemplate":{
+                                "label":"添加模板文件",
+                                "action":function (obj) {
+                                    alert("添加模板");
+                                }
+                            }
                         }
                     }
                 })
