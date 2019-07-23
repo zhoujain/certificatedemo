@@ -25,8 +25,9 @@ public class MenuServiceImpl implements MenuService {
 
         List<Menu> menuList=menuMapper.queryMenuList();
         List<Menu> myMenuList=new ArrayList<>();
-        for (Menu menu : menuList) {
-            for (String s : accesses) {
+
+        for (String s : accesses) {
+            for (Menu menu : menuList) {
                 if (menu.getMid().toString().equals(s)){
                     myMenuList.add(menu);
                     break;

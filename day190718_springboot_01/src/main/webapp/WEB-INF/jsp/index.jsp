@@ -33,8 +33,18 @@
                         <span><img alt="image" class="img-circle" src="img/profile_small.jpg" /></span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <span class="clear">
-                               <span class="block m-t-xs"><strong class="font-bold">Beaut-zihan</strong></span>
-                                <span class="text-muted text-xs block">超级管理员<b class="caret"></b></span>
+                               <span class="block m-t-xs"><strong class="font-bold">${username}</strong></span>
+                                <span class="text-muted text-xs block">
+                                    <c:if test="${utid==1}">
+                                        管理员
+                                    </c:if>
+                                    <c:if test="${utid==2}">
+                                        审核
+                                    </c:if>
+                                    <c:if test="${utid==2}">
+                                        普通人员
+                                    </c:if>
+                                    <b class="caret"></b></span>
                                 </span>
                         </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
@@ -94,7 +104,7 @@
                     </li>
                 </ul>
             </div>
-            <a href="login.html" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
+            <a onclick="logoutUser()" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
         </div>
         <div class="row J_mainContent" id="content-main">
             <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="index_v148b2.html?v=4.0" frameborder="0" data-id="index_v1.html" seamless></iframe>
@@ -207,6 +217,17 @@
 <script type="text/javascript" src="../../js/contabs.min.js"></script>
 <script src="../../js/plugins/pace/pace.min.js"></script>
 
+<script>
+    function logoutUser() {
+        var r = confirm("确认要退出登录吗")
+        if (r == true) {
+            window.location.href="/logoutUser";
+        } else {
+
+        }
+    }
+
+</script>
 </body>
 
 </html>
