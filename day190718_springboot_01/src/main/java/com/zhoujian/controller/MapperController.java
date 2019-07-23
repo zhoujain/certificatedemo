@@ -4,6 +4,7 @@ import com.zhoujian.dao.UserMapper;
 import com.zhoujian.domain.JstreeVO;
 import com.zhoujian.domain.ResponseVO;
 import com.zhoujian.domain.User;
+import com.zhoujian.exception.SysException;
 import com.zhoujian.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -85,7 +86,8 @@ public class MapperController {
     }
 
     @RequestMapping("/login")
-    public String login(){
+    public String login() {
+
         return "login";
     }
 
