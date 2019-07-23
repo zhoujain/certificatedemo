@@ -9,6 +9,17 @@ public class Menu implements Serializable {
     private String murl;
     private Integer mpid;
 
+    public Menu(Integer mid, String mname, String micon, String murl, Integer mpid) {
+        this.mid = mid;
+        this.mname = mname;
+        this.micon = micon;
+        this.murl = murl;
+        this.mpid = mpid;
+    }
+
+    public Menu() {
+    }
+
     public Integer getMid() {
         return mid;
     }
