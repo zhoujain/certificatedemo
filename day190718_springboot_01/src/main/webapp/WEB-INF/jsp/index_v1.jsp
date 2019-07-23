@@ -32,7 +32,7 @@
                     <%--                    树结构--%>
 
 
-                    <div id="using_json"></div>
+                    <div id="using_json" style="font-size: 18px"></div>
 
 
                 </div>
@@ -300,17 +300,31 @@
             $.getJSON("/template/templateTree",function(rs){
                 $('#using_json').jstree({
                     "core" : {
-                        "mutiple" : false,
-                        "check_callback" : true,
-                        "data" : rs.data
+                        "mutiple" : false,//没有多选
+                        "check_callback" : true,//文本可修改
+                        "data" : rs.data,//配置数据源
+                        "themes":{
+                            "stripes":false,//不显示条纹
+                            "icons":true,//显示图标
+                            "ellipsis":true//过长省略
+                        }
+                    },
+                    "plugins":["types","contextmenu"],//types：设置样式，contextmenu：右键菜单可用
+                    "types":{
+                        "default":{
+                            "icon": "fa fa-folder tree-item-icon-color icon-lg"
+                        },
+                        "file":{
+                            "icon":"fa fa-file tree-item-icon-color icon-lg"
+                        }
                     }
-                });
+                })
             });
 
             //树节点左键相应函数（监听）
             $('#using_json').on("select_node.jstree",function (node,selected,event) {
                 //当前点击的对象的id
-                alert(selected.node.id);
+                // alert(selected.node.id);
             })
         }
     };
