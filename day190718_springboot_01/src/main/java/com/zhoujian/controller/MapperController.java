@@ -97,7 +97,12 @@ public class MapperController {
         return "login";
     }
 
-    @RequestMapping(value="/word", method=RequestMethod.GET)
+    @RequestMapping("/word")
+    public String word() {
+
+        return "word";
+    }
+    @RequestMapping(value="/word1", method=RequestMethod.GET)
     public String openWord(HttpServletRequest request, Map<String,Object> map){
         //--- PageOffice的调用代码 开始 -----
         PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
@@ -108,7 +113,7 @@ public class MapperController {
         map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
         //--- PageOffice的调用代码 结束 -----
 
-        return "word";
+        return "word1";
     }
 
     @RequestMapping("/save")
