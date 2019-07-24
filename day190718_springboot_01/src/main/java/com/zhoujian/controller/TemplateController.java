@@ -33,11 +33,13 @@ public class TemplateController {
 
             jstreeVO.setId(template.getTid().toString());
             jstreeVO.setText(template.getTname());
+            jstreeVO.setTurl(template.getTurl());
             if(template.getTpid()!=0){
                 jstreeVO.setParent(template.getTpid().toString());
             }else{
                 jstreeVO.setParent("#");
             }
+            jstreeVO.setTtype(template.getTtype().toString());
             lists.add(jstreeVO);
         }
         vo.setData(lists);
