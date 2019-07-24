@@ -30,4 +30,8 @@ public interface TemplateMapper {
      * 根据id查模板
      */
     public Template getTemplateById(Integer tid);
+    /**
+     * 插入得id
+     */
+    public int addTemplateToTid(Template template);
 }

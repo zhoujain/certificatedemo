@@ -10,6 +10,11 @@
         insert into tb_template (tname,turl,tpid,ttype,tisdel) values (#{tname},#{turl},#{tpid},#{ttype},1)
     </insert>
 
+    <insert id="addTemplateToTid" useGeneratedKeys="true" keyProperty="tid">
+
+        insert into tb_template (tname,turl,tpid,ttype,tisdel) values (#{tname},#{turl},#{tpid},#{ttype},1)
+    </insert>
+
     <update id="editTemplate">
         update tb_template set tname=#{tname},turl=#{turl},tpid=#{tpid},ttype=#{ttype},tisdel=#{tisdel} where tid=#{tid} and tisdel = 1
     </update>

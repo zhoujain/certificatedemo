@@ -1,5 +1,6 @@
 package com.zhoujian.service;
 
+import com.zhoujian.domain.JstreeVO;
 import com.zhoujian.domain.Template;
 import com.zhoujian.exception.SysException;
 
@@ -17,4 +18,10 @@ public interface TemplateService {
      * 根据请求进行文件文件上传
      */
     void fileupload(HttpServletRequest request) throws SysException;
+
+    Integer nodeAdd(JstreeVO jstreeVO);
+
+    void nodeDelete(int tid);
+
+    void nodeUpdate(int tid,String text);
 }

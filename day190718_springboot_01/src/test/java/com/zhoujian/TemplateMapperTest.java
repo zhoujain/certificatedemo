@@ -33,6 +33,16 @@ public class TemplateMapperTest {
         Integer result = templateMapper.addTemplate(template);
         System.out.println(result);
     }
+    @Test
+    public void addTemplate1(){
+        Template template = new Template();
+        template.setTname("电器模一证书");
+        template.setTurl("空的url");
+        template.setTpid(3);
+        template.setTtype(2);
+        Integer result = templateMapper.addTemplateToTid(template);
+        System.out.println(template.getTid());
+    }
 
     @Test
     public void editTemplate(){
@@ -55,7 +65,7 @@ public class TemplateMapperTest {
 
     @Test
     public void deleteTemplate(){
-        Integer tid=8;
+        Integer tid=39;
         Integer result = templateMapper.deleteTemplate(tid);
         System.out.println(result);
     }

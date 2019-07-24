@@ -12,7 +12,7 @@ public class JstreeVO implements Serializable {
     //模板文件的url
     public String turl;
     //节点类型
-    public String ttype;
+    public String type;
 
     public String getId() {
         return id;
@@ -46,12 +46,12 @@ public class JstreeVO implements Serializable {
         this.turl = turl;
     }
 
-    public String getTtype() {
-        return ttype;
+    public String getType() {
+        return type;
     }
 
-    public void setTtype(String ttype) {
-        this.ttype = ttype;
+    public void setType(String type) {
+        this.type = type;
     }
 
     @Override
@@ -61,7 +61,7 @@ public class JstreeVO implements Serializable {
                 ", text='" + text + '\'' +
                 ", parent='" + parent + '\'' +
                 ", turl='" + turl + '\'' +
-                ", ttype='" + ttype + '\'' +
+                ", type='" + type + '\'' +
                 '}';
     }
 }

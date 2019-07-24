@@ -1,6 +1,7 @@
 package com.zhoujian.service.impl;
 
 import com.zhoujian.dao.TemplateMapper;
+import com.zhoujian.domain.JstreeVO;
 import com.zhoujian.domain.Template;
 import com.zhoujian.exception.SysException;
 import com.zhoujian.service.TemplateService;
@@ -74,5 +75,42 @@ public class TemplateServiceImpl implements TemplateService {
                 fileItem.delete();
             }
         }
+    }
+
+    /**
+     * 结点增加
+     * @param jstreeVO
+     * @return
+     */
+    @Override
+    public Integer nodeAdd(JstreeVO jstreeVO) {
+        Template template =new Template();
+        template.setTurl(jstreeVO.getTurl());
+        template.setTname(jstreeVO.getText());
+        template.setTpid(Integer.valueOf(jstreeVO.getParent()));
+        template.setTtype(Integer.valueOf(jstreeVO.getType()));
+        templateMapper.addTemplateToTid(template);
+        return template.getTid();
+    }
+
+    /**
+     * 结点删除
+     * @param tid
+     */
+    @Override
+    public void nodeDelete(int tid) {
+        templateMapper.deleteTemplate(tid);
+    }
+
+    /**
+     * 结点重命名
+     * @param tid
+     * @param text
+     */
+    @Override
+    public void nodeUpdate(int tid, String text) {
+        Template template = templateMapper.getTemplateById(tid);
+        template.setTname(text);
+        templateMapper.editTemplate(template);
     }
 }
