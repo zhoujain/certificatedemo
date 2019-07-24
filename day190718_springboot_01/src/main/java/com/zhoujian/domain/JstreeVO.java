@@ -9,8 +9,10 @@ public class JstreeVO implements Serializable {
     public String text;
     //父亲的id
     public String parent;
-    //随便定义的存放数据对象
-    public User data;
+    //模板文件的url
+    public String turl;
+    //节点类型
+    public String ttype;
 
     public String getId() {
         return id;
@@ -36,21 +38,30 @@ public class JstreeVO implements Serializable {
         this.parent = parent;
     }
 
-    public User getData() {
-        return data;
+    public String getTurl() {
+        return turl;
     }
 
-    public void setData(User data) {
-        this.data = data;
+    public void setTurl(String turl) {
+        this.turl = turl;
+    }
+
+    public String getTtype() {
+        return ttype;
+    }
+
+    public void setTtype(String ttype) {
+        this.ttype = ttype;
     }
 
     @Override
-    public String  toString() {
+    public String toString() {
         return "JstreeVO{" +
                 "id='" + id + '\'' +
                 ", text='" + text + '\'' +
                 ", parent='" + parent + '\'' +
-                ", data=" + data +
+                ", turl='" + turl + '\'' +
+                ", ttype='" + ttype + '\'' +
                 '}';
     }
 }
