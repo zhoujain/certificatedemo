@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zhoujian.dao.TemplateMapper">
     <select id="queryTemplateList" resultType="Template">
-        select * from tb_template where tisdel !=0;
+        select * from tb_template where tisdel = 1
     </select>
 
     <insert id="addTemplate">
@@ -11,14 +11,14 @@
     </insert>
 
     <update id="editTemplate">
-        update tb_template set tname=#{tname},turl=#{turl},tpid=#{tpid},ttype=#{ttype},tisdel=#{tisdel} where tid=#{tid}
+        update tb_template set tname=#{tname},turl=#{turl},tpid=#{tpid},ttype=#{ttype},tisdel=#{tisdel} where tid=#{tid} and tisdel = 1
     </update>
 
     <update id="deleteTemplate">
-        update tb_template set tisdel=0 where tid=#{tid}
+        update tb_template set tisdel=0 where tid=#{tid} and tisdel =1
     </update>
 
     <select id="getTemplateById" resultType="Template">
-        select * from tb_template where tid=#{tid}
+        select * from tb_template where tid=#{tid} and tisdel=1
     </select>
 </mapper>
