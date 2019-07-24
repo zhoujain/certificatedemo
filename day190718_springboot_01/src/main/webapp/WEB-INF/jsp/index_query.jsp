@@ -24,6 +24,8 @@
     <link href="../../css/animate.min.css" rel="stylesheet">
     <link href="../../css/style.min862f.css?v=4.1.0" rel="stylesheet">
     <link href="../../css/plugins/footable/footable.bootstrap.min.css" rel="stylesheet">
+    <style>
+    </style>
 </head>
 <body class="gray-bg">
 <div class="wrapper wrapper-content">
