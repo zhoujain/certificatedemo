@@ -37,36 +37,107 @@
                     <strong>证书查询</strong>
                 </div>
                 <div class="ibox-content">
-                    <div class="row text-center">
-                        <div class="col-xs-1 col-sm-1 col-md-1">逻辑：</div>
-                        <div class="col-xs-3 col-sm-3 col-md-3">检索项：</div>
-                        <div class="col-xs-2 col-sm-2 col-md-2">比较：</div>
-                        <div class="col-xs-3 col-sm-3 col-md-3">检索词：</div>
-                        <div class="col-xs-3 col-sm-3 col-md-3"></div>
+                    <table id="MultilogicCombo" class="table">
+                        <thead>
+                        <tr>
+                            <td>逻辑：</td>
+                            <td>检索项：</td>
+                            <td>比较：</td>
+                            <td>检索词：</td>
+                            <td>操作：</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                             <tr>
+                            <td></td>
+                            <td><select class="form-control">
+                                <option selected="selected" disabled>请选择</option>
+                                <option>证书编号</option>
+                                <option>证书单位</option>
+                                <option>器具名称</option>
+                                <option>型号规格</option>
+                                <option>出厂编号</option>
+                                <option>制造厂商</option>
+                                <option>委托单号</option>
+                                <option>检定日期</option>
+                                <option>检测部门</option>
+                                <option>添加人</option>
+                                <option>打印人</option>
+                                <option>打印日期</option>
+                            </select></td>
+                            <td><select class="form-control">
+                                <option selected="selected" disabled>请选择</option>
+                                <option>包含</option>
+                                <option>等于</option>
+                                <option>大于</option>
+                                <option>小于</option>
+                                <option>不等于</option>
+                                <option>大于等于</option>
+                                <option>小于等于</option>
+                                <option>不包含</option>
+                                <option>不为空</option>
+                            </select></td>
+                            <td>
+                                <input class="form-control" type="text" placeholder="检索词">
+                            </td>
+                            <td>
+                                <button class="btn btn-block btn-info" style="width: 100px;float: left">添加</button>
+                                <button class="btn btn-block btn-danger" style="width: 100px;float: left">删除</button>
+                            </td>
+                        </tr>
+                             <tr>
+                            <td><select class="form-control">
+                                    <option selected="selected" disabled>请选择</option>
+                                    <option>而且</option>
+                                    <option>或者</option>
+                                </select></td>
+                            <td><select class="form-control">
+                                <option selected="selected" disabled>请选择</option>
+                                <option>证书编号</option>
+                                <option>证书单位</option>
+                                <option>器具名称</option>
+                                <option>型号规格</option>
+                                <option>出厂编号</option>
+                                <option>制造厂商</option>
+                                <option>委托单号</option>
+                                <option>检定日期</option>
+                                <option>检测部门</option>
+                                <option>添加人</option>
+                                <option>打印人</option>
+                                <option>打印日期</option>
+                            </select></td>
+                            <td><select class="form-control">
+                                <option selected="selected" disabled>请选择</option>
+                                <option>包含</option>
+                                <option>等于</option>
+                                <option>大于</option>
+                                <option>小于</option>
+                                <option>不等于</option>
+                                <option>大于等于</option>
+                                <option>小于等于</option>
+                                <option>不包含</option>
+                                <option>不为空</option>
+                            </select></td>
+                            <td>
+                                <input class="form-control" type="text" placeholder="检索词">
+                            </td>
+                            <td>
+                                <button class="btn btn-block btn-info" style="width: 100px;float: left">添加</button>
+                                <button class="btn btn-block btn-danger" style="width: 100px;float: left">删除</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="row">
+                        <div class="col-md-2 col-sm-2">
+                            <input id="queryAllCertificate" type="checkbox">查询所有证书
+                        </div>
+                        <div class="col-md-10 col-sm-10"></div>
                     </div>
+
                     <div class="row text-center">
-                        <div class="col-xs-1 col-sm-1 col-md-1"></div>
-                        <div class="col-xs-3 col-sm-3 col-md-3">
-                            <select class="form-control m-b">
-                                <option selected="selected" disabled>证书编号</option>
-                                <option>选项 2</option>
-                                <option>选项 3</option>
-                                <option>选项 4</option>
-                            </select>
-                        </div>
-                        <div class="col-xs-2 col-sm-2 col-md-2">
-                            <select class="form-control m-b">
-                                <option selected="selected" disabled>包含</option>
-                                <option>选项 2</option>
-                                <option>选项 3</option>
-                                <option>选项 4</option>
-                            </select></div>
-                        <div class="col-xs-3 col-sm-3 col-md-3"><input class="form-control" type="text"
-                                                                       placeholder="检索词"></div>
-                        <div class="col-xs-3 col-sm-3 col-md-3">
-                            <button class="btn btn-block btn-info" style="width: 100px;float: left">添加</button>
-                            <button class="btn btn-block btn-danger" style="width: 100px;float: left">删除</button>
-                        </div>
+                        <button class="btn btn-primary">查询</button>
                     </div>
                 </div>
             </div>
@@ -75,7 +146,7 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-content">
                     <%--证书列表表格 开始--%>
-                    <table id="table">
+                    <table id="table" data-pagination="true" data-page-size="5">
 
                         <thead>
                         <tr>
@@ -99,6 +170,13 @@
                     </table>
                     <%--证书列表表格 结束--%>
 
+                    <%--说明--%>
+                    <hr>
+                    <p>说明</p>
+                    <p>1：默认查询一个月内证书，勾上“查询所有证书后查询所有证书”</p>
+                    <p>2：是否入库查询仅代表该证书有出入库记录，不代表证书还在库房，有可能已出库</p>
+                    <p>3：原始记录生成的证书不允许直接删除，只能通过删除相应的原始记录来同步的删除证书</p>
+                    <p>4：证书编号<span style="color: green">绿色</span>代表该证书是由原始记录生成的</p>
                 </div>
             </div>
         </div>

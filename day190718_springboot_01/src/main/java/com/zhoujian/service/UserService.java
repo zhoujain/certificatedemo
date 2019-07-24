@@ -21,4 +21,6 @@ public interface UserService {
     Integer uTidByUsername(String username);
 
     String uAccessByUsername(String username);
+
+    String usernameByUid(Integer uid);
 }
