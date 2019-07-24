@@ -72,7 +72,7 @@
                 <div class="ibox-content">
                     <table id="myTable" style="font-size: 12px"
                            class="footable table-bordered table table-stripped toggle-arrow-tiny footable-loaded tablet breakpoint"
-                           data-empty="没有数据" data-paging="true" data-sorting="true">
+                           data-empty="没有数据" data-paging="true">
                         <%--<thead>
                             <tr>
                                 <th name="cid" data-toggle="true" class="footable-sortable footable-first-column">序号<span class="footable-sort-indicator"></span></th>

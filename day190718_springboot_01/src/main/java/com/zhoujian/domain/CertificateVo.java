@@ -10,7 +10,7 @@ public class CertificateVo implements Serializable {
     private String ctoolname;
     private String cmodel;
     private String coutnumber;
-    private String cmanufacturer;
+    private String cmanfacturer;
     private String cdelegate;
     private Date ccheckdate;
     private String ccheckdepartment;
@@ -20,14 +20,14 @@ public class CertificateVo implements Serializable {
     private Double cmoney;
     private String actions;
 
-    public CertificateVo(Integer cid, String cnumber, String ccompany, String ctoolname, String cmodel, String coutnumber, String cmanufacturer, String cdelegate, Date ccheckdate, String ccheckdepartment, String uname, String puname, Date cprintdate, Double cmoney, String actions) {
+    public CertificateVo(Integer cid, String cnumber, String ccompany, String ctoolname, String cmodel, String coutnumber, String cmanfacturer, String cdelegate, Date ccheckdate, String ccheckdepartment, String uname, String puname, Date cprintdate, Double cmoney, String actions) {
         this.cid = cid;
         this.cnumber = cnumber;
         this.ccompany = ccompany;
         this.ctoolname = ctoolname;
         this.cmodel = cmodel;
         this.coutnumber = coutnumber;
-        this.cmanufacturer = cmanufacturer;
+        this.cmanfacturer = cmanfacturer;
         this.cdelegate = cdelegate;
         this.ccheckdate = ccheckdate;
         this.ccheckdepartment = ccheckdepartment;
@@ -37,7 +37,6 @@ public class CertificateVo implements Serializable {
         this.cmoney = cmoney;
         this.actions = actions;
     }
-
 
     public CertificateVo() {
     }
@@ -90,12 +89,12 @@ public class CertificateVo implements Serializable {
         this.coutnumber = coutnumber;
     }
 
-    public String getCmanufacturer() {
-        return cmanufacturer;
+    public String getCmanfacturer() {
+        return cmanfacturer;
     }
 
-    public void setCmanufacturer(String cmanufacturer) {
-        this.cmanufacturer = cmanufacturer;
+    public void setCmanfacturer(String cmanfacturer) {
+        this.cmanfacturer = cmanfacturer;
     }
 
     public String getCdelegate() {
