@@ -26,25 +26,36 @@ public class TemplateMapperTest {
     @Test
     public void addTemplate(){
         Template template = new Template();
-        template.setTname("电器模一");
+        template.setTname("电器模一证书");
         template.setTurl("空的url");
         template.setTpid(3);
+        template.setTtype(2);
         Integer result = templateMapper.addTemplate(template);
         System.out.println(result);
     }
 
     @Test
     public void editTemplate(){
-        Template template = templateMapper.getTemplateById(5);
-        template.setTurl("没有url");
-        Integer result = templateMapper.editTemplate(template);
+        Integer result;
+        Template template = templateMapper.getTemplateById(7);
+        if(template!=null)
+        {
+            template.setTurl("空的url");
+//            template.setTisdel(0);
+            result = templateMapper.editTemplate(template);
+        }
+        else
+        {
+            result = 0;
+        }
+
         System.out.println(result);
 
     }
 
     @Test
     public void deleteTemplate(){
-        Integer tid=5;
+        Integer tid=8;
         Integer result = templateMapper.deleteTemplate(tid);
         System.out.println(result);
     }
