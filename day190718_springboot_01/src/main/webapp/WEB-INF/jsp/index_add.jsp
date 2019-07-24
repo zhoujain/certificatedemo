@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!doctype html>
 <html>
 <head>
 
@@ -24,6 +25,8 @@
     <link href="../../css/animate.min.css" rel="stylesheet">
     <link href="../../css/style.min862f.css?v=4.1.0" rel="stylesheet">
     <link href="../../css/plugins/footable/footable.bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
+
 
     <style>
     </style>
@@ -36,8 +39,12 @@
             <div class="col-md-3">
                 <div class="ibox">
                     <div class="ibox-content">
-                        <button class="btn btn-primary" style="padding:0;width: 70px;height: 35px;font-size: 12px" data-toggle="modal" data-target="#searchTempModal">搜索模板</button>
-                        <button class="btn btn-primary" style="padding:0;width: 85px;height: 35px;font-size: 12px" data-toggle="modal" data-target="#searchHistoryModal">搜索历史证书</button>
+                        <button class="btn btn-primary" style="padding:0;width: 70px;height: 35px;font-size: 12px"
+                                data-toggle="modal" data-target="#searchTempModal">搜索模板
+                        </button>
+                        <button class="btn btn-primary" style="padding:0;width: 85px;height: 35px;font-size: 12px"
+                                data-toggle="modal" data-target="#searchHistoryModal">搜索历史证书
+                        </button>
                         <br>
                         <br>
 
@@ -46,7 +53,7 @@
                 </div>
             </div>
             <div class="col-md-9">
-                <div class="ibox" >
+                <div class="ibox">
                     <div class="ibox-content">
                         <h2>word的操作</h2>
                     </div>
@@ -61,13 +68,19 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">搜索模板</h4>
+                <div class="row">
+                    <div class="col-md-10">
+                        <h4 class="modal-title">搜索模板</h4>
+
+                    </div>
+                    <div class="col-md-2">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+
+                    </div>
+                </div>
             </div>
             <div class="modal-body">
                 <h2>123</h2>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
             </div>
         </div>
     </div>
@@ -91,56 +104,73 @@
                 </div>
             </div>
             <div class="modal-body">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <strong>证书查询</strong>
-                    </div>
-                    <div class="ibox-content">
-                        <div class="row text-center">
-                            <div class="col-xs-1 col-sm-1 col-md-1">逻辑：</div>
-                            <div class="col-xs-3 col-sm-3 col-md-3">检索项：</div>
-                            <div class="col-xs-2 col-sm-2 col-md-2">比较：</div>
-                            <div class="col-xs-3 col-sm-3 col-md-3">检索词：</div>
-                            <div class="col-xs-3 col-sm-3 col-md-3"></div>
-                        </div>
-                        <div class="row text-center">
-                            <div class="col-xs-1 col-sm-1 col-md-1"></div>
-                            <div class="col-xs-3 col-sm-3 col-md-3">
-                                <select class="form-control m-b" >
-                                    <option selected="selected" disabled>证书编号</option>
-                                    <option>选项 2</option>
-                                    <option>选项 3</option>
-                                    <option>选项 4</option>
-                                </select>
-                            </div>
-                            <div class="col-xs-2 col-sm-2 col-md-2">
-                                <select class="form-control m-b">
-                                    <option selected="selected" disabled>包含</option>
-                                    <option>选项 2</option>
-                                    <option>选项 3</option>
-                                    <option>选项 4</option>
-                                </select></div>
-                            <div class="col-xs-3 col-sm-3 col-md-3"><input class="form-control" type="text" placeholder="检索词"></div>
-                            <div class="col-xs-3 col-sm-3 col-md-3"><button class="btn btn-block btn-info" style="width: 100px;float: left">添加</button><button class="btn btn-block btn-danger" style="width: 100px;float: left">删除</button></div>
-                        </div>
-                    </div>
+                <strong>证书查询</strong>
+                <hr>
+                <div class="row text-center">
+                    <div class="col-xs-1 col-sm-1 col-md-1">逻辑：</div>
+                    <div class="col-xs-3 col-sm-3 col-md-3">检索项：</div>
+                    <div class="col-xs-2 col-sm-2 col-md-2">比较：</div>
+                    <div class="col-xs-3 col-sm-3 col-md-3">检索词：</div>
+                    <div class="col-xs-3 col-sm-3 col-md-3"></div>
                 </div>
-
-
-                <div class="ibox float-e-margins">
-                    <div class="ibox-content">
-                        <table id="myTable" style="font-size: 12px"
-                               class="footable table-bordered table table-stripped toggle-arrow-tiny footable-loaded tablet breakpoint"
-                               data-empty="没有数据" data-paging="true">
-                        </table>
+                <div class="row text-center">
+                    <div class="col-xs-1 col-sm-1 col-md-1"></div>
+                    <div class="col-xs-3 col-sm-3 col-md-3">
+                        <select class="form-control m-b">
+                            <option selected="selected" disabled>证书编号</option>
+                            <option>选项 2</option>
+                            <option>选项 3</option>
+                            <option>选项 4</option>
+                        </select>
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2">
+                        <select class="form-control m-b">
+                            <option selected="selected" disabled>包含</option>
+                            <option>选项 2</option>
+                            <option>选项 3</option>
+                            <option>选项 4</option>
+                        </select></div>
+                    <div class="col-xs-3 col-sm-3 col-md-3"><input class="form-control" type="text" placeholder="检索词">
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3">
+                        <button class="btn btn-info">添加</button>
+                        <button class="btn btn-danger">删除</button>
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+
+
+            <div class="ibox">
+                <div class="ibox-content">
+                    <%--证书列表表格 开始--%>
+                    <table id="table">
+
+                        <thead>
+                        <tr>
+                            <th data-field="cid">序号</th>
+                            <th data-field="cnumber">证书编号</th>
+                            <th data-field="ccompany">证书单位</th>
+                            <th data-field="ctoolname">器具名称</th>
+                            <th data-field="cmodel">型号规格</th>
+                            <th data-field="coutnumber">出厂编号</th>
+                            <th data-field="cmanfacturer">制造厂商</th>
+                            <th data-field="cdelegate">委托单号</th>
+                            <th data-field="ccheckdate">检定日期</th>
+                            <th data-field="ccheckdepartment">检测部门</th>
+                            <th data-field="uname">添加人</th>
+                            <th data-field="puname">打印人</th>
+                            <th data-field="cprintdate">打印日期</th>
+                            <th data-field="cmoney">检测费</th>
+                            <th data-field="actions">操作</th>
+                        </tr>
+                        </thead>
+                    </table>
+                    <%--证书列表表格 结束--%>
+                </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 <!-- 搜索历史证书弹窗 结束 -->
 
@@ -149,37 +179,27 @@
 <script src="../../js/content.min.js?v=1.0.0"></script>
 <script src="../../js/plugins/iCheck/icheck.min.js"></script>
 <script src="../../js/plugins/footable/footable.min.js"></script>
+<script src="../../js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+
 
 <script>
     $(document).ready(function () {
         $(".i-checks").iCheck({checkboxClass: "icheckbox_square-green", radioClass: "iradio_square-green",})
     });
 
-    jQuery(function($) {
-        var ft = FooTable.init('#myTable', {
-            "columns": [
-                {"name": "cid", "title": "序号"},
-                {"name": "cnumber", "title": "证书编号"},
-                {"name": "ccompany", "title": "证书单位"},
-                {"name": "ctoolname", "title": "器具名称"},
-                {"name": "cmodel", "title": "型号规格"},
-                {"name": "coutnumber", "title": "出厂编号"},
-                {"name": "cmanfacturer", "title": "制造厂商"},
-                {"name": "cdelegate", "title": "委托单号"},
-                {"name": "ccheckdate", "title": "检定日期"},
-                {"name": "ccheckdepartment", "title": "检测部门"},
-                {"name": "uname", "title": "添加人"},
-                {"name": "puname", "title": "打印人", "breakpoints": "xs sm"},
-                {"name": "cprintdate", "title": "打印日期", "breakpoints": "xs sm"},
-                {"name": "cmoney", "title": "检测费", "breakpoints": "xs sm"},
-                {"name": "actions", "title": "操作", "breakpoints": "xs sm"}
-            ]
+    $(function () {
+        var $table = $('#table');
+        $.ajax({
+            url: '/getCertificatesDataJSON',
+            type: 'post',
+            dataType: 'json',
+            success: function (d) {
+                $table.bootstrapTable({
+                    data: d
+                });
+            }
         });
-
-        $.get("/getCertificatesDataJSON").then(function (rows) {
-            ft.rows.load(rows);
-        });
-    });
+    })
 </script>
 </body>
 </html>

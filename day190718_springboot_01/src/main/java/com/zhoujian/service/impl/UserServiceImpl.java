@@ -7,11 +7,19 @@ import com.zhoujian.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service("userService")
 public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Override
+    public List<User> queryAllUser() {
+        return userMapper.queryUserList();
+    }
+
     @Override
     public User findUserByUsername(String username) {
         return userMapper.findUserByUsername(username);
@@ -55,6 +63,15 @@ public class UserServiceImpl implements UserService {
         User user = userMapper.findUserByUsername(username);
         if(user!=null){
             return user.getUaccess();
+        }
+        return null;
+    }
+
+    @Override
+    public String usernameByUid(Integer uid) {
+        User user = userMapper.findUserByUid(uid);
+        if(user!=null){
+            return user.getUsername();
         }
         return null;
     }

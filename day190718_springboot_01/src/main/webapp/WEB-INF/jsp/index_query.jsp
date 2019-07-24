@@ -6,7 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
 
     <meta charset="utf-8">
@@ -20,10 +21,9 @@
     <link rel="shortcut icon" href="favicon.ico">
     <link href="../../css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
     <link href="../../css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
-    <link href="../../css/plugins/jsTree/style.min.css" rel="stylesheet">
     <link href="../../css/animate.min.css" rel="stylesheet">
     <link href="../../css/style.min862f.css?v=4.1.0" rel="stylesheet">
-    <link href="../../css/plugins/footable/footable.bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
     <style>
     </style>
 </head>
@@ -37,32 +37,107 @@
                     <strong>证书查询</strong>
                 </div>
                 <div class="ibox-content">
-                    <div class="row text-center">
-                        <div class="col-xs-1 col-sm-1 col-md-1">逻辑：</div>
-                        <div class="col-xs-3 col-sm-3 col-md-3">检索项：</div>
-                        <div class="col-xs-2 col-sm-2 col-md-2">比较：</div>
-                        <div class="col-xs-3 col-sm-3 col-md-3">检索词：</div>
-                        <div class="col-xs-3 col-sm-3 col-md-3"></div>
-                    </div>
-                    <div class="row text-center">
-                        <div class="col-xs-1 col-sm-1 col-md-1"></div>
-                        <div class="col-xs-3 col-sm-3 col-md-3">
-                            <select class="form-control m-b" >
-                                <option selected="selected" disabled>证书编号</option>
-                                <option>选项 2</option>
-                                <option>选项 3</option>
-                                <option>选项 4</option>
-                            </select>
+                    <table id="MultilogicCombo" class="table">
+                        <thead>
+                        <tr>
+                            <td>逻辑：</td>
+                            <td>检索项：</td>
+                            <td>比较：</td>
+                            <td>检索词：</td>
+                            <td>操作：</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                             <tr>
+                            <td></td>
+                            <td><select class="form-control">
+                                <option selected="selected" disabled>请选择</option>
+                                <option>证书编号</option>
+                                <option>证书单位</option>
+                                <option>器具名称</option>
+                                <option>型号规格</option>
+                                <option>出厂编号</option>
+                                <option>制造厂商</option>
+                                <option>委托单号</option>
+                                <option>检定日期</option>
+                                <option>检测部门</option>
+                                <option>添加人</option>
+                                <option>打印人</option>
+                                <option>打印日期</option>
+                            </select></td>
+                            <td><select class="form-control">
+                                <option selected="selected" disabled>请选择</option>
+                                <option>包含</option>
+                                <option>等于</option>
+                                <option>大于</option>
+                                <option>小于</option>
+                                <option>不等于</option>
+                                <option>大于等于</option>
+                                <option>小于等于</option>
+                                <option>不包含</option>
+                                <option>不为空</option>
+                            </select></td>
+                            <td>
+                                <input class="form-control" type="text" placeholder="检索词">
+                            </td>
+                            <td>
+                                <button class="btn btn-block btn-info" style="width: 100px;float: left">添加</button>
+                                <button class="btn btn-block btn-danger" style="width: 100px;float: left">删除</button>
+                            </td>
+                        </tr>
+                             <tr>
+                            <td><select class="form-control">
+                                    <option selected="selected" disabled>请选择</option>
+                                    <option>而且</option>
+                                    <option>或者</option>
+                                </select></td>
+                            <td><select class="form-control">
+                                <option selected="selected" disabled>请选择</option>
+                                <option>证书编号</option>
+                                <option>证书单位</option>
+                                <option>器具名称</option>
+                                <option>型号规格</option>
+                                <option>出厂编号</option>
+                                <option>制造厂商</option>
+                                <option>委托单号</option>
+                                <option>检定日期</option>
+                                <option>检测部门</option>
+                                <option>添加人</option>
+                                <option>打印人</option>
+                                <option>打印日期</option>
+                            </select></td>
+                            <td><select class="form-control">
+                                <option selected="selected" disabled>请选择</option>
+                                <option>包含</option>
+                                <option>等于</option>
+                                <option>大于</option>
+                                <option>小于</option>
+                                <option>不等于</option>
+                                <option>大于等于</option>
+                                <option>小于等于</option>
+                                <option>不包含</option>
+                                <option>不为空</option>
+                            </select></td>
+                            <td>
+                                <input class="form-control" type="text" placeholder="检索词">
+                            </td>
+                            <td>
+                                <button class="btn btn-block btn-info" style="width: 100px;float: left">添加</button>
+                                <button class="btn btn-block btn-danger" style="width: 100px;float: left">删除</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="row">
+                        <div class="col-md-2 col-sm-2">
+                            <input id="queryAllCertificate" type="checkbox">查询所有证书
                         </div>
-                        <div class="col-xs-2 col-sm-2 col-md-2">
-                            <select class="form-control m-b">
-                            <option selected="selected" disabled>包含</option>
-                            <option>选项 2</option>
-                            <option>选项 3</option>
-                            <option>选项 4</option>
-                        </select></div>
-                        <div class="col-xs-3 col-sm-3 col-md-3"><input class="form-control" type="text" placeholder="检索词"></div>
-                        <div class="col-xs-3 col-sm-3 col-md-3"><button class="btn btn-block btn-info" style="width: 100px;float: left">添加</button><button class="btn btn-block btn-danger" style="width: 100px;float: left">删除</button></div>
+                        <div class="col-md-10 col-sm-10"></div>
+                    </div>
+
+                    <div class="row text-center">
+                        <button class="btn btn-primary">查询</button>
                     </div>
                 </div>
             </div>
@@ -70,28 +145,38 @@
 
             <div class="ibox float-e-margins">
                 <div class="ibox-content">
-                    <table id="myTable" style="font-size: 12px"
-                           class="footable table-bordered table table-stripped toggle-arrow-tiny footable-loaded tablet breakpoint"
-                           data-empty="没有数据" data-paging="true">
-                        <%--<thead>
-                            <tr>
-                                <th name="cid" data-toggle="true" class="footable-sortable footable-first-column">序号<span class="footable-sort-indicator"></span></th>
-                                <th name="cnumber" class="footable-sortable">证书编号<span class="footable-sort-indicator"></span></th>
-                                <th name="ccompany" class="footable-sortable">证书单位<span class="footable-sort-indicator"></span></th>
-                                <th name="ctoolname" class="footable-sortable">器具名称<span class="footable-sort-indicator"></span></th>
-                                <th name="cmodel" class="footable-sortable">型号规格<span class="footable-sort-indicator"></span></th>
-                                <th name="coutnumber" class="footable-sortable">出厂编号<span class="footable-sort-indicator"></span></th>
-                                <th name="cmanfacturer" class="footable-sortable">制造厂商<span class="footable-sort-indicator"></span></th>
-                                <th class="footable-sortable">委托单号<span class="footable-sort-indicator"></span></th>
-                                <th class="footable-sortable">检定日期<span class="footable-sort-indicator"></span></th>
-                                <th class="footable-sortable">检测部门<span class="footable-sort-indicator"></span></th>
-                                <th class="footable-sortable">添加人<span class="footable-sort-indicator"></span></th>
-                                <th class="footable-sortable">打印人<span class="footable-sort-indicator"></span></th>
-                                <th class="footable-sortable">打印日期<span class="footable-sort-indicator"></span></th>
-                                <th class="footable-sortable footable-last-column">检测费<span class="footable-sort-indicator"></span></th>
-                            </tr>
-                        </thead>--%>
+                    <%--证书列表表格 开始--%>
+                    <table id="table" data-pagination="true" data-page-size="5">
+
+                        <thead>
+                        <tr>
+                            <th data-field="cid">序号</th>
+                            <th data-field="cnumber">证书编号</th>
+                            <th data-field="ccompany">证书单位</th>
+                            <th data-field="ctoolname">器具名称</th>
+                            <th data-field="cmodel">型号规格</th>
+                            <th data-field="coutnumber">出厂编号</th>
+                            <th data-field="cmanfacturer">制造厂商</th>
+                            <th data-field="cdelegate">委托单号</th>
+                            <th data-field="ccheckdate">检定日期</th>
+                            <th data-field="ccheckdepartment">检测部门</th>
+                            <th data-field="uname">添加人</th>
+                            <th data-field="puname">打印人</th>
+                            <th data-field="cprintdate">打印日期</th>
+                            <th data-field="cmoney">检测费</th>
+                            <th data-field="actions">操作</th>
+                        </tr>
+                        </thead>
                     </table>
+                    <%--证书列表表格 结束--%>
+
+                    <%--说明--%>
+                    <hr>
+                    <p>说明</p>
+                    <p>1：默认查询一个月内证书，勾上“查询所有证书后查询所有证书”</p>
+                    <p>2：是否入库查询仅代表该证书有出入库记录，不代表证书还在库房，有可能已出库</p>
+                    <p>3：原始记录生成的证书不允许直接删除，只能通过删除相应的原始记录来同步的删除证书</p>
+                    <p>4：证书编号<span style="color: green">绿色</span>代表该证书是由原始记录生成的</p>
                 </div>
             </div>
         </div>
@@ -101,13 +186,7 @@
 <script src="../../js/bootstrap.min.js?v=3.3.6"></script>
 <script src="../../js/content.min.js?v=1.0.0"></script>
 <script src="../../js/plugins/iCheck/icheck.min.js"></script>
-<script src="../../js/plugins/jsTree/jstree.min.js"></script>
-<script src="../../js/plugins/footable/footable.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $(".i-checks").iCheck({checkboxClass: "icheckbox_square-green", radioClass: "iradio_square-green",})
-    });
-</script>
-<script src="js/index_query.js" type="text/javascript"></script>
+<script src="../../js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+<script src="../../js/index_query.js" type="text/javascript"></script>
 </body>
 </html>
