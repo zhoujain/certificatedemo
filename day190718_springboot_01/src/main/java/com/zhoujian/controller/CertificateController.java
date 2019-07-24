@@ -14,26 +14,31 @@ import java.util.List;
 
 @Controller
 public class CertificateController {
-    @Resource(name="certificateService")
+    @Resource(name = "certificateService")
     private CertificateService certificateService;
 
     @RequestMapping("/123")
-    public String hello(){
+    public String hello() {
         return "index";
     }
 
     @RequestMapping("/index_query")
-    public String to_index_query(){
+    public String to_index_query() {
         return "index_query";
+    }
+
+    @RequestMapping("/index_add")
+    public String to_index_add() {
+        return "index_add";
     }
 
     @RequestMapping("/getCertificatesDataJSON")
     @ResponseBody
-    public List<CertificateVo> getCertificatesDataJSON(){
-        List<CertificateVo> certificateVoList=new ArrayList<>();
-        certificateVoList.add(new CertificateVo(6,"13","333","455","67","56","34","23",new Date(),"12","12","12",new Date(),23.3,"<Button>详细</Button><Button>删除</Button>"));
-        certificateVoList.add(new CertificateVo(3,"12","223","425","67","56","34","23",new Date(),"12","12","12",new Date(),23.3,"<Button>详细</Button><Button>删除</Button>"));
-        certificateVoList.add(new CertificateVo(2,"14","113","4523","67","56","34","23",new Date(),"12","12","12",new Date(),23.3,"<Button>详细</Button><Button>删除</Button>"));
+    public List<CertificateVo> getCertificatesDataJSON() {
+        List<CertificateVo> certificateVoList = new ArrayList<>();
+        certificateVoList.add(new CertificateVo(6, "13", "333", "455", "67", "56", "34", "23", new Date(), "12", "12", "12", new Date(), 23.3, "<Button>详细</Button><Button>删除</Button>"));
+        certificateVoList.add(new CertificateVo(3, "12", "223", "425", "67", "56", "34", "23", new Date(), "12", "12", "12", new Date(), 23.3, "<Button>详细</Button><Button>删除</Button>"));
+        certificateVoList.add(new CertificateVo(2, "14", "113", "4523", "67", "56", "34", "23", new Date(), "12", "12", "12", new Date(), 23.3, "<Button>详细</Button><Button>删除</Button>"));
         return certificateVoList;
     }
 }
