@@ -36,9 +36,9 @@ public class CertificateController {
     @ResponseBody
     public List<CertificateVo> getCertificatesDataJSON() {
         List<CertificateVo> certificateVoList = new ArrayList<>();
-        certificateVoList.add(new CertificateVo(6, "13", "333", "455", "67", "56", "34", "23", new Date(), "12", "12", "12", new Date(), 23.3, "<Button>详细</Button><Button>删除</Button>"));
-        certificateVoList.add(new CertificateVo(3, "12", "223", "425", "67", "56", "34", "23", new Date(), "12", "12", "12", new Date(), 23.3, "<Button>详细</Button><Button>删除</Button>"));
-        certificateVoList.add(new CertificateVo(2, "14", "113", "4523", "67", "56", "34", "23", new Date(), "12", "12", "12", new Date(), 23.3, "<Button>详细</Button><Button>删除</Button>"));
+        certificateVoList.add(new CertificateVo(6, "13", "333", "455", "67", "56", "34", "23", new Date(), "12", "12", "12", new Date(), 23.3, "<a style=\"font-size: 6px;padding:2px;margin:1px\" class=\"btn btn-primary\">修改</a><br><a style=\"font-size: 6px;padding:2px;margin:1px\" class=\"btn btn-danger\">删除</a>"));
+        certificateVoList.add(new CertificateVo(3, "12", "223", "425", "67", "56", "34", "23", new Date(), "12", "12", "12", new Date(), 23.3, "<a>修改</a><br><a>删除</a>"));
+        certificateVoList.add(new CertificateVo(2, "14", "113", "4523", "67", "56", "34", "23", new Date(), "12", "12", "12", new Date(), 23.3, "<a>修改</a><br><a>删除</a>"));/*<Button>详细</Button><Button>删除</Button>*/
         return certificateVoList;
     }
 }

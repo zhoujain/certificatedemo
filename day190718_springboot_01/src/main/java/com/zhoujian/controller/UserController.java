@@ -2,8 +2,10 @@ package com.zhoujian.controller;
 
 import com.sun.deploy.net.HttpResponse;
 import com.sun.org.apache.regexp.internal.RE;
+import com.zhoujian.domain.CertificateVo;
 import com.zhoujian.domain.Menu;
 import com.zhoujian.domain.User;
+import com.zhoujian.domain.UserVo;
 import com.zhoujian.service.MenuService;
 import com.zhoujian.service.UserService;
 import org.apache.catalina.connector.Response;
@@ -12,9 +14,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.jws.soap.SOAPBinding;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -61,6 +67,45 @@ public class UserController {
             session.removeAttribute("menuHtml");
         }
         return "login";
+    }
+
+    /**
+     * 跳转用户列表界面
+     * @return
+     */
+    @RequestMapping("/user_list")
+    public String to_user_list(){
+        return "user_list";
+    }
+
+    /**
+     * 向前端返回用户列表JSON数据
+     * @return
+     */
+    @RequestMapping("/getUsersDataJSON")
+    @ResponseBody
+    public List<UserVo> getUsersDataJSON() {
+        List<User> userList=userService.queryAllUser();
+        List<UserVo> userVoList = new ArrayList<>();
+
+        for (User user : userList) {
+            switch (user.getUtid()){
+                case 1:
+                    /*管理员*/
+                    userVoList.add(new UserVo(user.getUid(),user.getUsername(),"管理员","<a>修改</a>&nbsp;&nbsp;<a>删除</a>"));
+                    break;
+                case 2:
+                    /*审核员*/
+                    userVoList.add(new UserVo(user.getUid(),user.getUsername(),"审核员","<a>修改</a>&nbsp;&nbsp;<a>删除</a>"));
+                    break;
+                case 3:
+                    /*普通用户*/
+                    userVoList.add(new UserVo(user.getUid(),user.getUsername(),"普通用户","<a>修改</a>&nbsp;&nbsp;<a>删除</a>"));
+                    break;
+            }
+        }
+
+        return userVoList;
     }
 
     /**

@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.jws.soap.SOAPBinding;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -21,6 +22,8 @@ public class MapperTest {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private UserService userService;
 
 
     @Test
@@ -76,6 +79,12 @@ public class MapperTest {
     public void test6(){
         Boolean isDelete = userMapper.deleteUser(1004);
         System.out.println(isDelete);
+    }
+
+    @Test
+    public void test7(){
+        List<User> userList=userService.queryAllUser();
+        System.out.println(userList);
     }
 
 
