@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Day190718Springboot01Application.class)
@@ -44,4 +45,11 @@ public class CertificateMapperTest {
         Integer res=certificateMapper.updateCertificate(certificate);
         System.out.println(res);
     }
+
+    @Test
+    public void test_getCertificatesByLogic(){
+        List<Certificate> certificateList=certificateMapper.getCertificateByLogics("select * from tb_certificate where cid=5");
+        System.out.println(certificateList);
+    }
+
 }

@@ -47,12 +47,12 @@
                             <td>操作：</td>
                         </tr>
                         </thead>
-                        <tbody>
-                        <tr>
+                        <tbody id="logictrs">
+                        <tr class="logicarr" id="firstlogic">
                             <td>
 
                             </td>
-                            <td><select class="form-control first-select">
+                            <td><select class="form-control selectlogic">
                                 <option selected="selected" disabled>请选择</option>
                                 <option value="cnumber">证书编号</option>
                                 <option value="ccompany">证书单位</option>
@@ -67,7 +67,7 @@
                                 <option value="puname">打印人</option>
                                 <option value="cprintdate">打印日期</option>
                             </select></td>
-                            <td><select class="form-control first-select">
+                            <td><select class="form-control selectlogic">
                                 <option selected="selected" disabled>请选择</option>
                                 <option value="in">包含</option>
                                 <option value="=">等于</option>
@@ -80,23 +80,22 @@
                                 <option value="not null">不为空</option>
                             </select></td>
                             <td>
-                                <input class="form-control first-select" type="text" placeholder="检索词">
+                                <input class="form-control selectlogic" type="text" placeholder="检索词">
                             </td>
                             <td>
                                 <button class="btn_addLogic btn btn-block btn-info" style="width: 100px;float: left">添加</button>
                                 <button class="btn_delLogic btn btn-block btn-danger" id="delfirst" style="width: 100px;float: left">删除</button>
                             </td>
                         </tr>
-             <%--           <select class="form-control">
-                            <option selected="selected" disabled>请选择</option>
-                            <option>而且</option>
-                            <option>或者</option>
-                        </select>--%>
-                        <tr>
+                        <%--<tr>
                             <td>
-
+                                <select class="form-control selectlogic">
+                                    <option selected="selected" disabled>请选择</option>
+                                    <option>而且</option>
+                                    <option>或者</option>
+                                </select>
                             </td>
-                            <td><select class="form-control">
+                            <td><select class="form-control selectlogic">
                                 <option selected="selected" disabled>请选择</option>
                                 <option value="cnumber">证书编号</option>
                                 <option value="ccompany">证书单位</option>
@@ -113,7 +112,7 @@
                             </select>
                             </td>
                             <td>
-                                <select class="form-control">
+                                <select class="form-control selectlogic">
                                 <option selected="selected" disabled>请选择</option>
                                 <option value="in">包含</option>
                                 <option value="=">等于</option>
@@ -126,13 +125,13 @@
                                 <option value="not null">不为空</option>
                             </select></td>
                             <td>
-                                <input class="form-control" type="text" placeholder="检索词">
+                                <input class="form-control selectlogic" type="text" placeholder="检索词">
                             </td>
                             <td>
                                 <button class="btn_addLogic btn btn-block btn-info" style="width: 100px;float: left">添加</button>
                                 <button class="btn_delLogic btn btn-block btn-danger" style="width: 100px;float: left">删除</button>
                             </td>
-                        </tr>
+                        </tr>--%>
                         </tbody>
                     </table>
 
