@@ -9,6 +9,10 @@
         select * from tb_certificate where cid=#{id}
     </select>
 
+    <select id="getCertificateByLogics" resultType="com.zhoujian.domain.Certificate" parameterType="String">
+        ${value}
+    </select>
+
 
     <insert id="addCertificate" parameterType="Certificate">
         insert into tb_certificate values (null ,#{cname},#{cnumber},#{ccompany},#{ctoolname},#{cmodel},#{coutnumber},#{cmanufacturer},#{cdelegate},#{ccheckdate},#{ccheckdepartment},#{uid},#{puid},#{cprintdate},#{cmoney},#{tid},#{cstate},1)

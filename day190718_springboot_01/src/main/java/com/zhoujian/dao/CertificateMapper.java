@@ -14,4 +14,6 @@ public interface CertificateMapper {
     Integer addCertificate(Certificate certificate);
     Integer delCertificate(Integer cid);
     Integer updateCertificate(Certificate certificate);
+
+    List<Certificate> getCertificateByLogics(String where);
 }

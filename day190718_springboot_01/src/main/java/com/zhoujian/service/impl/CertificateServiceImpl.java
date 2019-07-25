@@ -18,4 +18,9 @@ public class CertificateServiceImpl implements CertificateService {
     public List<Certificate> queryAllCertificates(){
         return certificateMapper.getAllCertificates();
     }
+
+    @Override
+    public List<Certificate> queryCertificatesByLogics(String where) {
+        return certificateMapper.getCertificateByLogics(where);
+    }
 }
