@@ -10,16 +10,13 @@ function queryCertificatesByLogic() {
     else {
         var firstSelects=$('.first-select');
 
-        var select01=$($(firstSelects)[0]);
-        var text03=$($(firstSelects)[2]).val()
-        // alert(text == ""||text == undefined || text == null || (text.length>0 && text.trim().length == 0))
+        var text=$($(firstSelects)[2]).val()
+        if($(firstSelects)[0].selectedIndex=="0"||$(firstSelects)[1].selectedIndex=="0"||(text == ""||text == undefined || text == null || (text.length>0 && text.trim().length == 0))) {
+            return
+        }else {
+            //执行查询
 
-            /*.each(function(i,n){
-            if($(n).is(":checked")==false){
-
-            }
-            // alert($(n).find("option:selected").val())
-        })*/
+        }
     }
 }
 
@@ -35,5 +32,21 @@ $(function () {
             });
         }
     });
+
+    $('.btn_addLogic').click(function () {
+        alert("btn_addLogic")
+    })
+
+    $('.btn_delLogic').click(function () {
+        var firstSelects=$('.first-select');
+        if ($(this).attr('id')=="delfirst"){
+            $(firstSelects)[0].selectedIndex=0
+            $(firstSelects)[1].selectedIndex=0
+            $($(firstSelects)[2]).val("")
+        }else {
+            $(this).parent().parent().remove()
+        }
+    })
+
 
 });
