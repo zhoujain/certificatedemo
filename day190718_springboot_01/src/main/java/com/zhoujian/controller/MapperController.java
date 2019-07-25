@@ -15,11 +15,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -103,16 +114,27 @@ public class MapperController {
         return "word";
     }
     @RequestMapping(value="/word1", method=RequestMethod.GET)
-    public String openWord(HttpServletRequest request, Map<String,Object> map){
+    //@ResponseBody
+    public String openWord(HttpServletRequest request, Map<String,Object> map,@RequestParam(value = "id")String id){
+        //System.out.println(map);
         //--- PageOffice的调用代码 开始 -----
         PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
         poCtrl.setServerPage("/poserver.zz");//设置授权程序
         poCtrl.addCustomToolButton("保存","Save",1); //添加自定义按钮
         poCtrl.setSaveFilePage("/save");//设置保存的action
-        poCtrl.webOpen("d:\\test.doc", OpenModeType.docAdmin,"张三");
+        //获得文件路径
+        //String newPath = request.getSession().getServletContext().getRealPath("/uploads" + fileName);
+        String str ="/uploads/aabb" + id+".doc";
+        String newPath = request.getSession().getServletContext().getRealPath(str);
+        System.out.println(newPath);
+        poCtrl.webOpen(newPath, OpenModeType.docAdmin,"张三");
         map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
-        //--- PageOffice的调用代码 结束 -----
+        System.out.println(map);
 
+        //--- PageOffice的调用代码 结束 -----
+        //ModelAndView mv = new ModelAndView();
+        //mv.setViewName("wrod1");
+        //mv.addObject("")
         return "word1";
     }
 
@@ -122,7 +144,6 @@ public class MapperController {
         fs.saveToFile("d:\\" + fs.getFileName());
         fs.close();
     }
-
 
 
 

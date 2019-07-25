@@ -33,6 +33,7 @@
 
 
                     <div id="using_json" style="font-size: 18px"></div>
+                    <a id="aGo" target="mainFrame" style="display: none;" href="">隐藏链接</a>
 
 
                 </div>
@@ -47,7 +48,7 @@
                     <input id="Button2" type="button" value="隐藏/显示 菜单栏" onclick="return Button2_onclick()" />
                     <input id="Button3" type="button" value="隐藏/显示 自定义工具栏"  onclick="return Button3_onclick()" />
                     <input id="Button4" type="button" value="隐藏/显示 Office工具栏"  onclick="return Button4_onclick()" />
-                    <div style="width:500px;height:350px;" >${pageoffice}</div>
+                    <div style="width:500px;height:350px;" ></div>
                 </div>
             </iframe>
 
@@ -247,7 +248,7 @@
                                     var newNode = inst.create_node(inst.get_node(obj.reference), '请输入模板名称', "after", "", "");
                                     inst.edit(newNode, newNode.val,function(){
                                         var obj = this.get_node(newNode);
-                                        $.post("/template/node_add",
+                                        $.post("/template/node_add1",
                                             {
                                                 id:obj.id,
                                                 text:obj.text,
@@ -274,11 +275,12 @@
             $('#using_json').on("select_node.jstree",function (node,selected,event) {
                 //当前点击的对象的id
                 // alert(selected.node.id);
-                if(selected.node.type==2){
-                    $.get("/word1",function () {
-                        
-                    })
+                if(selected.node.type ==2){
+                    $("#aGo").attr("href","/word1?id="+selected.node.id);
+                    //alert("/word1?text="+selected.node.text)
+                    $("#aGo")[0].click();
                 }
+
             })
         }
     };
@@ -287,6 +289,8 @@
         tzs.index.init();
     });
 </script>
+
+
 
 </body>
 </html>
