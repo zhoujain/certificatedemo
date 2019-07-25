@@ -160,12 +160,30 @@
                         }
                     },
                     "contextmenu":{
-                        "items":{
-                            "create":null,
-                            "rename":null,
-                            "remove":null,
-                            "ccp":null,
-                            "add": {
+                        "items":customMenu,
+                        "ccp":true
+                    }
+                })
+            });
+
+            //树节点左键相应函数（监听）
+            $('#using_json').jstree(true).on("select_node.jstree",function (e,selected) {
+                //当前点击的对象的id
+                // alert(selected.node.id);
+                //alert(event.button)
+                if(selected.node.type ==2){
+                    $("#aGo").attr("href","/word1?id="+selected.node.id);
+                    //alert("/word1?text="+selected.node.text)
+                    $("#aGo")[0].click();
+                }
+
+            })
+            
+            
+            
+            function customMenu(node) {
+							var items = {
+									"add": {
                                 "label": "增加目录",
                                 "action": function (obj) {
                                     var inst = jQuery.jstree.reference(obj.reference);
@@ -198,7 +216,7 @@
 
                                 }
                             },
-                            "rename":{
+									"rename":{
                                     "label":"重命名",
                                     "action":function (obj) {
                                         // alert("修改分类");
@@ -216,7 +234,7 @@
                                         });
                                     }
                                 },
-                            "delete":{
+									 "delete":{
                                     "label":"删除",
                                     "action":function (obj) {
                                         // alert("删除分类");
@@ -240,7 +258,7 @@
 
                                     }
                             },
-                            "addTemplate":{
+									"addTemplate":{
                                 "label":"添加模板",
                                 "action":function (obj) {
                                     var inst = jQuery.jstree.reference(obj.reference);
@@ -265,23 +283,45 @@
                                         );
                                     });
                                 }
-                            }
-                        }
-                    }
-                })
-            });
-
-            //树节点左键相应函数（监听）
-            $('#using_json').on("select_node.jstree",function (node,selected,event) {
-                //当前点击的对象的id
-                // alert(selected.node.id);
-                if(selected.node.type ==2){
-                    $("#aGo").attr("href","/word1?id="+selected.node.id);
-                    //alert("/word1?text="+selected.node.text)
-                    $("#aGo")[0].click();
-                }
-
-            })
+                            },
+									"copy":{
+										"label": "复制",
+										"action": function(obj) {
+											
+										}
+									},
+									"cut":{
+										"label": "剪切",
+										"action": function(obj) {
+											
+										}
+									},
+									"paste":{
+										"label": "粘贴",
+										"action": function(obj) {
+										
+										}
+									}
+								}
+								//console.log(node);
+							if (node.parent == '#') { //如果是根节点
+								delete items.copy;
+								delete items.paste;
+								delete items.cut;
+								delete items.delete;
+								delete items.addTemplate;
+							} else if (node.type == 1) { //如果是图谱
+								delete items.copy;
+								delete items.cut;
+							} else if (node.type == 2) { //如果是图谱页
+								delete items.add;
+								delete items.addTemplate;
+								delete items.paste;
+							}
+							return items; //注意要有返回值
+						}
+            
+            
         }
     };
 
