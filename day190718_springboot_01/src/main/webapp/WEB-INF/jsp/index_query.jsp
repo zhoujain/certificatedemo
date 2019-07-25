@@ -50,8 +50,7 @@
                         <tbody>
                              <tr>
                             <td></td>
-                            <td><select class="form-control">
-                                <option selected="selected" disabled>请选择</option>
+                            <td><select class="form-control first-select">
                                 <option>证书编号</option>
                                 <option>证书单位</option>
                                 <option>器具名称</option>
@@ -65,8 +64,7 @@
                                 <option>打印人</option>
                                 <option>打印日期</option>
                             </select></td>
-                            <td><select class="form-control">
-                                <option selected="selected" disabled>请选择</option>
+                            <td><select class="form-control first-select">
                                 <option>包含</option>
                                 <option>等于</option>
                                 <option>大于</option>
@@ -78,7 +76,7 @@
                                 <option>不为空</option>
                             </select></td>
                             <td>
-                                <input class="form-control" type="text" placeholder="检索词">
+                                <input class="form-control first-select" type="text" placeholder="检索词">
                             </td>
                             <td>
                                 <button class="btn btn-block btn-info" style="width: 100px;float: left">添加</button>
@@ -131,13 +129,13 @@
 
                     <div class="row">
                         <div class="col-md-2 col-sm-2">
-                            <input id="queryAllCertificate" type="checkbox">查询所有证书
+                            <input id="isQueryAllCertificate" type="checkbox">查询所有证书
                         </div>
                         <div class="col-md-10 col-sm-10"></div>
                     </div>
 
                     <div class="row text-center">
-                        <button class="btn btn-primary">查询</button>
+                        <button class="btn btn-primary" onclick="queryCertificatesByLogic()">查询</button>
                     </div>
                 </div>
             </div>
@@ -188,5 +186,6 @@
 <script src="../../js/plugins/iCheck/icheck.min.js"></script>
 <script src="../../js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
 <script src="../../js/index_query.js" type="text/javascript"></script>
+
 </body>
 </html>

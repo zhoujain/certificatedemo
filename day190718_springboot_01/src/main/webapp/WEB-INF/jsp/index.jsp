@@ -21,7 +21,7 @@
     <link href="../../css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
     <link href="../../css/style.min862f.css?v=4.1.0" rel="stylesheet">
 </head>
-<body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden" onload="load()">
+<body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
 <div id="wrapper">
     <!--左侧导航开始-->
     <nav class="navbar-default navbar-static-side" role="navigation">
