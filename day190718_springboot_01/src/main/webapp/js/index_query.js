@@ -1,5 +1,18 @@
-class LogicItem{
+function downloadExcel() {
 
+    var form = $("<form>");
+    form.attr("style","display:none");
+    form.attr("target","");
+    form.attr("method","post");
+    form.attr("action","/downloadExcel");
+    var input1 = $("<input>");
+    input1.attr("type","hidden");
+    input1.attr("name","actionName");
+    input1.attr("value","downloadtheExcel");
+    $("body").append(form);
+    form.append(input1);
+    form.submit();
+    form.remove();
 }
 
 function queryCertificatesByLogic() {

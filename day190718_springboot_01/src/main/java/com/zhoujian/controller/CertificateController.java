@@ -11,6 +11,7 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.tomcat.util.http.fileupload.FileUtils;
+import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -51,8 +53,9 @@ public class CertificateController {
 
     @RequestMapping("/getCertificatesDataJSON")
     @ResponseBody
-    public List<CertificateVo> getCertificatesDataJSON() {
+    public List<CertificateVo> getCertificatesDataJSON(HttpSession session) {
         List<CertificateVo> certificateVoList = new ArrayList<>();
+        session.setAttribute("where","queryAllCertificates");
         List<Certificate> certificateList=certificateService.queryAllCertificates();
         for (Certificate c : certificateList) {
             String uname=userService.usernameByUid(c.getUid());
@@ -70,7 +73,7 @@ public class CertificateController {
      */
     @RequestMapping("/getCertificatesDataJSONByLogics")
     @ResponseBody
-    public List<CertificateVo> getCertificatesDataJSONByLogics(@RequestBody List<QueryCertificateLogics> logicsList) {
+    public List<CertificateVo> getCertificatesDataJSONByLogics(@RequestBody List<QueryCertificateLogics> logicsList, HttpSession session) {
         List<CertificateVo> certificateVoList = new ArrayList<>();
 
         String where="where ";
@@ -93,6 +96,7 @@ public class CertificateController {
                 }
             }
         }
+        session.setAttribute("where",where);
         List<Certificate> certificateList=certificateService.queryCertificatesByLogics(where);
         for (Certificate c : certificateList) {
             String uname=userService.usernameByUid(c.getUid());
@@ -116,8 +120,21 @@ public class CertificateController {
     }*/
 
     @RequestMapping("/downloadExcel")
-    public ResponseEntity<byte[]> downloadExcel(@RequestBody List<CertificateVo> certificateVoList) throws IOException {
+    public ResponseEntity<byte[]> downloadExcel(HttpSession session) throws IOException {
 
+        List<CertificateVo> certificateVoList=new ArrayList<>();
+        String where = (String) session.getAttribute("where");
+        List<Certificate> certificateList;
+        if (where.equals("queryAllCertificates")){
+            certificateList=certificateService.queryAllCertificates();
+        }else {
+            certificateList = certificateService.queryCertificatesByLogics(where);
+        }
+        for (Certificate c : certificateList) {
+            String uname=userService.usernameByUid(c.getUid());
+            String puname=userService.usernameByUid(c.getPuid());
+            certificateVoList.add(new CertificateVo(c.getCid(),c.getCnumber(),c.getCcompany(),c.getCtoolname(),c.getCmodel(),c.getCoutnumber(),c.getCmanufacturer(),c.getCdelegate(),df.format(c.getCcheckdate()).toString(),c.getCcheckdepartment(),uname,puname,df.format(c.getCprintdate()).toString(),c.getCmoney(),"<a>删除</a><a>详细</a>"));
+        }
         byte[] bytes = new byte[0];
         try {
             bytes=excelWrite(certificateVoList);
@@ -131,7 +148,7 @@ public class CertificateController {
         HttpHeaders headers = new HttpHeaders();
 
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-        headers.setContentDispositionFormData("attachment", fileName);
+        headers.setContentDispositionFormData("attachment", fileName+".xls");
 
         return new ResponseEntity<byte[]>(bytes,headers, HttpStatus.CREATED);
     }
