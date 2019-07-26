@@ -12,15 +12,15 @@ public class CertificateVo implements Serializable {
     private String coutnumber;
     private String cmanfacturer;
     private String cdelegate;
-    private Date ccheckdate;
+    private String ccheckdate;
     private String ccheckdepartment;
     private String uname;
     private String puname;
-    private Date cprintdate;
+    private String cprintdate;
     private Double cmoney;
     private String actions;
 
-    public CertificateVo(Integer cid, String cnumber, String ccompany, String ctoolname, String cmodel, String coutnumber, String cmanfacturer, String cdelegate, Date ccheckdate, String ccheckdepartment, String uname, String puname, Date cprintdate, Double cmoney, String actions) {
+    public CertificateVo(Integer cid, String cnumber, String ccompany, String ctoolname, String cmodel, String coutnumber, String cmanfacturer, String cdelegate, String ccheckdate, String ccheckdepartment, String uname, String puname, String cprintdate, Double cmoney, String actions) {
         this.cid = cid;
         this.cnumber = cnumber;
         this.ccompany = ccompany;
@@ -105,11 +105,11 @@ public class CertificateVo implements Serializable {
         this.cdelegate = cdelegate;
     }
 
-    public Date getCcheckdate() {
+    public String getCcheckdate() {
         return ccheckdate;
     }
 
-    public void setCcheckdate(Date ccheckdate) {
+    public void setCcheckdate(String ccheckdate) {
         this.ccheckdate = ccheckdate;
     }
 
@@ -137,11 +137,11 @@ public class CertificateVo implements Serializable {
         this.puname = puname;
     }
 
-    public Date getCprintdate() {
+    public String getCprintdate() {
         return cprintdate;
     }
 
-    public void setCprintdate(Date cprintdate) {
+    public void setCprintdate(String cprintdate) {
         this.cprintdate = cprintdate;
     }
 
@@ -159,5 +159,26 @@ public class CertificateVo implements Serializable {
 
     public void setActions(String actions) {
         this.actions = actions;
+    }
+
+    @Override
+    public String toString() {
+        return "CertificateVo{" +
+                "cid=" + cid +
+                ", cnumber='" + cnumber + '\'' +
+                ", ccompany='" + ccompany + '\'' +
+                ", ctoolname='" + ctoolname + '\'' +
+                ", cmodel='" + cmodel + '\'' +
+                ", coutnumber='" + coutnumber + '\'' +
+                ", cmanfacturer='" + cmanfacturer + '\'' +
+                ", cdelegate='" + cdelegate + '\'' +
+                ", ccheckdate='" + ccheckdate + '\'' +
+                ", ccheckdepartment='" + ccheckdepartment + '\'' +
+                ", uname='" + uname + '\'' +
+                ", puname='" + puname + '\'' +
+                ", cprintdate='" + cprintdate + '\'' +
+                ", cmoney=" + cmoney +
+                ", actions='" + actions + '\'' +
+                '}';
     }
 }

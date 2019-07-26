@@ -10,7 +10,7 @@
     </select>
 
     <select id="getCertificateByLogics" resultType="com.zhoujian.domain.Certificate" parameterType="String">
-        ${value}
+        select * from tb_certificate ${value}
     </select>
 
 
