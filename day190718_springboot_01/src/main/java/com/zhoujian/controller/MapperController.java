@@ -141,7 +141,7 @@ public class MapperController {
     @RequestMapping("/save")
     public void saveFile(HttpServletRequest request, HttpServletResponse response){
         FileSaver fs = new FileSaver(request, response);
-        fs.saveToFile("d:\\" + fs.getFileName());
+        fs.saveToFile(request.getSession().getServletContext().getRealPath("/uploads") + "/" + fs.getFileName());
         fs.close();
     }
 
