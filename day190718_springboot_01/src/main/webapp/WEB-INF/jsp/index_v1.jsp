@@ -34,6 +34,14 @@
 
                     <div id="using_json" style="font-size: 18px"></div>
                     <a id="aGo" target="mainFrame" style="display: none;" href="">隐藏链接</a>
+<%--                        存放复制或剪切用的id--%>
+                    <div id="div-id" style="display: none" value=""></div>
+<%--                        存放复制或剪切用的text--%>
+                        <div id="div-text" style="display: none" value=""></div>
+<%--                            判断剪切还是复制--%>
+<%--                        1表示复制--%>
+<%--                        2表示剪切--%>
+                        <div id="div-iscopy" style="display: none" value=""></div>
 
 
                 </div>
@@ -205,7 +213,7 @@
                                 "action": function (obj) {
                                     var inst = jQuery.jstree.reference(obj.reference);
                                     var clickedNode = inst.get_node(obj.reference);
-                                    var newNode = inst.create_node(inst.get_node(obj.reference), '请输入目录名称', "after", "", "");
+                                    var newNode = inst.create_node(inst.get_node(obj.reference), '请输入目录名称', "last", "", "");
                                     inst.edit(newNode, newNode.val,function(){
                                         //alert(newNode)
 
@@ -259,9 +267,8 @@
                                         var clickedNode = inst.get_node(obj.reference);
                                         // var result = inst.delete_node(clickedNode);
                                         var r =confirm("确认删除？");
-                                        if(r=true){
+                                        if(r==true){
                                             //alert(clickedNode.id);
-                                            inst.delete_node(obj.reference);
                                             $.post("/template/node_delete",
                                                 {
                                                     id:clickedNode.id
@@ -269,6 +276,11 @@
                                                 function(){
                                                 }
                                             );
+                                            inst.delete_node(obj.reference);
+                                            //重新建树
+                                            $('#using_json').jstree().destroy();
+                                            tzs.index.doCreateTree();
+
                                         }
 
 
@@ -280,7 +292,7 @@
                                 "action":function (obj) {
                                     var inst = jQuery.jstree.reference(obj.reference);
                                     var clickedNode = inst.get_node(obj.reference);
-                                    var newNode = inst.create_node(inst.get_node(obj.reference), '请输入模板名称', "after", "", "");
+                                    var newNode = inst.create_node(inst.get_node(obj.reference), '请输入模板名称', "last", "", "");
                                     inst.edit(newNode, newNode.val,function(){
                                         var obj = this.get_node(newNode);
                                         $.post("/template/node_add1",
@@ -304,21 +316,88 @@
 									"copy":{
 										"label": "复制",
 										"action": function(obj) {
-											
+                                            var inst = jQuery.jstree.reference(obj.reference);
+                                            var clickedNode = inst.get_node(obj.reference);
+                                            $('#div-id').attr("value",clickedNode.id);
+                                            $('#div-text').attr("value",clickedNode.text);
+                                            $('#div-iscopy').attr("value",1);
 										}
 									},
-									"cut":{
-										"label": "剪切",
-										"action": function(obj) {
-											
-										}
-									},
-									"paste":{
-										"label": "粘贴",
-										"action": function(obj) {
-										
-										}
-									}
+									"cut": {
+                                        "label": "剪切",
+                                        "action": function (obj) {
+                                            var inst = jQuery.jstree.reference(obj.reference);
+                                            var clickedNode = inst.get_node(obj.reference);
+                                            $('#div-id').attr("value", clickedNode.id);
+                                            $('#div-text').attr("value", clickedNode.text);
+                                            $('#div-iscopy').attr("value", 2);
+                                            //alert(clickedNode.id);
+
+                                            //重新建树
+
+                                        },
+                                    },
+                                        "paste": {
+                                            "label": "粘贴",
+                                            "action": function (obj) {
+                                                var inst = jQuery.jstree.reference(obj.reference);
+                                                var clickedNode = inst.get_node(obj.reference);
+                                                var text1 = $('#div-text').attr("value");
+                                                var idcopy = $('#div-iscopy').attr("value");
+                                                //alert(idcopy)
+                                                //alert(text1);
+                                                var newNode = inst.create_node(inst.get_node(obj.reference), text1, "last", "", "");
+                                                //对数据库进行添加操作
+                                                //inst.edit(newNode, newNode.val,function(){
+
+                                                //var obj = this.get_node(newNode);
+                                                if (idcopy == 1) {
+                                                    $.post("/template/node_add1_copy",
+                                                        {
+                                                            oldId: $('#div-id').attr("value"),
+                                                            //id:obj.id,
+                                                            text: $('#div-text').attr("value"),
+                                                            parent: clickedNode.id,
+                                                            type: "2",
+                                                            //turl:obj.text
+                                                        },
+                                                        function (data) {
+                                                            //alert(data);
+                                                            $(inst.get_node(newNode)).attr("id", data);
+                                                            $('#using_json').jstree().destroy();
+                                                            tzs.index.doCreateTree();
+                                                        }
+                                                    );
+                                                } else if (idcopy == 2) {
+                                                    $.post("/template/node_add1_cut",
+                                                        {
+                                                            oldId: $('#div-id').attr("value"),
+                                                            //id:obj.id,
+                                                            text: $('#div-text').attr("value"),
+                                                            parent: clickedNode.id,
+                                                            type: "2",
+                                                            //turl:obj.text
+                                                        },
+                                                        function (data) {
+                                                            //alert(data);
+                                                            //$(inst.get_node(newNode)).attr("id",data);
+
+                                                        }
+                                                    );
+                                                    $('#using_json').jstree().destroy();
+                                                    tzs.index.doCreateTree();
+                                                } else {
+                                                    alert("操作无效")
+                                                }
+
+                                                //});
+
+                                                //var newNode = inst.create_node(inst.get_node(obj.reference), '请输入模板名称', "after", "", "");
+
+
+                                            }
+                                        }
+
 								}
 								//console.log(node);
 							if (node.parent == '#') { //如果是根节点

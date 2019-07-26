@@ -113,4 +113,16 @@ public class TemplateServiceImpl implements TemplateService {
         template.setTname(text);
         templateMapper.editTemplate(template);
     }
+
+    /**
+     * 根据结点修改父节点
+     * @param tid
+     * @param pid
+     */
+    @Override
+    public void nodeUpdatePid(int tid, int pid) {
+        Template template = templateMapper.getTemplateById(tid);
+        template.setTpid(pid);
+        templateMapper.editTemplate(template);
+    }
 }

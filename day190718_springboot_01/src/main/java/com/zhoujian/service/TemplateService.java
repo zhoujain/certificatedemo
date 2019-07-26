@@ -24,4 +24,6 @@ public interface TemplateService {
     void nodeDelete(int tid);
 
     void nodeUpdate(int tid,String text);
+
+    void nodeUpdatePid(int tid,int pid);
 }
