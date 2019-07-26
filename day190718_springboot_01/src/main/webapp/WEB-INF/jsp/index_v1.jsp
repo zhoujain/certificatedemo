@@ -150,12 +150,26 @@
                         "state", "types", "wholerow"],//types：设置样式，contextmenu：右键菜单可用
                     "types":{
                         "default":{
+                        	"a_attr":{
+                                "style":"color:red"
+                           },
                             "icon": "fa fa-folder tree-item-icon-color icon-lg"
                         },
                         "1":{
+                        	"a_attr":{
+                                "style":"color:blue"
+                           },
                             "icon": "fa fa-folder tree-item-icon-color icon-lg"
                         },
                         "2":{
+                            "icon":"fa fa-file tree-item-icon-color icon-lg",
+                            "a_attr":{
+                                "style":"color:black"
+                            }
+
+                            
+                        },
+                        "3":{
                             "icon":"fa fa-file tree-item-icon-color icon-lg"
                         }
                     },
@@ -167,15 +181,18 @@
             });
 
             //树节点左键相应函数（监听）
-            $('#using_json').jstree(true).on("select_node.jstree",function (e,selected) {
+            $('#using_json').on("changed.jstree",function (e,selected) {
                 //当前点击的对象的id
-                // alert(selected.node.id);
-                //alert(event.button)
-                if(selected.node.type ==2){
-                    $("#aGo").attr("href","/word1?id="+selected.node.id);
-                    //alert("/word1?text="+selected.node.text)
-                    $("#aGo")[0].click();
+                //alert(selected.event.type);
+                if('click'==selected.event.type){
+                    if(selected.node.type ==2){
+                        $("#aGo").attr("href","/word1?id="+selected.node.id);
+                        //alert("/word1?text="+selected.node.text)
+                        $("#aGo")[0].click();
+                    }
                 }
+                   // alert(e.which);
+
 
             })
             
