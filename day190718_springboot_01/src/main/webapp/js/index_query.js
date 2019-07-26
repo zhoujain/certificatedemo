@@ -64,6 +64,9 @@ function queryCertificatesByLogic() {
             success:function(data, status){
                 var $table = $('#table');
                 $table.bootstrapTable('load',data);
+                if (data==null||data==""){
+                    $table.bootstrapTable('load',null);
+                }
             }
         });
 
@@ -84,6 +87,7 @@ $(function () {
     });
 
 
+    // $('.btn_addLogic').click(function () {
     $(document).on("click",'.btn_addLogic',function(){
         $('#logictrs').append('<tr class="logicarr">\n' +
             '                            <td>' +
@@ -96,47 +100,47 @@ $(function () {
             '                                <option selected="selected" disabled>请选择</option>\n' +
             '                                <option value="cnumber">证书编号</option>\n' +
             '                                <option value="ccompany">证书单位</option>\n' +
-            '                                <option value="ctoolname">器具名称</option>\n' +
-            '                                <option value="cmodel">型号规格</option>\n' +
-            '                                <option value="coutnumber">出厂编号</option>\n' +
-            '                                <option value="cmanufacturer">制造厂商</option>\n' +
-            '                                <option value="cdelegate">委托单号</option>\n' +
-            '                                <option value="ccheckdate">检定日期</option>\n' +
-            '                                <option value="ccheckdepartment">检测部门</option>\n' +
-            '                                <option value="uname">添加人</option>\n' +
-            '                                <option value="puname">打印人</option>\n' +
-            '                                <option value="cprintdate">打印日期</option>\n' +
+            // '                                <option value="ctoolname">器具名称</option>\n' +
+            // '                                <option value="cmodel">型号规格</option>\n' +
+            // '                                <option value="coutnumber">出厂编号</option>\n' +
+            // '                                <option value="cmanufacturer">制造厂商</option>\n' +
+            // '                                <option value="cdelegate">委托单号</option>\n' +
+            // '                                <option value="ccheckdate">检定日期</option>\n' +
+            // '                                <option value="ccheckdepartment">检测部门</option>\n' +
+            // '                                <option value="uname">添加人</option>\n' +
+            // '                                <option value="puname">打印人</option>\n' +
+            // '                                <option value="cprintdate">打印日期</option>\n' +
             '                            </select>\n' +
             '                            </td>\n' +
             '                            <td>\n' +
             '                                <select class="form-control selectlogic">\n' +
             '                                <option selected="selected" disabled>请选择</option>\n' +
-            '                                <option value="in">包含</option>\n' +
+            '                                <option value="like">包含</option>\n' +
             '                                <option value="=">等于</option>\n' +
-            '                                <option value=">">大于</option>\n' +
-            '                                <option value="<">小于</option>\n' +
-            '                                <option value="!=">不等于</option>\n' +
-            '                                <option value=">=">大于等于</option>\n' +
-            '                                <option value="<=">小于等于</option>\n' +
-            '                                <option value="not in">不包含</option>\n' +
-            '                                <option value="not null">不为空</option>\n' +
+            // '                                <option value=">">大于</option>\n' +
+            // '                                <option value="<">小于</option>\n' +
+            // '                                <option value="!=">不等于</option>\n' +
+            // '                                <option value=">=">大于等于</option>\n' +
+            // '                                <option value="<=">小于等于</option>\n' +
+            // '                                <option value="not in">不包含</option>\n' +
+            // '                                <option value="not null">不为空</option>\n' +
             '                            </select></td>\n' +
             '                            <td>\n' +
             '                                <input class="form-control selectlogic" type="text" placeholder="检索词">\n' +
             '                            </td>\n' +
             '                            <td>\n' +
-            '                                <button class="btn_addLogic btn btn-block btn-info" style="width: 100px;float: left">添加</button>\n' +
+            // '                                <button class="btn_addLogic btn btn-block btn-info" style="width: 100px;float: left">添加</button>\n' +
             '                                <button class="btn_delLogic btn btn-block btn-danger" style="width: 100px;float: left">删除</button>\n' +
             '                            </td>\n' +
             '                        </tr>')
     });
 
     $(document).on("click",'.btn_delLogic',function(){
-        var firstSelects=$('.first-select');
+        var selectLogics=$(this).parent().parent().find('.selectlogic');
         if ($(this).attr('id')=="delfirst"){
-            $(firstSelects)[0].selectedIndex=0
-            $(firstSelects)[1].selectedIndex=0
-            $($(firstSelects)[2]).val("")
+            $(selectLogics)[0].selectedIndex=0
+            $(selectLogics)[1].selectedIndex=0
+            $($(selectLogics)[2]).val("")
         }else {
             $(this).parent().parent().remove()
         }

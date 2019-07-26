@@ -56,7 +56,7 @@
                                 <option selected="selected" disabled>请选择</option>
                                 <option value="cnumber">证书编号</option>
                                 <option value="ccompany">证书单位</option>
-                                <option value="ctoolname">器具名称</option>
+                          <%--      <option value="ctoolname">器具名称</option>
                                 <option value="cmodel">型号规格</option>
                                 <option value="coutnumber">出厂编号</option>
                                 <option value="cmanufacturer">制造厂商</option>
@@ -65,19 +65,19 @@
                                 <option value="ccheckdepartment">检测部门</option>
                                 <option value="uname">添加人</option>
                                 <option value="puname">打印人</option>
-                                <option value="cprintdate">打印日期</option>
+                                <option value="cprintdate">打印日期</option>--%>
                             </select></td>
                             <td><select class="form-control selectlogic">
                                 <option selected="selected" disabled>请选择</option>
-                                <option value="in">包含</option>
+                                <option value="like">包含</option>
                                 <option value="=">等于</option>
-                                <option value=">">大于</option>
+                               <%-- <option value=">">大于</option>
                                 <option value="<">小于</option>
                                 <option value="!=">不等于</option>
                                 <option value=">=">大于等于</option>
                                 <option value="<=">小于等于</option>
-                                <option value="not in">不包含</option>
-                                <option value="not null">不为空</option>
+                                <option value="not like">不包含</option>
+                                <option value="not null">不为空</option>--%>
                             </select></td>
                             <td>
                                 <input class="form-control selectlogic" type="text" placeholder="检索词">
@@ -87,51 +87,6 @@
                                 <button class="btn_delLogic btn btn-block btn-danger" id="delfirst" style="width: 100px;float: left">删除</button>
                             </td>
                         </tr>
-                        <%--<tr>
-                            <td>
-                                <select class="form-control selectlogic">
-                                    <option selected="selected" disabled>请选择</option>
-                                    <option>而且</option>
-                                    <option>或者</option>
-                                </select>
-                            </td>
-                            <td><select class="form-control selectlogic">
-                                <option selected="selected" disabled>请选择</option>
-                                <option value="cnumber">证书编号</option>
-                                <option value="ccompany">证书单位</option>
-                                <option value="ctoolname">器具名称</option>
-                                <option value="cmodel">型号规格</option>
-                                <option value="coutnumber">出厂编号</option>
-                                <option value="cmanufacturer">制造厂商</option>
-                                <option value="cdelegate">委托单号</option>
-                                <option value="ccheckdate">检定日期</option>
-                                <option value="ccheckdepartment">检测部门</option>
-                                <option value="uname">添加人</option>
-                                <option value="puname">打印人</option>
-                                <option value="cprintdate">打印日期</option>
-                            </select>
-                            </td>
-                            <td>
-                                <select class="form-control selectlogic">
-                                <option selected="selected" disabled>请选择</option>
-                                <option value="in">包含</option>
-                                <option value="=">等于</option>
-                                <option value=">">大于</option>
-                                <option value="<">小于</option>
-                                <option value="!=">不等于</option>
-                                <option value=">=">大于等于</option>
-                                <option value="<=">小于等于</option>
-                                <option value="not in">不包含</option>
-                                <option value="not null">不为空</option>
-                            </select></td>
-                            <td>
-                                <input class="form-control selectlogic" type="text" placeholder="检索词">
-                            </td>
-                            <td>
-                                <button class="btn_addLogic btn btn-block btn-info" style="width: 100px;float: left">添加</button>
-                                <button class="btn_delLogic btn btn-block btn-danger" style="width: 100px;float: left">删除</button>
-                            </td>
-                        </tr>--%>
                         </tbody>
                     </table>
 
@@ -144,6 +99,7 @@
 
                     <div class="row text-center">
                         <button class="btn btn-primary" onclick="queryCertificatesByLogic()">查询</button>
+                        <button class="btn btn-info" onclick="alert('123')">导出</button>
                     </div>
                 </div>
             </div>
@@ -152,7 +108,7 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-content">
                     <%--证书列表表格 开始--%>
-                    <table id="table" data-pagination="true" data-page-size="5">
+                    <table id="table" data-pagination="true" data-page-size="10" data-page-list="[5, 10, 15, 20,30]">
 
                         <thead>
                         <tr>
