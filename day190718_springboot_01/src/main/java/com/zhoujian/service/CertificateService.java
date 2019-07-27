@@ -10,4 +10,6 @@ public interface CertificateService {
     public List<Certificate> queryAllCertificates();
 
     List<Certificate> queryCertificatesByLogics(String where);
+
+    Integer delCertificateByCid(Integer cid);
 }

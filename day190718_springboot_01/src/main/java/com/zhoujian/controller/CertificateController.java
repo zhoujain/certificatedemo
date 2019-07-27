@@ -67,9 +67,34 @@ public class CertificateController {
         for (Certificate c : certificateList) {
             String uname=userService.usernameByUid(c.getUid());
             String puname=userService.usernameByUid(c.getPuid());
-            certificateVoList.add(new CertificateVo(c.getCid(),c.getCnumber(),c.getCcompany(),c.getCtoolname(),c.getCmodel(),c.getCoutnumber(),c.getCmanufacturer(),c.getCdelegate(),df.format(c.getCcheckdate()).toString(),c.getCcheckdepartment(),uname,puname,df.format(c.getCprintdate()).toString(),c.getCmoney(),"<a>删除</a><a>详细</a>"));
+            certificateVoList.add(new CertificateVo(c.getCid(),c.getCnumber(),c.getCcompany(),c.getCtoolname(),c.getCmodel(),c.getCoutnumber(),c.getCmanufacturer(),c.getCdelegate(),df.format(c.getCcheckdate()).toString(),c.getCcheckdepartment(),uname,puname,df.format(c.getCprintdate()).toString(),c.getCmoney(),"<button onclick=\"\" style=\"border:1px solid blue;color:blue\">详细</button>&nbsp;<button onclick=\"delCertificate("+c.getCid()+")\" style=\"border:1px solid red;color:red\">删除</button>"));
         }
         //返回时转为json返回到前端
+        return certificateVoList;
+    }
+
+    @RequestMapping("/delCertificateByCid")
+    @ResponseBody
+    public List<CertificateVo> delCertificateByCid(Integer cid,HttpSession session){
+
+        certificateService.delCertificateByCid(cid);
+
+        List<CertificateVo> certificateVoList=new ArrayList<>();
+
+        String where = (String) session.getAttribute("where");
+        List<Certificate> certificateList;
+        //进行判断，两种情况。一种查询全部，一种按条件查询
+        if (where.equals("queryAllCertificates")){
+            certificateList=certificateService.queryAllCertificates();
+        }else {
+            certificateList = certificateService.queryCertificatesByLogics(where);
+        }
+        for (Certificate c : certificateList) {
+            String uname=userService.usernameByUid(c.getUid());
+            String puname=userService.usernameByUid(c.getPuid());
+            certificateVoList.add(new CertificateVo(c.getCid(),c.getCnumber(),c.getCcompany(),c.getCtoolname(),c.getCmodel(),c.getCoutnumber(),c.getCmanufacturer(),c.getCdelegate(),df.format(c.getCcheckdate()).toString(),c.getCcheckdepartment(),uname,puname,df.format(c.getCprintdate()).toString(),c.getCmoney(),"<button onclick=\"\" style=\"border:1px solid blue;color:blue\">详细</button>&nbsp;<button onclick=\"delCertificate("+c.getCid()+")\" style=\"border:1px solid red;color:red\">删除</button>"));
+        }
+
         return certificateVoList;
     }
 
@@ -109,7 +134,7 @@ public class CertificateController {
         for (Certificate c : certificateList) {
             String uname=userService.usernameByUid(c.getUid());
             String puname=userService.usernameByUid(c.getPuid());
-            certificateVoList.add(new CertificateVo(c.getCid(),c.getCnumber(),c.getCcompany(),c.getCtoolname(),c.getCmodel(),c.getCoutnumber(),c.getCmanufacturer(),c.getCdelegate(),df.format(c.getCcheckdate()).toString(),c.getCcheckdepartment(),uname,puname,df.format(c.getCprintdate()).toString(),c.getCmoney(),"<a>删除</a><a>详细</a>"));
+            certificateVoList.add(new CertificateVo(c.getCid(),c.getCnumber(),c.getCcompany(),c.getCtoolname(),c.getCmodel(),c.getCoutnumber(),c.getCmanufacturer(),c.getCdelegate(),df.format(c.getCcheckdate()).toString(),c.getCcheckdepartment(),uname,puname,df.format(c.getCprintdate()).toString(),c.getCmoney(),"<button style=\"border:1px solid blue;color:blue\">详细</button>&nbsp;<button style=\"border:1px solid red;color:red\">删除</button>"));
         }
         return certificateVoList;
     }
@@ -149,7 +174,7 @@ public class CertificateController {
         for (Certificate c : certificateList) {
             String uname=userService.usernameByUid(c.getUid());
             String puname=userService.usernameByUid(c.getPuid());
-            certificateVoList.add(new CertificateVo(c.getCid(),c.getCnumber(),c.getCcompany(),c.getCtoolname(),c.getCmodel(),c.getCoutnumber(),c.getCmanufacturer(),c.getCdelegate(),df.format(c.getCcheckdate()).toString(),c.getCcheckdepartment(),uname,puname,df.format(c.getCprintdate()).toString(),c.getCmoney(),"<a>删除</a><a>详细</a>"));
+            certificateVoList.add(new CertificateVo(c.getCid(),c.getCnumber(),c.getCcompany(),c.getCtoolname(),c.getCmodel(),c.getCoutnumber(),c.getCmanufacturer(),c.getCdelegate(),df.format(c.getCcheckdate()).toString(),c.getCcheckdepartment(),uname,puname,df.format(c.getCprintdate()).toString(),c.getCmoney(),"1"));
         }
 
         //将查询所得的列表通过poi转为byte[]
