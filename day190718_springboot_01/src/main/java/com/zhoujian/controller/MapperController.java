@@ -113,6 +113,12 @@ public class MapperController {
 
         return "word";
     }
+
+    @RequestMapping("/index_check")
+    public String index_check() {
+
+        return "index_check";
+    }
     @RequestMapping(value="/word1", method=RequestMethod.GET)
     //@ResponseBody
     public String openWord(HttpServletRequest request, Map<String,Object> map,@RequestParam(value = "id")String id){
@@ -121,6 +127,7 @@ public class MapperController {
         PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
         poCtrl.setServerPage("/poserver.zz");//设置授权程序
         poCtrl.addCustomToolButton("保存","Save",1); //添加自定义按钮
+        poCtrl.addCustomToolButton("关闭","CloseFile()",21);
         poCtrl.setSaveFilePage("/save");//设置保存的action
         //获得文件路径
         //String newPath = request.getSession().getServletContext().getRealPath("/uploads" + fileName);
@@ -129,7 +136,7 @@ public class MapperController {
         System.out.println(newPath);
         poCtrl.webOpen(newPath, OpenModeType.docAdmin,"张三");
         map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
-        System.out.println(map);
+        //System.out.println(map);
 
         //--- PageOffice的调用代码 结束 -----
         //ModelAndView mv = new ModelAndView();
@@ -143,6 +150,29 @@ public class MapperController {
         FileSaver fs = new FileSaver(request, response);
         fs.saveToFile(request.getSession().getServletContext().getRealPath("/uploads") + "/" + fs.getFileName());
         fs.close();
+    }
+
+    @RequestMapping(value="/wordcheck", method=RequestMethod.GET)
+    //@ResponseBody
+    public String openWordCheck(HttpServletRequest request, Map<String,Object> map,@RequestParam(value = "id")String id){
+        //System.out.println(map);
+        //--- PageOffice的调用代码 开始 -----
+        PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
+        poCtrl.setServerPage("/poserver.zz");//设置授权程序
+        //获得文件路径
+        //String newPath = request.getSession().getServletContext().getRealPath("/uploads" + fileName);
+        String str ="/uploads/aabb" + id+".doc";
+        String newPath = request.getSession().getServletContext().getRealPath(str);
+        System.out.println(newPath);
+        poCtrl.webOpen(newPath, OpenModeType.docAdmin,"张三");
+        map.put("pageofficecheck",poCtrl.getHtmlCode("PageOfficeCtrl1"));
+        //System.out.println(map);
+
+        //--- PageOffice的调用代码 结束 -----
+        //ModelAndView mv = new ModelAndView();
+        //mv.setViewName("wrod1");
+        //mv.addObject("")
+        return "wordcheck";
     }
 
 

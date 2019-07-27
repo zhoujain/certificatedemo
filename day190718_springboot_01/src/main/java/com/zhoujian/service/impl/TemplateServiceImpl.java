@@ -125,4 +125,11 @@ public class TemplateServiceImpl implements TemplateService {
         template.setTpid(pid);
         templateMapper.editTemplate(template);
     }
+
+    @Override
+    public void UpdateTtype(int tid) {
+        Template template = templateMapper.getTemplateById(tid);
+        template.setTtype(3);
+        templateMapper.editTemplate(template);
+    }
 }

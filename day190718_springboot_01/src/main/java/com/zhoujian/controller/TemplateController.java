@@ -73,9 +73,11 @@ public class TemplateController {
     }
 
     @RequestMapping("/node_delete")
-    public void nodeDelete(@RequestParam(value = "id")Integer id){
+    @ResponseBody
+    public String nodeDelete(@RequestParam(value = "id")Integer id){
         //System.out.println(id);
         templateService.nodeDelete(id);
+        return "1";
     }
 
     @RequestMapping("/node_edit")
@@ -83,6 +85,13 @@ public class TemplateController {
         templateService.nodeUpdate(id,text);
     }
 
+    @RequestMapping("/updateTtype")
+    @ResponseBody
+    public String nodeEdit(@RequestParam(value = "id")Integer id){
+        //System.out.println("来了");
+        templateService.UpdateTtype(id);
+        return "11";
+    }
 
     @RequestMapping("/node_add1")
     @ResponseBody

@@ -51,13 +51,15 @@
 
         <div class="col-sm-9 animated fadeInRight">
             <iframe name="mainFrame" width="100%" height="600px" frameborder="0">
-                <div>
-<%--                    <input id="Button1" class="btn btn-primary" type="button" value="隐藏/显示 标题栏"  onclick="return Button1_onclick()" />--%>
+<%--                <div>--%>
+<%--                    <input id="ButtonSave"  type="button" value="保存模板"  onclick="return Save()" />--%>
+<%--                    <input id="ButtonClose"  type="button" value="关闭"  onclick="return CloseFile()" />--%>
+<%--                    <input id="Button1" class="btn btn-primary" type="button" value="隐藏/显示 标题11111栏"  onclick="return Button1_onclick()" />--%>
 <%--                    <input id="Button2" class="btn btn-info" type="button" value="隐藏/显示 菜单栏" onclick="return Button2_onclick()" />--%>
-<%--                    <input id="Button3" type="button" value="隐藏/显示 自定义工具栏"  onclick="return Button3_onclick()" />--%>
-<%--                    <input id="Button4" type="button" value="隐藏/显示 Office工具栏"  onclick="return Button4_onclick()" />--%>
-                    <div style="width:500px;height:350px;" ></div>
-                </div>
+<%--                    <input id="Button3" class="btn btn-primary" type="button" value="隐藏/显示 自定义工具栏"  onclick="return Button3_onclick()" />--%>
+<%--                    <input id="Button4" class="btn btn-info" type="button" value="隐藏/显示 Office工具栏"  onclick="return Button4_onclick()" />--%>
+<%--                    <div style="width:500px;height:350px;" ></div>--%>
+<%--                </div>--%>
             </iframe>
 
         </div>
@@ -69,60 +71,60 @@
 <script src="../../js/plugins/iCheck/icheck.min.js"></script>
 <script src="../../js/plugins/jsTree/jstree.min.js"></script>
 <!--文本框-->
-<script type="text/javascript">
+<%--<script type="text/javascript">--%>
 
-    function Save() {
-        document.getElementById("PageOfficeCtrl1").WebSave();
-    }
-    function PrintFile(){
-        document.getElementById("PageOfficeCtrl1").ShowDialog(4);
+<%--    function Save() {--%>
+<%--        document.getElementById("PageOfficeCtrl1").WebSave();--%>
+<%--    }--%>
+<%--    function PrintFile(){--%>
+<%--        document.getElementById("PageOfficeCtrl1").ShowDialog(4);--%>
 
-    }
-    function IsFullScreen(){
-        document.getElementById("PageOfficeCtrl1").FullScreen = !document.getElementById("PageOfficeCtrl1").FullScreen;
+<%--    }--%>
+<%--    function IsFullScreen(){--%>
+<%--        document.getElementById("PageOfficeCtrl1").FullScreen = !document.getElementById("PageOfficeCtrl1").FullScreen;--%>
 
-    }
-    function CloseFile(){
-        window.external.close();
-    }
+<%--    }--%>
+<%--    function CloseFile(){--%>
+<%--        window.external.close();--%>
+<%--    }--%>
 
-    function BeforeBrowserClosed(){
-        if (document.getElementById("PageOfficeCtrl1").IsDirty){
-            if(confirm("提示：文档已被修改，是否继续关闭放弃保存 ？"))
-            {
-                return  true;
+<%--    function BeforeBrowserClosed(){--%>
+<%--        if (document.getElementById("PageOfficeCtrl1").IsDirty){--%>
+<%--            if(confirm("提示：文档已被修改，是否继续关闭放弃保存 ？"))--%>
+<%--            {--%>
+<%--                return  true;--%>
 
-            }else{
+<%--            }else{--%>
 
-                return  false;
-            }
+<%--                return  false;--%>
+<%--            }--%>
 
-        }
-    }
+<%--        }--%>
+<%--    }--%>
 
-    // 隐藏/显示 标题栏
-    function Button1_onclick() {
-        var bVisible = document.getElementById("PageOfficeCtrl1").Titlebar;
-        document.getElementById("PageOfficeCtrl1").Titlebar = !bVisible;
-    }
+<%--    // 隐藏/显示 标题栏--%>
+<%--    function Button1_onclick() {--%>
+<%--        var bVisible = document.getElementById("PageOfficeCtrl1").Titlebar;--%>
+<%--        document.getElementById("PageOfficeCtrl1").Titlebar = !bVisible;--%>
+<%--    }--%>
 
-    // 隐藏/显示 菜单栏
-    function Button2_onclick() {
-        var bVisible = document.getElementById("PageOfficeCtrl1").Menubar;
-        document.getElementById("PageOfficeCtrl1").Menubar = !bVisible;
-    }
+<%--    // 隐藏/显示 菜单栏--%>
+<%--    function Button2_onclick() {--%>
+<%--        var bVisible = document.getElementById("PageOfficeCtrl1").Menubar;--%>
+<%--        document.getElementById("PageOfficeCtrl1").Menubar = !bVisible;--%>
+<%--    }--%>
 
 
-    // 隐藏/显示 自定义工具栏
-    function Button3_onclick() {
-        var bVisible = document.getElementById("PageOfficeCtrl1").CustomToolbar;
-        document.getElementById("PageOfficeCtrl1").CustomToolbar = !bVisible;
-    }
-    // 隐藏/显示 Office工具栏
-    function Button4_onclick() {
-        var bVisible = document.getElementById("PageOfficeCtrl1").OfficeToolbars;
-        document.getElementById("PageOfficeCtrl1").OfficeToolbars = !bVisible;
-    }
+<%--    // 隐藏/显示 自定义工具栏--%>
+<%--    function Button3_onclick() {--%>
+<%--        var bVisible = document.getElementById("PageOfficeCtrl1").CustomToolbar;--%>
+<%--        document.getElementById("PageOfficeCtrl1").CustomToolbar = !bVisible;--%>
+<%--    }--%>
+<%--    // 隐藏/显示 Office工具栏--%>
+<%--    function Button4_onclick() {--%>
+<%--        var bVisible = document.getElementById("PageOfficeCtrl1").OfficeToolbars;--%>
+<%--        document.getElementById("PageOfficeCtrl1").OfficeToolbars = !bVisible;--%>
+<%--    }--%>
 </script>
 <script>
     $(document).ready(function () {
@@ -158,24 +160,18 @@
                         "state", "types", "wholerow"],//types：设置样式，contextmenu：右键菜单可用
                     "types":{
                         "default":{
-                        	"a_attr":{
-                                "style":"color:red"
-                           },
                             "icon": "fa fa-folder tree-item-icon-color icon-lg"
                         },
                         "1":{
-                        	"a_attr":{
-                                "style":"color:blue"
-                           },
+
                             "icon": "fa fa-folder tree-item-icon-color icon-lg"
                         },
                         "2":{
-                            "icon":"fa fa-file tree-item-icon-color icon-lg",
                             "a_attr":{
-                                "style":"color:black"
-                            }
+                                "style":"color:red"
+                            },
+                            "icon":"fa fa-file tree-item-icon-color icon-lg",
 
-                            
                         },
                         "3":{
                             "icon":"fa fa-file tree-item-icon-color icon-lg"
@@ -265,6 +261,7 @@
                                         // alert("删除分类");
                                         var inst = jQuery.jstree.reference(obj.reference);
                                         var clickedNode = inst.get_node(obj.reference);
+                                        //inst.delete_node(clickedNode);
                                         // var result = inst.delete_node(clickedNode);
                                         var r =confirm("确认删除？");
                                         if(r==true){
@@ -273,13 +270,16 @@
                                                 {
                                                     id:clickedNode.id
                                                 },
-                                                function(){
+                                                function(data){
+                                                //alert(data);
+                                                    //inst.delete_node(inst.get_selected());
+                                                    //重新建树
+                                                    $('#using_json').jstree().destroy();
+                                                    tzs.index.doCreateTree();
+                                                    //return;
                                                 }
                                             );
-                                            inst.delete_node(obj.reference);
-                                            //重新建树
-                                            $('#using_json').jstree().destroy();
-                                            tzs.index.doCreateTree();
+
 
                                         }
 

@@ -26,4 +26,6 @@ public interface TemplateService {
     void nodeUpdate(int tid,String text);
 
     void nodeUpdatePid(int tid,int pid);
+
+    void UpdateTtype(int tid);
 }
