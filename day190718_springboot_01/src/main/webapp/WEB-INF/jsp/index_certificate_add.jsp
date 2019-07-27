@@ -102,10 +102,6 @@
                             "icon":"fa fa-file tree-item-icon-color icon-lg"
                         }
                     }
-                    // "contextmenu":{
-                    //     "items":customMenu,
-                    //     "ccp":true
-                    // }
                 })
             });
 
