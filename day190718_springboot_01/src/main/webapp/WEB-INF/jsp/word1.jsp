@@ -11,10 +11,10 @@
     <title>Title</title>
 </head>
 <body>
-<input id="Button1" type="button" value="隐藏/显示 标题栏"  οnclick="return Button1_onclick()" />
-<input id="Button2" type="button" value="隐藏/显示 菜单栏" οnclick="return Button2_onclick()" />
-<input id="Button3" type="button" value="隐藏/显示 自定义工具栏"  οnclick="return Button3_onclick()" />
-<input id="Button4" type="button" value="隐藏/显示 Office工具栏"  οnclick="return Button4_onclick()" />
+<input id="Button1" type="button" value="隐藏/显示 标题栏"  onclick="return Button1_onclick()" />
+<input id="Button2" type="button" value="隐藏/显示 菜单栏" onclick="return Button2_onclick()" />
+<input id="Button3" type="button" value="隐藏/显示 自定义工具栏"  onclick="return Button3_onclick()" />
+<input id="Button4" type="button" value="隐藏/显示 Office工具栏"  onclick="return Button4_onclick()" />
 <div style="width:1000px;height:700px;" >${pageoffice}</div>
 <script type="text/javascript">
 
