@@ -1,5 +1,28 @@
-class LogicItem{
+function downloadExcel() {
 
+    var form = $("<form>");
+    form.attr("style","display:none");
+    form.attr("target","");
+    form.attr("method","post");
+    form.attr("action","/downloadExcel");
+    var input1 = $("<input>");
+    input1.attr("type","hidden");
+    input1.attr("name","actionName");
+    input1.attr("value","downloadtheExcel");
+    $("body").append(form);
+    form.append(input1);
+    form.submit();
+    form.remove();
+}
+
+function delCertificate(cid) {
+    var r=confirm("确认删除？");
+    if (r==true){
+        $.get("/delCertificateByCid",{'cid':cid},function (data) {
+            var $table = $('#table');
+            $table.bootstrapTable('load',data);
+        })
+    }
 }
 
 function queryCertificatesByLogic() {
@@ -12,6 +35,40 @@ function queryCertificatesByLogic() {
     }
     else {
 
+        //判断是否有select没有选择，或检索词为空
+        //若有，则按默认查询 ‘一个月/所有’ 的数据
+        var logicarr=$('.logicarr');
+        $(logicarr).each(function () {
+
+            if ($(this).attr('id') == "firstlogic") {
+                var selectlogics = $(this).find(".selectlogic");
+                var s1 = $(selectlogics)[0];
+                var s2 = $(selectlogics)[1];
+                var s3 = $(selectlogics)[2];
+                if (s1.selectedIndex == 0 || s2.selectedIndex == 0 || $(s3).val() == "" || $(s3).val().replace(/\s/g, '') == '') {
+                    $.get('/getCertificatesDataJSON', function (data) {
+                        var $table = $('#table');
+                        $table.bootstrapTable('load', data);
+                    });
+                    return;
+                }
+            }else {
+                var selectlogics=$(this).find(".selectlogic");
+                var s0=$(selectlogics)[0]
+                var s1=$(selectlogics)[1]
+                var s2=$(selectlogics)[2]
+                var s3=$(selectlogics)[3]
+                if (s0.selectedIndex==0||s1.selectedIndex == 0 || s2.selectedIndex == 0 || $(s3).val() == "" || $(s3).val().replace(/\s/g, '') == '') {
+                    $.get('/getCertificatesDataJSON', function (data) {
+                        var $table = $('#table');
+                        $table.bootstrapTable('load', data);
+                    });
+                    return;
+                }
+            }
+        })
+
+
         var logiclist = [];
         // var j = {};
         var logicarr=$('.logicarr');
@@ -19,9 +76,9 @@ function queryCertificatesByLogic() {
 
             if ($(this).attr('id')=="firstlogic") {
                 var selectlogics=$(this).find(".selectlogic");
-                var s1=$(selectlogics)[0]
-                var s2=$(selectlogics)[1]
-                var s3=$(selectlogics)[2]
+                var s1=$(selectlogics)[0];
+                var s2=$(selectlogics)[1];
+                var s3=$(selectlogics)[2];
                 var item = {};
 
                 //逻辑
@@ -31,7 +88,7 @@ function queryCertificatesByLogic() {
                 //比较
                 item.com=$(s2).val();
                 //检索词
-                item.term=$(s3).val();
+                item.term=$.trim($(s3).val());
                 logiclist.push(item);
 
             } else {
@@ -49,7 +106,7 @@ function queryCertificatesByLogic() {
                 //比较
                 item.com=$(s2).val();
                 //检索词
-                item.term=$(s3).val();
+                item.term=$.trim($(s3).val());
                 logiclist.push(item);
             }
         })
@@ -92,12 +149,12 @@ $(function () {
         $('#logictrs').append('<tr class="logicarr">\n' +
             '                            <td>' +
             '<select class="form-control selectlogic">\n' +
-            '                                    <option selected="selected" disabled>请选择</option>\n' +
+            '                                    <option selected="selected">请选择</option>\n' +
             '                                    <option value="and">而且</option>\n' +
             '                                    <option value="or">或者</option>\n' +
             '                                </select></td>\n' +
             '                            <td><select class="form-control selectlogic">\n' +
-            '                                <option selected="selected" disabled>请选择</option>\n' +
+            '                                <option selected="selected">请选择</option>\n' +
             '                                <option value="cnumber">证书编号</option>\n' +
             '                                <option value="ccompany">证书单位</option>\n' +
             // '                                <option value="ctoolname">器具名称</option>\n' +
@@ -114,7 +171,7 @@ $(function () {
             '                            </td>\n' +
             '                            <td>\n' +
             '                                <select class="form-control selectlogic">\n' +
-            '                                <option selected="selected" disabled>请选择</option>\n' +
+            '                                <option selected="selected">请选择</option>\n' +
             '                                <option value="like">包含</option>\n' +
             '                                <option value="=">等于</option>\n' +
             // '                                <option value=">">大于</option>\n' +

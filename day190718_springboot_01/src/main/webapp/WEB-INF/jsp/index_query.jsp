@@ -53,7 +53,7 @@
 
                             </td>
                             <td><select class="form-control selectlogic">
-                                <option selected="selected" disabled>请选择</option>
+                                <option selected="selected">请选择</option>
                                 <option value="cnumber">证书编号</option>
                                 <option value="ccompany">证书单位</option>
                           <%--      <option value="ctoolname">器具名称</option>
@@ -68,7 +68,7 @@
                                 <option value="cprintdate">打印日期</option>--%>
                             </select></td>
                             <td><select class="form-control selectlogic">
-                                <option selected="selected" disabled>请选择</option>
+                                <option selected="selected">请选择</option>
                                 <option value="like">包含</option>
                                 <option value="=">等于</option>
                                <%-- <option value=">">大于</option>
@@ -99,7 +99,7 @@
 
                     <div class="row text-center">
                         <button class="btn btn-primary" onclick="queryCertificatesByLogic()">查询</button>
-                        <button class="btn btn-info" onclick="alert('123')">导出</button>
+                        <button class="btn btn-info" onclick="downloadExcel()">导出</button>
                     </div>
                 </div>
             </div>

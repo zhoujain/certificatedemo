@@ -11,6 +11,7 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.tomcat.util.http.fileupload.FileUtils;
+import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -33,32 +35,64 @@ import static java.lang.System.out;
 @Controller
 public class CertificateController {
     SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+
+
     @Resource(name = "certificateService")
     private CertificateService certificateService;
-
     @Resource(name = "userService")
     private UserService userService;
-
     @RequestMapping("/index_query")
     public String to_index_query() {
         return "index_query";
     }
-
     @RequestMapping("/index_add")
     public String to_index_add() {
         return "index_add";
     }
-
     @RequestMapping("/getCertificatesDataJSON")
+
+    /**
+     * 查询全部的Certificate数据以json字符串形式返回
+     */
     @ResponseBody
-    public List<CertificateVo> getCertificatesDataJSON() {
+    public List<CertificateVo> getCertificatesDataJSON(HttpSession session) {
+        /*因为前端所需要的表格数据的一些列名与后台直接查询所得数据中的字段不对应
+        所以需要转换一些字段名及对应的数据*/
         List<CertificateVo> certificateVoList = new ArrayList<>();
+        //因为本次是全部查询，所以将session里的where对应的值置为“特殊值”，该特殊值的意义在于表示查询所有Certificate数据
+        //session里的where是为了在后台导出查询所得表格数据而准备的
+        session.setAttribute("where","queryAllCertificates");
         List<Certificate> certificateList=certificateService.queryAllCertificates();
+        //这里开始循环原列表进行转换
         for (Certificate c : certificateList) {
             String uname=userService.usernameByUid(c.getUid());
             String puname=userService.usernameByUid(c.getPuid());
-            certificateVoList.add(new CertificateVo(c.getCid(),c.getCnumber(),c.getCcompany(),c.getCtoolname(),c.getCmodel(),c.getCoutnumber(),c.getCmanufacturer(),c.getCdelegate(),df.format(c.getCcheckdate()).toString(),c.getCcheckdepartment(),uname,puname,df.format(c.getCprintdate()).toString(),c.getCmoney(),"<a>删除</a><a>详细</a>"));
+            certificateVoList.add(new CertificateVo(c.getCid(),c.getCnumber(),c.getCcompany(),c.getCtoolname(),c.getCmodel(),c.getCoutnumber(),c.getCmanufacturer(),c.getCdelegate(),df.format(c.getCcheckdate()).toString(),c.getCcheckdepartment(),uname,puname,df.format(c.getCprintdate()).toString(),c.getCmoney(),"<button onclick=\"\" style=\"border:1px solid blue;color:blue\">详细</button>&nbsp;<button onclick=\"delCertificate("+c.getCid()+")\" style=\"border:1px solid red;color:red\">删除</button>"));
+        }
+        //返回时转为json返回到前端
+        return certificateVoList;
+    }
 
+    @RequestMapping("/delCertificateByCid")
+    @ResponseBody
+    public List<CertificateVo> delCertificateByCid(Integer cid,HttpSession session){
+
+        certificateService.delCertificateByCid(cid);
+
+        List<CertificateVo> certificateVoList=new ArrayList<>();
+
+        String where = (String) session.getAttribute("where");
+        List<Certificate> certificateList;
+        //进行判断，两种情况。一种查询全部，一种按条件查询
+        if (where.equals("queryAllCertificates")){
+            certificateList=certificateService.queryAllCertificates();
+        }else {
+            certificateList = certificateService.queryCertificatesByLogics(where);
+        }
+        for (Certificate c : certificateList) {
+            String uname=userService.usernameByUid(c.getUid());
+            String puname=userService.usernameByUid(c.getPuid());
+            certificateVoList.add(new CertificateVo(c.getCid(),c.getCnumber(),c.getCcompany(),c.getCtoolname(),c.getCmodel(),c.getCoutnumber(),c.getCmanufacturer(),c.getCdelegate(),df.format(c.getCcheckdate()).toString(),c.getCcheckdepartment(),uname,puname,df.format(c.getCprintdate()).toString(),c.getCmoney(),"<button onclick=\"\" style=\"border:1px solid blue;color:blue\">详细</button>&nbsp;<button onclick=\"delCertificate("+c.getCid()+")\" style=\"border:1px solid red;color:red\">删除</button>"));
         }
         return certificateVoList;
     }
@@ -70,11 +104,11 @@ public class CertificateController {
      */
     @RequestMapping("/getCertificatesDataJSONByLogics")
     @ResponseBody
-    public List<CertificateVo> getCertificatesDataJSONByLogics(@RequestBody List<QueryCertificateLogics> logicsList) {
+    public List<CertificateVo> getCertificatesDataJSONByLogics(@RequestBody List<QueryCertificateLogics> logicsList, HttpSession session) {
         List<CertificateVo> certificateVoList = new ArrayList<>();
 
         String where="where ";
-        //拼接字符串
+        //根据从前端所得查询逻辑拼接字符串
         for (QueryCertificateLogics logics : logicsList) {
             if (logics.getCom().equals("like")){
                 if (logics.getLg().equals("firstlg")){
@@ -93,11 +127,13 @@ public class CertificateController {
                 }
             }
         }
+        session.setAttribute("where",where);
         List<Certificate> certificateList=certificateService.queryCertificatesByLogics(where);
+        //将一些字段换为前端所需要的字段
         for (Certificate c : certificateList) {
             String uname=userService.usernameByUid(c.getUid());
             String puname=userService.usernameByUid(c.getPuid());
-            certificateVoList.add(new CertificateVo(c.getCid(),c.getCnumber(),c.getCcompany(),c.getCtoolname(),c.getCmodel(),c.getCoutnumber(),c.getCmanufacturer(),c.getCdelegate(),df.format(c.getCcheckdate()).toString(),c.getCcheckdepartment(),uname,puname,df.format(c.getCprintdate()).toString(),c.getCmoney(),"<a>删除</a><a>详细</a>"));
+            certificateVoList.add(new CertificateVo(c.getCid(),c.getCnumber(),c.getCcompany(),c.getCtoolname(),c.getCmodel(),c.getCoutnumber(),c.getCmanufacturer(),c.getCdelegate(),df.format(c.getCcheckdate()).toString(),c.getCcheckdepartment(),uname,puname,df.format(c.getCprintdate()).toString(),c.getCmoney(),"<button style=\"border:1px solid blue;color:blue\">详细</button>&nbsp;<button style=\"border:1px solid red;color:red\">删除</button>"));
         }
         return certificateVoList;
     }
@@ -115,9 +151,32 @@ public class CertificateController {
         }
     }*/
 
+    /**
+     * 响应前台的下载请求，读取session里的查询条件并将结果回馈前端进行下载
+     * @param session
+     * @return
+     * @throws IOException
+     */
     @RequestMapping("/downloadExcel")
-    public ResponseEntity<byte[]> downloadExcel(@RequestBody List<CertificateVo> certificateVoList) throws IOException {
+    public ResponseEntity<byte[]> downloadExcel(HttpSession session) throws IOException {
 
+        List<CertificateVo> certificateVoList=new ArrayList<>();
+
+        String where = (String) session.getAttribute("where");
+        List<Certificate> certificateList;
+        //进行判断，两种情况。一种查询全部，一种按条件查询
+        if (where.equals("queryAllCertificates")){
+            certificateList=certificateService.queryAllCertificates();
+        }else {
+            certificateList = certificateService.queryCertificatesByLogics(where);
+        }
+        for (Certificate c : certificateList) {
+            String uname=userService.usernameByUid(c.getUid());
+            String puname=userService.usernameByUid(c.getPuid());
+            certificateVoList.add(new CertificateVo(c.getCid(),c.getCnumber(),c.getCcompany(),c.getCtoolname(),c.getCmodel(),c.getCoutnumber(),c.getCmanufacturer(),c.getCdelegate(),df.format(c.getCcheckdate()).toString(),c.getCcheckdepartment(),uname,puname,df.format(c.getCprintdate()).toString(),c.getCmoney(),"1"));
+        }
+
+        //将查询所得的列表通过poi转为byte[]
         byte[] bytes = new byte[0];
         try {
             bytes=excelWrite(certificateVoList);
@@ -129,9 +188,8 @@ public class CertificateController {
         String fileName=df.format(new Date());
 
         HttpHeaders headers = new HttpHeaders();
-
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-        headers.setContentDispositionFormData("attachment", fileName);
+        headers.setContentDispositionFormData("attachment", fileName+".xls");
 
         return new ResponseEntity<byte[]>(bytes,headers, HttpStatus.CREATED);
     }
@@ -242,34 +300,4 @@ public class CertificateController {
         return b;
     }
 
-
-    /**
-     * 文件对象转byte[]数组
-     * @param file
-     * @return*/
-    /*public static byte[] fileToByteArray(File file) {
-
-        byte[] buffer = null;
-        FileInputStream fis;
-        try {
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            fis = new FileInputStream(file);
-            byte[] b = new byte[1024];
-            int n;
-            while ((n = fis.read(b)) != -1) {
-                bos.write(b, 0, n);
-            }
-            fis.close();
-            bos.close();
-            buffer = bos.toByteArray();
-            if(file.exists()) {
-                file.delete();
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }catch (IOException e) {
-            e.printStackTrace();
-        }
-        return buffer;
-    }*/
 }

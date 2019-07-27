@@ -20,33 +20,33 @@
     <select id="queryUserList" resultType="User">
         select
         *
-        from tb_user
+        from tb_user where ustate = 1
     </select>
 
     <select id="findUserByUsername" resultType="User">
         select
         *
         from tb_user
-        where username = #{username}
+        where username = #{username} and ustate=1
     </select>
 
     <select id="findUserByUid" resultType="User">
         select
         *
         from tb_user
-        where uid = #{uid}
+        where uid = #{uid} and ustate=1
     </select>
 
     <select id="findUpwdByUsername" resultType="String">
         select
         upwd
         from tb_user
-        where username=#{username}
+        where username=#{username} and ustate=1
     </select>
 
     <insert id="insertUser">
         insert into tb_user (username,upwd,utid,uaccess,ustate)
-        values (#{username},#{upwd},#{utid},#{uaccess},1)
+        values (#{username},#{upwd},3,"1&amp;2&amp;5&amp;6&amp;7&amp;8&amp;9&amp;3&amp;4&amp;10&amp;11&amp;13&amp;14",1)
     </insert>
 
     <update id="deleteUser">

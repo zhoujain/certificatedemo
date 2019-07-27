@@ -3,14 +3,14 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zhoujian.dao.CertificateMapper">
     <select id="getAllCertificates" resultType="Certificate">
-        select * from tb_certificate
+        select * from tb_certificate where cisdel!=0
     </select>
     <select id="getCertificateById" resultType="com.zhoujian.domain.Certificate" parameterType="Integer">
-        select * from tb_certificate where cid=#{id}
+        select * from tb_certificate where cid=#{id} and cisdel!=0
     </select>
 
     <select id="getCertificateByLogics" resultType="com.zhoujian.domain.Certificate" parameterType="String">
-        select * from tb_certificate ${value}
+        select * from tb_certificate ${value} and cisdel!=0
     </select>
 
 

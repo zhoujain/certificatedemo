@@ -23,4 +23,9 @@ public class CertificateServiceImpl implements CertificateService {
     public List<Certificate> queryCertificatesByLogics(String where) {
         return certificateMapper.getCertificateByLogics(where);
     }
+
+    @Override
+    public Integer delCertificateByCid(Integer cid) {
+        return certificateMapper.delCertificate(cid);
+    }
 }
