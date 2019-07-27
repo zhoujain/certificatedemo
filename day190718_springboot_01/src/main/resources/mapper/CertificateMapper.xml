@@ -25,4 +25,8 @@
     <update id="updateCertificate" parameterType="Certificate">
         update tb_certificate set cname=#{cname},cnumber=#{cnumber},ccompany=#{ccompany},ctoolname=#{ctoolname},cmodel=#{cmodel},coutnumber=#{coutnumber},cmanufacturer=#{cmanufacturer},cdelegate=#{cdelegate},ccheckdate=#{ccheckdate},ccheckdepartment=#{ccheckdepartment},uid=#{uid},puid=#{puid},cprintdate=#{cprintdate},cmoney=#{cmoney},tid=#{tid} where cid=#{cid}
     </update>
+
+    <select id="queryMaxCnumber" resultType="String">
+        SELECT cnumber FROM tb_certificate where cisdel!=0 order by cid desc limit 1
+    </select>
 </mapper>

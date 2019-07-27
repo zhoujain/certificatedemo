@@ -49,4 +49,6 @@ public interface CertificateMapper {
      * @return
      */
     List<Certificate> getCertificateByLogics(String where);
+
+    String queryMaxCnumber();
 }
