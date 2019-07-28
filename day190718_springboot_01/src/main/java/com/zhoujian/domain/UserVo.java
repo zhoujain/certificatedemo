@@ -4,21 +4,15 @@ public class UserVo {
     private Integer uid;
     private String username;
     private String usertype;
+    private String userstate;
     private String actions;
 
-    public String getActions() {
-        return actions;
-    }
-
-    public void setActions(String actions) {
-        this.actions = actions;
-    }
-
-    public UserVo(Integer uid, String username, String usertype, String actions) {
+    public UserVo(Integer uid, String username, String usertype, String userstate, String actions) {
         this.uid = uid;
         this.username = username;
         this.usertype = usertype;
-        this.actions=actions;
+        this.userstate = userstate;
+        this.actions = actions;
     }
 
     public UserVo() {
@@ -46,5 +40,21 @@ public class UserVo {
 
     public void setUsertype(String usertype) {
         this.usertype = usertype;
+    }
+
+    public String getUserstate() {
+        return userstate;
+    }
+
+    public void setUserstate(String userstate) {
+        this.userstate = userstate;
+    }
+
+    public String getActions() {
+        return actions;
+    }
+
+    public void setActions(String actions) {
+        this.actions = actions;
     }
 }

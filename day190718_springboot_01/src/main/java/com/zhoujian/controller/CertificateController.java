@@ -73,6 +73,11 @@ public class CertificateController {
         return certificateVoList;
     }
 
+    @RequestMapping("/index_update")
+    public String toIndex_Update(){
+        return "index_update";
+    }
+
     @RequestMapping("/delCertificateByCid")
     @ResponseBody
     public List<CertificateVo> delCertificateByCid(Integer cid,HttpSession session){

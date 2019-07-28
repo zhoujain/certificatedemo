@@ -92,15 +92,15 @@ public class UserController {
             switch (user.getUtid()){
                 case 1:
                     /*管理员*/
-                    userVoList.add(new UserVo(user.getUid(),user.getUsername(),"管理员","<a>修改</a>&nbsp;&nbsp;<a>删除</a>"));
+                    userVoList.add(new UserVo(user.getUid(),user.getUsername(),"管理员",user.getUstate()==1?"正常":"停用","<a>修改</a>&nbsp;&nbsp;<a>删除</a>"));
                     break;
                 case 2:
                     /*审核员*/
-                    userVoList.add(new UserVo(user.getUid(),user.getUsername(),"审核员","<a>修改</a>&nbsp;&nbsp;<a>删除</a>"));
+                    userVoList.add(new UserVo(user.getUid(),user.getUsername(),"审核员",user.getUstate()==1?"正常":"停用","<a>修改</a>&nbsp;&nbsp;<a>删除</a>"));
                     break;
                 case 3:
                     /*普通用户*/
-                    userVoList.add(new UserVo(user.getUid(),user.getUsername(),"普通用户","<a>修改</a>&nbsp;&nbsp;<a>删除</a>"));
+                    userVoList.add(new UserVo(user.getUid(),user.getUsername(),"普通用户",user.getUstate()==1?"正常":"停用","<a>修改</a>&nbsp;&nbsp;<a>删除</a>"));
                     break;
             }
         }
