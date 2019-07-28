@@ -34,32 +34,29 @@
 
             <div class="ibox">
                 <div class="ibox-title">
-                    <strong>按用户名查询</strong>
+                    添加和查询
                 </div>
                 <div class="ibox-content">
                     <div class="row">
-                        <div class="col-md-3"></div>
+                        <div class="col-md-3">
+
+                        </div>
                         <div class="col-md-3">
                             <div class="input-group">
                                 <span class="input-group-addon" id="unamelabel">用户名：</span>
-                                <input style="width: 200px" id="usernametext" type="text" class="form-control" placeholder="请输入用户名" aria-describedby="unamelabel">
+                                <input id="usernametext" type="text" class="form-control" placeholder="请输入用户名" aria-describedby="unamelabel">
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <button style="margin-left: 20px" onclick="queryUserByUsername()" class="btn btn-primary">查询</button>
+                        <div class="col-md-3">
+                            <button onclick="queryUserByUsername()" class="btn btn-primary">查询</button>
+                        </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-primary">添加用户</button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="ibox">
-                <div class="ibox-title">
-                    <strong>添加用户</strong>
-                </div>
-                <div class="ibox-content text-center">
-                    <button class="btn btn-primary">添加用户</button>
-                </div>
-            </div>
 
 
             <div class="ibox">
@@ -88,7 +85,8 @@
 <script src="../../js/content.min.js?v=1.0.0"></script>
 <script src="../../js/plugins/iCheck/icheck.min.js"></script>
 <script src="../../js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
-<script src="../../js/user_list.js" type="text/javascript"></script>
+<script src="../../js/layer/layer.js"></script>
+<script src="../../js/user_list.js"></script>
 
 </body>
 </html>
