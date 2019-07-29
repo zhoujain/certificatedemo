@@ -35,4 +35,10 @@ public class CertificateServiceImpl implements CertificateService {
         Integer maxCnum= Integer.parseInt(certificateMapper.queryMaxCnumber());
         return maxCnum;
     }
+
+    @Override
+    public Integer addCertificate(Certificate certificate){
+        Integer result = certificateMapper.addCertificate(certificate);
+        return certificate.getCid();
+    }
 }

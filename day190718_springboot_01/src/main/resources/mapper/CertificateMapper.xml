@@ -14,8 +14,9 @@
     </select>
 
 
-    <insert id="addCertificate" parameterType="Certificate">
-        insert into tb_certificate values (null ,#{cname},#{cnumber},#{ccompany},#{ctoolname},#{cmodel},#{coutnumber},#{cmanufacturer},#{cdelegate},#{ccheckdate},#{ccheckdepartment},#{uid},#{puid},#{cprintdate},#{cmoney},#{tid},#{cstate},1)
+    <insert id="addCertificate" useGeneratedKeys="true" keyProperty="cid">
+        insert into tb_certificate (cname,cnumber,ccompany,ctoolname,cmodel,coutnumber,cmanufacturer,cdelegate,ccheckdate,ccheckdepartment,uid,puid,cprintdate,cmoney,tid,cstate,cisdel)
+        values (#{cname},#{cnumber},#{ccompany},#{ctoolname},#{cmodel},#{coutnumber},#{cmanufacturer},#{cdelegate},#{ccheckdate},#{ccheckdepartment},#{uid},#{puid},#{cprintdate},#{cmoney},#{tid},#{cstate},1)
     </insert>
 
     <update id="delCertificate" parameterType="Integer">

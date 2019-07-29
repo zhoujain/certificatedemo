@@ -14,4 +14,6 @@ public interface CertificateService {
     Integer delCertificateByCid(Integer cid);
 
     public Integer queryMaxCnumber();
+
+    Integer addCertificate(Certificate certificate);
 }
