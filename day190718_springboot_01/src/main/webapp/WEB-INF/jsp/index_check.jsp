@@ -75,8 +75,8 @@
                     },
                     function (data) {
                         alert("进来了")
-                        $('#using_json').jstree().destroy();
-                        tzs.index.doCreateTree();
+                        var div_id = $("#div-id").attr("value");
+                       $('#'+div_id ).children("a").css({"color":"black"});
                     })
             }
         })
@@ -94,7 +94,7 @@
         event : function(){
         },
         doCreateTree : function(){
-            $.getJSON("/template/templateTree",function(rs){
+            $.getJSON("/template/templateTree?"+Date.UTC(new Date()),function(rs){
                 $('#using_json').jstree({
                     "core" : {
                         "mutiple" : false,//没有多选
