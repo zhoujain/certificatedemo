@@ -92,15 +92,15 @@ public class UserController {
             switch (user.getUtid()){
                 case 1:
                     /*管理员*/
-                    userVoList.add(new UserVo(user.getUid(),user.getUsername(),"管理员","<a>修改</a>&nbsp;&nbsp;<a>删除</a>"));
+                    userVoList.add(new UserVo(user.getUid(),user.getUsername(),"管理员",user.getUstate()==1?"正常":"停用","<button onclick=\"updateUser("+user.getUid()+")\" style=\"border:1px solid black;color:black\">修改</button>&nbsp;<button onclick=\"delUser("+user.getUid()+")\" style=\"border:1px solid red;color:red\">删除</button>"));
                     break;
                 case 2:
                     /*审核员*/
-                    userVoList.add(new UserVo(user.getUid(),user.getUsername(),"审核员","<a>修改</a>&nbsp;&nbsp;<a>删除</a>"));
+                    userVoList.add(new UserVo(user.getUid(),user.getUsername(),"审核员",user.getUstate()==1?"正常":"停用","<button onclick=\"updateUser("+user.getUid()+")\" style=\"border:1px solid black;color:black\">修改</button>&nbsp;<button onclick=\"delUser("+user.getUid()+")\" style=\"border:1px solid red;color:red\">删除</button>"));
                     break;
                 case 3:
                     /*普通用户*/
-                    userVoList.add(new UserVo(user.getUid(),user.getUsername(),"普通用户","<a>修改</a>&nbsp;&nbsp;<a>删除</a>"));
+                    userVoList.add(new UserVo(user.getUid(),user.getUsername(),"普通用户",user.getUstate()==1?"正常":"停用","<button onclick=\"updateUser("+user.getUid()+")\" style=\"border:1px solid black;color:black\">修改</button>&nbsp;<button onclick=\"delUser("+user.getUid()+")\" style=\"border:1px solid red;color:red\">删除</button>"));
                     break;
             }
         }
