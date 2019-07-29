@@ -90,11 +90,12 @@
                         </tbody>
                     </table>
 
-                    <div class="row">
-                        <div class="col-md-2 col-sm-2">
-                            <input id="isQueryAllCertificate" type="checkbox">查询所有证书
+                    <div class="row text-center">
+                        <div class="checkbox" style="font-size: 15px">
+                            <label>
+                                <input style="margin-top: 2px" id="isQueryAllCertificate" type="checkbox">查询所有证书
+                            </label>
                         </div>
-                        <div class="col-md-10 col-sm-10"></div>
                     </div>
 
                     <div class="row text-center">

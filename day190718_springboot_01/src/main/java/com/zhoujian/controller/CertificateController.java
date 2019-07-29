@@ -211,34 +211,35 @@ public class CertificateController {
         //创建表头
         HSSFRow tHeadRow = sheet.createRow(0);
         //创建表头的单元格
-        HSSFCell tHeadRow_1 = tHeadRow.createCell(0);
-        tHeadRow_1.setCellValue("序号");
-        HSSFCell tHeadRow_2 = tHeadRow.createCell(1);
+        HSSFCell tHeadRow_0 = tHeadRow.createCell(0);
+        tHeadRow_0.setCellValue("序号");
+        HSSFCell tHeadRow_1 = tHeadRow.createCell(1);
+        tHeadRow_1.setCellValue("委托单号");
+        HSSFCell tHeadRow_2 = tHeadRow.createCell(2);
         tHeadRow_2.setCellValue("证书编号");
-        HSSFCell tHeadRow_3 = tHeadRow.createCell(2);
+        HSSFCell tHeadRow_3 = tHeadRow.createCell(3);
         tHeadRow_3.setCellValue("证书单位");
-        HSSFCell tHeadRow_4 = tHeadRow.createCell(3);
+        HSSFCell tHeadRow_4 = tHeadRow.createCell(4);
         tHeadRow_4.setCellValue("器具名称");
-        HSSFCell tHeadRow_5 = tHeadRow.createCell(4);
+        HSSFCell tHeadRow_5 = tHeadRow.createCell(5);
         tHeadRow_5.setCellValue("型号规格");
-        HSSFCell tHeadRow_6 = tHeadRow.createCell(5);
+        HSSFCell tHeadRow_6 = tHeadRow.createCell(6);
         tHeadRow_6.setCellValue("出厂编号");
-        HSSFCell tHeadRow_7 = tHeadRow.createCell(6);
+        HSSFCell tHeadRow_7 = tHeadRow.createCell(7);
         tHeadRow_7.setCellValue("制造厂商");
-        HSSFCell tHeadRow_8 = tHeadRow.createCell(7);
-        tHeadRow_8.setCellValue("委托单号");
-        HSSFCell tHeadRow_9 = tHeadRow.createCell(8);
-        tHeadRow_9.setCellValue("检定日期");
-        HSSFCell tHeadRow_10 = tHeadRow.createCell(9);
-        tHeadRow_10.setCellValue("检测部门");
-        HSSFCell tHeadRow_11 = tHeadRow.createCell(10);
-        tHeadRow_11.setCellValue("添加人");
-        HSSFCell tHeadRow_12 = tHeadRow.createCell(11);
-        tHeadRow_12.setCellValue("打印人");
-        HSSFCell tHeadRow_13 = tHeadRow.createCell(12);
-        tHeadRow_13.setCellValue("打印日期");
-        HSSFCell tHeadRow_14 = tHeadRow.createCell(13);
-        tHeadRow_14.setCellValue("检测费");
+
+        HSSFCell tHeadRow_8 = tHeadRow.createCell(8);
+        tHeadRow_8.setCellValue("检定日期");
+        HSSFCell tHeadRow_9 = tHeadRow.createCell(9);
+        tHeadRow_9.setCellValue("检测部门");
+        HSSFCell tHeadRow_10 = tHeadRow.createCell(10);
+        tHeadRow_10.setCellValue("添加人");
+        HSSFCell tHeadRow_11 = tHeadRow.createCell(11);
+        tHeadRow_11.setCellValue("打印人");
+        HSSFCell tHeadRow_12 = tHeadRow.createCell(12);
+        tHeadRow_12.setCellValue("打印日期");
+        HSSFCell tHeadRow_13 = tHeadRow.createCell(13);
+        tHeadRow_13.setCellValue("检测费");
 
         int row_index=1;
         //写入主体内容：
@@ -251,25 +252,25 @@ public class CertificateController {
                         newCell.setCellValue(certificateVo.getCid());
                         break;
                     case 1:
-                        newCell.setCellValue(certificateVo.getCnumber());
+                        newCell.setCellValue(certificateVo.getCdelegate());
                         break;
                     case 2:
-                        newCell.setCellValue(certificateVo.getCcompany());
+                        newCell.setCellValue(certificateVo.getCnumber());
                         break;
                     case 3:
-                        newCell.setCellValue(certificateVo.getCtoolname());
+                        newCell.setCellValue(certificateVo.getCcompany());
                         break;
                     case 4:
-                        newCell.setCellValue(certificateVo.getCmodel());
+                        newCell.setCellValue(certificateVo.getCtoolname());
                         break;
                     case 5:
-                        newCell.setCellValue(certificateVo.getCoutnumber());
+                        newCell.setCellValue(certificateVo.getCmodel());
                         break;
                     case 6:
-                        newCell.setCellValue(certificateVo.getCmanfacturer());
+                        newCell.setCellValue(certificateVo.getCoutnumber());
                         break;
                     case 7:
-                        newCell.setCellValue(certificateVo.getCdelegate());
+                        newCell.setCellValue(certificateVo.getCmanfacturer());
                         break;
                     case 8:
                         newCell.setCellValue(certificateVo.getCcheckdate());
