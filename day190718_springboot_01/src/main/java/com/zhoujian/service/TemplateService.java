@@ -23,7 +23,7 @@ public interface TemplateService {
 
     void nodeDelete(int tid);
 
-    void nodeUpdate(int tid,String text);
+    void nodeUpdate(int tid,String text,String parent);
 
     void nodeUpdatePid(int tid,int pid);
 

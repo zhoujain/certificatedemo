@@ -108,9 +108,10 @@ public class TemplateServiceImpl implements TemplateService {
      * @param text
      */
     @Override
-    public void nodeUpdate(int tid, String text) {
+    public void nodeUpdate(int tid, String text,String parent) {
         Template template = templateMapper.getTemplateById(tid);
         template.setTname(text);
+        template.setTpid(Integer.valueOf(parent));
         templateMapper.editTemplate(template);
     }
 

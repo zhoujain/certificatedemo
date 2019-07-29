@@ -81,8 +81,18 @@ public class TemplateController {
     }
 
     @RequestMapping("/node_edit")
-    public void nodeEdit(@RequestParam(value = "id")Integer id,@RequestParam(value = "text")String text){
-        templateService.nodeUpdate(id,text);
+    public void nodeEdit(@RequestParam(value = "id")Integer id,@RequestParam(value = "text")String text,@RequestParam(value = "parent")String parent){
+        templateService.nodeUpdate(id,text,parent);
+    }
+
+    @RequestMapping("/node_edit_add")
+    public void nodeEditAdd(HttpServletRequest request, HttpServletResponse response,@RequestParam(value = "id")Integer id,@RequestParam(value = "text")String text,@RequestParam(value = "parent")String parent){
+        templateService.nodeUpdate(id,text,parent);
+        try {
+            createFile(request,response,id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @RequestMapping("/updateTtype")
@@ -122,20 +132,19 @@ public class TemplateController {
      * @param text
      * @param parent
      *
-     * @param type
+     * @param
      * @return
      */
     @RequestMapping("/node_add1_copy")
     @ResponseBody
-    public Integer nodeAdd1Copy(HttpServletRequest request, HttpServletResponse response,@RequestParam(value = "oldId")String oldid,@RequestParam(value = "text")String text,@RequestParam(value = "parent")String parent,@RequestParam(value = "type")String type){
-        JstreeVO jstreeVO = new JstreeVO();
+    public Integer nodeAdd1Copy(HttpServletRequest request, HttpServletResponse response,@RequestParam(value = "oldId")String oldid,@RequestParam(value = "id")Integer tid,@RequestParam(value = "text")String text,@RequestParam(value = "parent")String parent){
+        //JstreeVO jstreeVO = new JstreeVO();
         //jstreeVO.setId(id);
-        jstreeVO.setText(text);
-        jstreeVO.setParent(parent);
+        //jstreeVO.setText(text);
+        //jstreeVO.setParent(parent);
         //jstreeVO.setTurl(turl);
-        jstreeVO.setType(type);
         //System.out.println(jstreeVO);
-        Integer tid =templateService.nodeAdd(jstreeVO);
+        templateService.nodeUpdate(tid,text,parent);
         //System.out.println(tid);
         try {
              CopyFile(request,response,tid, Integer.parseInt(oldid));
