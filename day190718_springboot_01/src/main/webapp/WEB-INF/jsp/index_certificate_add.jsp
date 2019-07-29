@@ -111,7 +111,7 @@
                 //alert(selected.event.type);
                 if('click'==selected.event.type){
                     if(selected.node.type ==2){
-                        $("#aGo").attr("href","/openWordwithIDchanged?id="+selected.node.id);
+                        $("#aGo").attr("href","/openWordwithNumchanged?id="+selected.node.id);
                         //alert("/word1?text="+selected.node.text)
                         $("#aGo")[0].click();
                     }
