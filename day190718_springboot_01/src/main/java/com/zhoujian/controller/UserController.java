@@ -1,14 +1,11 @@
 package com.zhoujian.controller;
 
-import com.sun.deploy.net.HttpResponse;
-import com.sun.org.apache.regexp.internal.RE;
-import com.zhoujian.domain.CertificateVo;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import com.zhoujian.domain.Menu;
 import com.zhoujian.domain.User;
 import com.zhoujian.domain.UserVo;
 import com.zhoujian.service.MenuService;
 import com.zhoujian.service.UserService;
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,11 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.jws.soap.SOAPBinding;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -88,22 +83,70 @@ public class UserController {
         List<User> userList=userService.queryAllUser();
         List<UserVo> userVoList = new ArrayList<>();
 
+        String usertype="";
         for (User user : userList) {
             switch (user.getUtid()){
                 case 1:
                     /*管理员*/
-                    userVoList.add(new UserVo(user.getUid(),user.getUsername(),"管理员",user.getUstate()==1?"正常":"停用","<button onclick=\"updateUser("+user.getUid()+")\" style=\"border:1px solid black;color:black\">修改</button>&nbsp;<button onclick=\"delUser("+user.getUid()+")\" style=\"border:1px solid red;color:red\">删除</button>"));
+                    usertype="管理员";
                     break;
                 case 2:
                     /*审核员*/
-                    userVoList.add(new UserVo(user.getUid(),user.getUsername(),"审核员",user.getUstate()==1?"正常":"停用","<button onclick=\"updateUser("+user.getUid()+")\" style=\"border:1px solid black;color:black\">修改</button>&nbsp;<button onclick=\"delUser("+user.getUid()+")\" style=\"border:1px solid red;color:red\">删除</button>"));
+                    usertype="审核员";
                     break;
                 case 3:
                     /*普通用户*/
-                    userVoList.add(new UserVo(user.getUid(),user.getUsername(),"普通用户",user.getUstate()==1?"正常":"停用","<button onclick=\"updateUser("+user.getUid()+")\" style=\"border:1px solid black;color:black\">修改</button>&nbsp;<button onclick=\"delUser("+user.getUid()+")\" style=\"border:1px solid red;color:red\">删除</button>"));
+                    usertype="普通用户";
                     break;
             }
+            userVoList.add(new UserVo(user.getUid(),user.getUsername(),usertype,user.getUstate()==1?"正常":"<span style=\"color:red\">停用</span>","<button onclick=\"updateUser('"+user.getUsername()+"')\" data-toggle=\"modal\" data-target=\"#updateUserModal\" style=\"border:1px solid black;color:black\">修改</button>&nbsp;<button onclick=\"delUser("+user.getUid()+")\" style=\"border:1px solid red;color:red\">删除</button>"));
         }
+
+
+        return userVoList;
+    }
+
+    /**
+     * 根据具体用户名查询用户
+     * @param username
+     * @return
+     */
+    @RequestMapping("/getUserByUsername")
+    @ResponseBody
+    public User getUserByUsername(String username){
+        return userService.findUserByUsername(username);
+    }
+
+    /**
+     * 根据部分用户名模糊查询用户
+     * @param username
+     * @return
+     */
+    @RequestMapping("/getUserByLikeUsername")
+    @ResponseBody
+    public List<UserVo> getUserByLikeUsername(String username){
+        List<User> userList=userService.findUserByLikeUsername(username);
+        List<UserVo> userVoList = new ArrayList<>();
+
+        String usertype="";
+        for (User user : userList) {
+            switch (user.getUtid()){
+                case 1:
+                    /*管理员*/
+                    usertype="管理员";
+                    break;
+                case 2:
+                    /*审核员*/
+                    usertype="审核员";
+                    break;
+                case 3:
+                    /*普通用户*/
+                    usertype="普通用户";
+                    break;
+            }
+            userVoList.add(new UserVo(user.getUid(),user.getUsername(),usertype,user.getUstate()==1?"正常":"<span style=\"color:red\">停用</span>","<button onclick=\"updateUser('"+user.getUsername()+"')\" data-toggle=\"modal\" data-target=\"#updateUserModal\" style=\"border:1px solid black;color:black\">修改</button>&nbsp;<button onclick=\"delUser("+user.getUid()+")\" style=\"border:1px solid red;color:red\">删除</button>"));
+        }
+
 
         return userVoList;
     }
@@ -132,5 +175,21 @@ public class UserController {
         }
         menuHtml.append("</ul></li>");
         return menuHtml.toString();
+    }
+
+    @RequestMapping("/updateUser")
+    @ResponseBody
+    public Boolean updateUser(Integer uid, String username, Integer usertype, String upwd) {
+        User user=userService.findUserByUid(uid);
+        user.setUsername(username);
+        user.setUtid(usertype);
+        user.setUpwd(upwd);
+        switch (usertype){
+            case 1:user.setUaccess("1&2&5&6&7&8&9&3&4&10&11&12&13&14&15&16&17");break;
+            case 2:user.setUaccess("1&2&5&6&7&8&9&3&4&10&11&12&13&14");break;
+            case 3:user.setUaccess("1&2&5&6&8&9&3&4&10&11&13&14");break;
+        }
+        Boolean res = userService.updateUser(user);
+        return res;
     }
 }

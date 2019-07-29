@@ -20,14 +20,21 @@
     <select id="queryUserList" resultType="User">
         select
         *
-        from tb_user where ustate = 1
+        from tb_user
     </select>
 
     <select id="findUserByUsername" resultType="User">
         select
         *
         from tb_user
-        where username = #{username} and ustate=1
+        where username = #{username}
+    </select>
+
+    <select id="findUserByLikeUsername" parameterType="String" resultType="User">
+        select
+        *
+        from tb_user
+        where username like #{username}
     </select>
 
     <select id="findUserByUid" resultType="User">
@@ -55,7 +62,7 @@
     </update>
 
     <update id="updateUser">
-        update  tb_user
+        update tb_user
         set username=#{username},upwd=#{upwd},utid=#{utid},uaccess=#{uaccess},ustate=#{ustate}
         where uid=#{uid}
     </update>

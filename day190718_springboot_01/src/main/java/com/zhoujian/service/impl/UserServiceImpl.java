@@ -25,6 +25,22 @@ public class UserServiceImpl implements UserService {
         return userMapper.findUserByUsername(username);
     }
 
+    @Override
+    public Boolean updateUser(User user) {
+
+        return userMapper.updateUser(user);
+    }
+
+    @Override
+    public User findUserByUid(Integer uid) {
+        return userMapper.findUserByUid(uid);
+    }
+
+    @Override
+    public List<User> findUserByLikeUsername(String username) {
+        return userMapper.findUserByLikeUsername("%"+username+"%");
+    }
+
     /**
      * 用户名和密码验证
      * @param username
