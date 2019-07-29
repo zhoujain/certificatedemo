@@ -90,11 +90,12 @@
                         </tbody>
                     </table>
 
-                    <div class="row">
-                        <div class="col-md-2 col-sm-2">
-                            <input id="isQueryAllCertificate" type="checkbox">查询所有证书
+                    <div class="row text-center">
+                        <div class="checkbox" style="font-size: 15px">
+                            <label>
+                                <input style="margin-top: 2px" id="isQueryAllCertificate" type="checkbox">查询所有证书
+                            </label>
                         </div>
-                        <div class="col-md-10 col-sm-10"></div>
                     </div>
 
                     <div class="row text-center">
@@ -113,13 +114,14 @@
                         <thead>
                         <tr>
                             <th data-field="cid">序号</th>
+                            <th data-field="cdelegate">委托单号</th>
                             <th data-field="cnumber">证书编号</th>
                             <th data-field="ccompany">证书单位</th>
                             <th data-field="ctoolname">器具名称</th>
                             <th data-field="cmodel">型号规格</th>
                             <th data-field="coutnumber">出厂编号</th>
                             <th data-field="cmanfacturer">制造厂商</th>
-                            <th data-field="cdelegate">委托单号</th>
+
                             <th data-field="ccheckdate">检定日期</th>
                             <th data-field="ccheckdepartment">检测部门</th>
                             <th data-field="uname">添加人</th>

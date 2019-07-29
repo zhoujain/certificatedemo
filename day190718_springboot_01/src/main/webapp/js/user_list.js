@@ -31,12 +31,30 @@ function updateUser(username) {
 }
 
 function delUser(uid) {
-    alert(uid)
+    var r=confirm("确认删除？");
+    if (r===true) {
+        $.get('/delUserByUid', {'uid': uid}, function (res) {
+            if (res === true) {
+                alert("删除成功");
+                $.ajax({
+                    url: '/getUsersDataJSON',
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (res) {
+                        var $table = $('#table');
+                        $table.bootstrapTable('load', res);
+                    }
+                });
+            } else {
+                alert("修改失败")
+            }
+        })
+    }
 }
 
 function queryUserByLikeUsername() {
     var username = $.trim($('#usernametext').val());
-    if (username==""){
+    if (username===""){
         var $table = $('#table');
         $.ajax({
             url: '/getUsersDataJSON',
@@ -97,4 +115,8 @@ function commitUpdateUser() {
             }
         });
     }
+}
+
+function refreshUserList() {
+    queryUserByLikeUsername();
 }

@@ -28,4 +28,8 @@ public interface UserService {
     String uAccessByUsername(String username);
 
     String usernameByUid(Integer uid);
+
+    Boolean delUserByUid(Integer uid);
+
+    Boolean insertUser(User user);
 }
