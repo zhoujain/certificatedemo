@@ -12,4 +12,8 @@ public interface CertificateService {
     List<Certificate> queryCertificatesByLogics(String where);
 
     Integer delCertificateByCid(Integer cid);
+
+    public Integer queryMaxCnumber();
+
+    Integer addCertificate(Certificate certificate);
 }

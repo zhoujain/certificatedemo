@@ -27,7 +27,7 @@ public interface CertificateMapper {
      * @param certificate
      * @return
      */
-    Integer addCertificate(Certificate certificate);
+    int addCertificate(Certificate certificate);
 
     /**
      * 按id删除
@@ -49,4 +49,6 @@ public interface CertificateMapper {
      * @return
      */
     List<Certificate> getCertificateByLogics(String where);
+
+    String queryMaxCnumber();
 }

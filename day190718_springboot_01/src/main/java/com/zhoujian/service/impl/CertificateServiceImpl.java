@@ -3,6 +3,7 @@ package com.zhoujian.service.impl;
 import com.zhoujian.dao.CertificateMapper;
 import com.zhoujian.domain.Certificate;
 import com.zhoujian.service.CertificateService;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -27,5 +28,17 @@ public class CertificateServiceImpl implements CertificateService {
     @Override
     public Integer delCertificateByCid(Integer cid) {
         return certificateMapper.delCertificate(cid);
+    }
+
+    @Override
+    public Integer queryMaxCnumber(){
+        Integer maxCnum= Integer.parseInt(certificateMapper.queryMaxCnumber());
+        return maxCnum;
+    }
+
+    @Override
+    public Integer addCertificate(Certificate certificate){
+        Integer result = certificateMapper.addCertificate(certificate);
+        return certificate.getCid();
     }
 }
