@@ -34,25 +34,15 @@
 
             <div class="ibox">
                 <div class="ibox-title">
-                    添加和查询
+                    用户查询
                 </div>
                 <div class="ibox-content">
-                    <div class="row">
-                        <div class="col-md-3">
-
+                    <div class="form-inline text-center">
+                        <div class="input-group">
+                            <span class="input-group-addon" id="unamelabel">用户名：</span>
+                            <input id="usernametext" type="text" class="form-control" placeholder="请输入用户名" aria-describedby="unamelabel">
                         </div>
-                        <div class="col-md-3">
-                            <div class="input-group">
-                                <span class="input-group-addon" id="unamelabel">用户名：</span>
-                                <input id="usernametext" type="text" class="form-control" placeholder="请输入用户名" aria-describedby="unamelabel">
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <button onclick="queryUserByUsername()" class="btn btn-primary">查询</button>
-                        </div>
-                        <div class="col-md-3">
-                            <button class="btn btn-primary">添加用户</button>
-                        </div>
+                        <button style="margin-left: 20px" onclick="queryUserByLikeUsername()" class="btn btn-primary">查询</button>
                     </div>
                 </div>
             </div>
@@ -79,13 +69,78 @@
             </div>
         </div>
     </div>
+
+
 </div>
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="updateUserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title">
+                    修改用户信息
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <span class="input-group-addon">用户编号</span>
+                    <input id="uid" readonly="readonly" type="text" class="form-control">
+                </div>
+                <br>
+                <div class="input-group">
+                    <span class="input-group-addon">用户名</span>
+                    <input id="username" type="text" class="form-control">
+                </div>
+                <br>
+                <div class="input-group">
+                    <span class="input-group-addon">用户类型</span>
+                    <select id="usertype" type="text" class="form-control">
+                        <option value="1">管理员</option>
+                        <option value="2">审核员</option>
+                        <option value="3">普通用户</option>
+                    </select>
+                </div>
+                <br>
+                <%--<div class="input-group">
+                    <span class="input-group-addon">用户状态</span>
+                    <select id="ustate" type="text" class="form-control">
+                        <option value="1">正常</option>
+                        <option value="0">停用</option>
+                    </select>
+                </div>
+                <br>--%>
+                <div class="input-group">
+                    <span class="input-group-addon">密码</span>
+                    <input id="upwd" type="text" class="form-control">
+                </div>
+                <br>
+                <div class="input-group">
+                    <span class="input-group-addon">确认密码</span>
+                    <input id="upwd2" type="text" class="form-control">
+                </div>
+                <br>
+                <button class="btn btn-info" onclick="$('#upwd').val('');$('#upwd2').val('')" style="margin-left: 20px">清空密码</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">取消
+                </button>
+                <button onclick="commitUpdateUser()" type="button" class="btn btn-primary">
+                    提交修改
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
 <script src="../../js/jquery.min.js?v=2.1.4"></script>
 <script src="../../js/bootstrap.min.js?v=3.3.6"></script>
 <script src="../../js/content.min.js?v=1.0.0"></script>
 <script src="../../js/plugins/iCheck/icheck.min.js"></script>
 <script src="../../js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
-<script src="../../js/layer/layer.js"></script>
 <script src="../../js/user_list.js"></script>
 
 </body>

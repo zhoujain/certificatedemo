@@ -24,6 +24,13 @@ public interface UserMapper {
     User findUserByUsername(String username);
 
     /**
+     * 根据用户名模糊查询
+     * @param username
+     * @return
+     */
+    List<User> findUserByLikeUsername(String username);
+
+    /**
      * 添加用户
      */
     Boolean insertUser(User user);
@@ -40,6 +47,7 @@ public interface UserMapper {
      */
     User findUserByUid(Integer uid);
 
+
     /**
      * 根据username查询密码
      */
@@ -49,6 +57,8 @@ public interface UserMapper {
      * 修改用户
      */
     Boolean updateUser(User user);
+
+
 
 }
 

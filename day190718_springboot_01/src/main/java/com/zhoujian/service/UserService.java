@@ -1,7 +1,6 @@
 package com.zhoujian.service;
 
 import com.zhoujian.domain.User;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -15,6 +14,12 @@ public interface UserService {
      * @return
      */
     User findUserByUsername(String username);
+
+    Boolean updateUser(User user);
+
+    User findUserByUid(Integer uid);
+
+    List<User> findUserByLikeUsername(String username);
 
     Boolean loginUser(String username,String upwd);
 

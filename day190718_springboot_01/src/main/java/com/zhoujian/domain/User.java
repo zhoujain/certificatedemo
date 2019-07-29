@@ -10,6 +10,18 @@ public class User implements Serializable {
     private String uaccess;
     private int ustate;
 
+    public User(int uid, String username, String upwd, int utid, String uaccess, int ustate) {
+        this.uid = uid;
+        this.username = username;
+        this.upwd = upwd;
+        this.utid = utid;
+        this.uaccess = uaccess;
+        this.ustate = ustate;
+    }
+
+    public User() {
+    }
+
     public int getUid() {
         return uid;
     }
