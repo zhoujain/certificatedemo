@@ -113,13 +113,14 @@
                         <thead>
                         <tr>
                             <th data-field="cid">序号</th>
+                            <th data-field="cdelegate">委托单号</th>
                             <th data-field="cnumber">证书编号</th>
                             <th data-field="ccompany">证书单位</th>
                             <th data-field="ctoolname">器具名称</th>
                             <th data-field="cmodel">型号规格</th>
                             <th data-field="coutnumber">出厂编号</th>
                             <th data-field="cmanfacturer">制造厂商</th>
-                            <th data-field="cdelegate">委托单号</th>
+
                             <th data-field="ccheckdate">检定日期</th>
                             <th data-field="ccheckdepartment">检测部门</th>
                             <th data-field="uname">添加人</th>

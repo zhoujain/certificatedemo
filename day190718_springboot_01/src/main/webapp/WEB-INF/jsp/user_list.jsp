@@ -43,6 +43,7 @@
                             <input id="usernametext" type="text" class="form-control" placeholder="请输入用户名" aria-describedby="unamelabel">
                         </div>
                         <button style="margin-left: 20px" onclick="queryUserByLikeUsername()" class="btn btn-primary">查询</button>
+                        <button style="margin-left: 20px" onclick="refreshUserList()" class="btn btn-primary">刷新表格</button>
                     </div>
                 </div>
             </div>
@@ -79,7 +80,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                    &times;
+                    关闭
                 </button>
                 <h4 class="modal-title">
                     修改用户信息

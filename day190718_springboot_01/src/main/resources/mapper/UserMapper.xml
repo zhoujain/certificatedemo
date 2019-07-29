@@ -53,7 +53,7 @@
 
     <insert id="insertUser">
         insert into tb_user (username,upwd,utid,uaccess,ustate)
-        values (#{username},#{upwd},3,"1&amp;2&amp;5&amp;6&amp;7&amp;8&amp;9&amp;3&amp;4&amp;10&amp;11&amp;13&amp;14",1)
+        values (#{username},#{upwd},#{utid},#{uaccess},1)
     </insert>
 
     <update id="deleteUser">
