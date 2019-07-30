@@ -91,4 +91,16 @@ public class UserServiceImpl implements UserService {
         }
         return null;
     }
+
+    @Override
+    public Boolean delUserByUid(Integer uid) {
+        return userMapper.deleteUser(uid);
+    }
+
+    @Override
+    public Boolean insertUser(User user) {
+        return userMapper.insertUser(user);
+    }
+
+
 }

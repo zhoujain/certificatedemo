@@ -192,4 +192,38 @@ public class UserController {
         Boolean res = userService.updateUser(user);
         return res;
     }
+
+    @RequestMapping("/delUserByUid")
+    @ResponseBody
+    public Boolean delUserByUid(Integer uid){
+        Boolean res=userService.delUserByUid(uid);
+        return res;
+    }
+
+    @RequestMapping("/insertUser")
+    @ResponseBody
+    public String insertUser(String username,Integer usertype, String upwd){
+        try {
+            User user=userService.findUserByUsername(username);
+            if (user!=null){
+                return "该用户名已存在，请更改用户名";
+            }
+        }catch (Exception ex){
+            return "该用户名已存在，请更改用户名";
+        }
+
+        String uaccess = "1&2&5&6&8&9&3&4&10&11&13&14";
+        switch (usertype){
+            case 1:uaccess="1&2&5&6&7&8&9&3&4&10&11&12&13&14&15&16&17";break;
+            case 2:uaccess="1&2&5&6&7&8&9&3&4&10&11&12&13&14";break;
+            case 3:uaccess="1&2&5&6&8&9&3&4&10&11&13&14";break;
+        }
+        Boolean res=userService.insertUser(new User(1,username,upwd,usertype,uaccess,1));
+        return res.toString();
+    }
+
+    @RequestMapping("/user_add")
+    public String to_user_add(){
+        return "user_add";
+    }
 }

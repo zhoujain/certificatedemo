@@ -22,6 +22,7 @@
     <link href="../../css/plugins/jsTree/style.min.css" rel="stylesheet">
     <link href="../../css/animate.min.css" rel="stylesheet">
     <link href="../../css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <link href="../../js/plugins/layer/theme/default/layer.css" rel="stylesheet">
 </head>
 <body class="gray-bg">
 <div class="wrapper wrapper-content">
@@ -51,13 +52,7 @@
 
         <div class="col-sm-9 animated fadeInRight">
             <iframe name="mainFrame" width="100%" height="600px" frameborder="0">
-                <div>
-<%--                    <input id="Button1" class="btn btn-primary" type="button" value="隐藏/显示 标题栏"  onclick="return Button1_onclick()" />--%>
-<%--                    <input id="Button2" class="btn btn-info" type="button" value="隐藏/显示 菜单栏" onclick="return Button2_onclick()" />--%>
-<%--                    <input id="Button3" type="button" value="隐藏/显示 自定义工具栏"  onclick="return Button3_onclick()" />--%>
-<%--                    <input id="Button4" type="button" value="隐藏/显示 Office工具栏"  onclick="return Button4_onclick()" />--%>
-                    <div style="width:500px;height:350px;" ></div>
-                </div>
+
             </iframe>
 
         </div>
@@ -68,61 +63,7 @@
 <script src="../../js/content.min.js?v=1.0.0"></script>
 <script src="../../js/plugins/iCheck/icheck.min.js"></script>
 <script src="../../js/plugins/jsTree/jstree.min.js"></script>
-<!--文本框-->
-<script type="text/javascript">
-
-    function Save() {
-        document.getElementById("PageOfficeCtrl1").WebSave();
-    }
-    function PrintFile(){
-        document.getElementById("PageOfficeCtrl1").ShowDialog(4);
-
-    }
-    function IsFullScreen(){
-        document.getElementById("PageOfficeCtrl1").FullScreen = !document.getElementById("PageOfficeCtrl1").FullScreen;
-
-    }
-    function CloseFile(){
-        window.external.close();
-    }
-
-    function BeforeBrowserClosed(){
-        if (document.getElementById("PageOfficeCtrl1").IsDirty){
-            if(confirm("提示：文档已被修改，是否继续关闭放弃保存 ？"))
-            {
-                return  true;
-
-            }else{
-
-                return  false;
-            }
-
-        }
-    }
-
-    // 隐藏/显示 标题栏
-    function Button1_onclick() {
-        var bVisible = document.getElementById("PageOfficeCtrl1").Titlebar;
-        document.getElementById("PageOfficeCtrl1").Titlebar = !bVisible;
-    }
-
-    // 隐藏/显示 菜单栏
-    function Button2_onclick() {
-        var bVisible = document.getElementById("PageOfficeCtrl1").Menubar;
-        document.getElementById("PageOfficeCtrl1").Menubar = !bVisible;
-    }
-
-
-    // 隐藏/显示 自定义工具栏
-    function Button3_onclick() {
-        var bVisible = document.getElementById("PageOfficeCtrl1").CustomToolbar;
-        document.getElementById("PageOfficeCtrl1").CustomToolbar = !bVisible;
-    }
-    // 隐藏/显示 Office工具栏
-    function Button4_onclick() {
-        var bVisible = document.getElementById("PageOfficeCtrl1").OfficeToolbars;
-        document.getElementById("PageOfficeCtrl1").OfficeToolbars = !bVisible;
-    }
+<script src="../../js/plugins/layer/layer.js"></script>
 </script>
 <script>
     $(document).ready(function () {
@@ -141,7 +82,7 @@
         event : function(){
         },
         doCreateTree : function(){
-            $.getJSON("/template/templateTree",function(rs){
+            $.getJSON("/template/templateTree?"+Date.UTC(new Date()),function(rs){
                 $('#using_json').jstree({
                     "core" : {
                         "mutiple" : false,//没有多选
@@ -158,24 +99,18 @@
                         "state", "types", "wholerow"],//types：设置样式，contextmenu：右键菜单可用
                     "types":{
                         "default":{
-                        	"a_attr":{
-                                "style":"color:red"
-                           },
                             "icon": "fa fa-folder tree-item-icon-color icon-lg"
                         },
                         "1":{
-                        	"a_attr":{
-                                "style":"color:blue"
-                           },
+
                             "icon": "fa fa-folder tree-item-icon-color icon-lg"
                         },
                         "2":{
-                            "icon":"fa fa-file tree-item-icon-color icon-lg",
                             "a_attr":{
-                                "style":"color:black"
-                            }
+                                "style":"color:red"
+                            },
+                            "icon":"fa fa-file tree-item-icon-color icon-lg",
 
-                            
                         },
                         "3":{
                             "icon":"fa fa-file tree-item-icon-color icon-lg"
@@ -192,8 +127,11 @@
             $('#using_json').on("changed.jstree",function (e,selected) {
                 //当前点击的对象的id
                 //alert(selected.event.type);
+                if(selected.event == undefined){
+                    return 0;
+                }
                 if('click'==selected.event.type){
-                    if(selected.node.type ==2){
+                    if(selected.node.type ==2 ||selected.node.type ==3){
                         $("#aGo").attr("href","/word1?id="+selected.node.id);
                         //alert("/word1?text="+selected.node.text)
                         $("#aGo")[0].click();
@@ -211,47 +149,69 @@
 									"add": {
                                 "label": "增加目录",
                                 "action": function (obj) {
-                                    var inst = jQuery.jstree.reference(obj.reference);
-                                    var clickedNode = inst.get_node(obj.reference);
-                                    var newNode = inst.create_node(inst.get_node(obj.reference), '请输入目录名称', "last", "", "");
-                                    inst.edit(newNode, newNode.val,function(){
-                                        //alert(newNode)
+                                    var ref = $('#using_json').jstree(true);
+                                    sel = ref.get_selected();
+                                    if(!sel.length){
+                                        return false;
+                                    }
+                                    sel = sel[0];
+                                    //获取id
+                                    var tree_id;
+                                    $.ajaxSettings.async = false;
+                                    $.post("/template/node_add",
 
-                                        var obj = this.get_node(newNode);
-                                        //alert(clickedNode.id);
-                                        //alert(obj.id);
-                                        //alert(obj.text);
+                                        {
+                                            id:1,
+                                            text:1,
+                                            parent:1,
+                                            type:"1",
+                                            turl:1
+                                        },
+                                        function(data){
+                                            //alert(data+" 111");
+                                            tree_id = data;
+                                        }
 
-                                        $.post("/template/node_add",
-                                            {
-                                                id:obj.id,
-                                                text:obj.text,
-                                                parent:clickedNode.id,
-                                                type:"1",
-                                                turl:"#"
-                                            },
-                                            function(data){
-                                                //alert(data);
-                                                $(inst.get_node(newNode)).attr("id",data);
-                                                $('#using_json').jstree().destroy();
-                                                tzs.index.doCreateTree();
-                                            }
-                                        );
-                                    });
+                                    );
+                                    $.ajaxSettings.async = true;
+                                    //alert(tree_id);
+                                    sel = ref.create_node(sel,{"type":"1","id":tree_id});
+                                    if(sel){
+                                        ref.edit(sel,sel.val,function () {
+                                            var obj = ref.get_node(sel);
+                                            ///alert(obj.id+" "+obj.text+" "+obj.parent);
+                                            $.post("/template/node_edit",
+                                                {
+                                                    id:obj.id,
+                                                    text:obj.text,
+                                                    parent:obj.parent
+                                                },
+                                                function(){
+
+                                                }
+                                            );
+                                        })
+                                    }
 
                                 }
                             },
 									"rename":{
                                     "label":"重命名",
                                     "action":function (obj) {
-                                        // alert("修改分类");
-                                        var inst = jQuery.jstree.reference(obj.reference);
-                                        var clickedNode = inst.get_node(obj.reference);
-                                        inst.edit(obj.reference,clickedNode.val,function () {
+
+                                        var ref = $('#using_json').jstree(true);
+                                        sel = ref.get_selected();
+                                        if(!sel.length){
+                                            return false;
+                                        }
+                                        sel = sel[0];
+                                        ref.edit(sel,sel.val,function () {
+                                            var obj = ref.get_node(sel);
                                             $.post("/template/node_edit",
                                                 {
-                                                    id:clickedNode.id,
-                                                    text:clickedNode.text,
+                                                    id:obj.id,
+                                                    text:obj.text,
+                                                    parent:obj.parent
                                                 },
                                                 function(){
                                                 }
@@ -262,130 +222,197 @@
 									 "delete":{
                                     "label":"删除",
                                     "action":function (obj) {
-                                        // alert("删除分类");
-                                        var inst = jQuery.jstree.reference(obj.reference);
-                                        var clickedNode = inst.get_node(obj.reference);
-                                        // var result = inst.delete_node(clickedNode);
-                                        var r =confirm("确认删除？");
-                                        if(r==true){
-                                            //alert(clickedNode.id);
-                                            $.post("/template/node_delete",
-                                                {
-                                                    id:clickedNode.id
-                                                },
-                                                function(){
-                                                }
-                                            );
-                                            inst.delete_node(obj.reference);
-                                            //重新建树
-                                            $('#using_json').jstree().destroy();
-                                            tzs.index.doCreateTree();
+                                        var ref = $('#using_json').jstree(true);
+                                        sel = ref.get_selected();
+                                        var p = ref.get_parent(sel);
+                                        var plength = $("#"+p).children.length;//目录下长度
+                                        //alert(sel.length);
+                                        //alert(plength);
+                                        if(!sel.length){
+                                            return false;
+                                        }
+                                        sel = sel[0];
+                                        if(plength ==0){
+                                            layer.confirm("这是唯一目录，确认要删除！！！",{
+                                                btn:['确认','放弃'],
+                                                skin:'layui-layer-molv',
+                                                icon:5
+                                            },function(){
+                                                layer.closeAll('dialog');
+                                                $.post("/template/node_delete",
+                                                    {
+                                                    id:sel
+                                                    },function (data) {
+                                                    
+                                                })
+                                                ref.delete_node(sel);
 
+
+                                            },function(){
+                                                layer.closeAll('dialog');
+                                            });
+                                        }else{
+                                            layer.confirm("你确认要删除！！！",{
+                                                btn:['确认','放弃'],
+                                                skin:'layui-layer-molv',
+                                                icon:5
+                                            },function(){
+                                                layer.closeAll('dialog');
+                                                $.post("/template/node_delete",{
+                                                    id:sel
+                                                },function (data) {
+                                                    
+                                                })
+                                                ref.delete_node(sel);
+
+                                            },function(){
+                                                layer.closeAll('dialog');
+                                            });
                                         }
 
 
 
                                     }
                             },
-									"addTemplate":{
+                                "addTemplate":{
                                 "label":"添加模板",
                                 "action":function (obj) {
-                                    var inst = jQuery.jstree.reference(obj.reference);
-                                    var clickedNode = inst.get_node(obj.reference);
-                                    var newNode = inst.create_node(inst.get_node(obj.reference), '请输入模板名称', "last", "", "");
-                                    inst.edit(newNode, newNode.val,function(){
-                                        var obj = this.get_node(newNode);
-                                        $.post("/template/node_add1",
-                                            {
-                                                id:obj.id,
-                                                text:obj.text,
-                                                parent:clickedNode.id,
-                                                type:"2",
-                                                turl:obj.text
-                                            },
-                                            function(data){
-                                                //alert(data);
-                                                $(inst.get_node(newNode)).attr("id",data);
-                                                $('#using_json').jstree().destroy();
-                                                tzs.index.doCreateTree();
-                                            }
-                                        );
-                                    });
+                                    var ref = $('#using_json').jstree(true);
+                                    sel = ref.get_selected();
+                                    if(!sel.length){
+                                        return false;
+                                    }
+                                    sel = sel[0];
+                                    //获取id
+                                    var tree_id;
+                                    $.ajaxSettings.async = false;
+                                    $.post("/template/node_add",
+
+                                        {
+                                            id:1,
+                                            text:1,
+                                            parent:1,
+                                            type:"2",
+                                            turl:1
+                                        },
+                                        function(data){
+                                            //alert(data+" 111");
+                                            tree_id = data;
+                                        }
+
+                                    );
+                                    $.ajaxSettings.async = true;
+                                    //alert(tree_id);
+                                    sel = ref.create_node(sel,{"type":"2","id":tree_id});
+                                    if(sel){
+                                        ref.edit(sel,sel.val,function () {
+                                            var obj = ref.get_node(sel);
+                                            ///alert(obj.id+" "+obj.text+" "+obj.parent);
+                                            $.post("/template/node_edit_add",
+                                                {
+                                                    id:obj.id,
+                                                    text:obj.text,
+                                                    parent:obj.parent
+                                                },
+                                                function(){
+
+                                                }
+                                            );
+                                        })
+                                    }
                                 }
                             },
 									"copy":{
 										"label": "复制",
 										"action": function(obj) {
-                                            var inst = jQuery.jstree.reference(obj.reference);
-                                            var clickedNode = inst.get_node(obj.reference);
-                                            $('#div-id').attr("value",clickedNode.id);
-                                            $('#div-text').attr("value",clickedNode.text);
+                                            var ref = $('#using_json').jstree(true);
+                                            sel = ref.get_selected(true);
+                                            //alert(sel);
+                                            if(!sel.length){
+                                                return false;
+                                            }
+                                            sel= sel[0];
+                                            var obj = ref.get_node(sel);
+                                            $('#div-id').attr("value",obj.id);
+                                            $('#div-text').attr("value",obj.text);
                                             $('#div-iscopy').attr("value",1);
 										}
 									},
 									"cut": {
                                         "label": "剪切",
                                         "action": function (obj) {
-                                            var inst = jQuery.jstree.reference(obj.reference);
-                                            var clickedNode = inst.get_node(obj.reference);
-                                            $('#div-id').attr("value", clickedNode.id);
-                                            $('#div-text').attr("value", clickedNode.text);
-                                            $('#div-iscopy').attr("value", 2);
-                                            //alert(clickedNode.id);
+                                            var ref = $('#using_json').jstree(true);
+                                            sel = ref.get_selected(true);
+                                            if(!sel.length){
+                                                return false;
+                                            }
+                                            sel= sel[0];
+                                            var obj = ref.get_node(sel);
+                                            $('#div-id').attr("value",obj.id);
+                                            $('#div-text').attr("value",obj.text);
+                                            $('#div-iscopy').attr("value",1);
+                                            ref.delete_node(sel);
 
-                                            //重新建树
 
                                         },
                                     },
                                         "paste": {
                                             "label": "粘贴",
                                             "action": function (obj) {
-                                                var inst = jQuery.jstree.reference(obj.reference);
-                                                var clickedNode = inst.get_node(obj.reference);
+                                                var ref = $('#using_json').jstree(true);
+                                                sel = ref.get_selected();
+                                                if(!sel.length){
+                                                    return false;
+                                                }
+                                                sel= sel[0];
                                                 var text1 = $('#div-text').attr("value");
                                                 var idcopy = $('#div-iscopy').attr("value");
-                                                //alert(idcopy)
-                                                //alert(text1);
-                                                var newNode = inst.create_node(inst.get_node(obj.reference), text1, "last", "", "");
-                                                //对数据库进行添加操作
-                                                //inst.edit(newNode, newNode.val,function(){
+                                                var tree_id;
+                                                $.ajaxSettings.async = false;
+                                                $.post("/template/node_add",
 
-                                                //var obj = this.get_node(newNode);
+                                                    {
+                                                        id:1,
+                                                        text:1,
+                                                        parent:1,
+                                                        type:"2",
+                                                        turl:1
+                                                    },
+                                                    function(data){
+                                                        //alert(data+" 111");
+                                                        tree_id = data;
+                                                    }
+
+                                                );
+                                                $.ajaxSettings.async = true;
+                                                sel = ref.create_node(sel,{"type":"2","text":text1,"id":tree_id});
                                                 if (idcopy == 1) {
+                                                    var obj = ref.get_node(sel);
                                                     $.post("/template/node_add1_copy",
                                                         {
+                                                            id:tree_id,
                                                             oldId: $('#div-id').attr("value"),
-                                                            //id:obj.id,
                                                             text: $('#div-text').attr("value"),
-                                                            parent: clickedNode.id,
-                                                            type: "2",
-                                                            //turl:obj.text
+                                                            parent: obj.parent
                                                         },
-                                                        function (data) {
-                                                            //alert(data);
-                                                            $(inst.get_node(newNode)).attr("id", data);
-                                                            $('#using_json').jstree().destroy();
-                                                            tzs.index.doCreateTree();
+                                                        function () {
+
                                                         }
                                                     );
                                                 } else if (idcopy == 2) {
+                                                    var obj = ref.get_node(sel);
                                                     $.post("/template/node_add1_cut",
                                                         {
                                                             oldId: $('#div-id').attr("value"),
-                                                            //id:obj.id,
                                                             text: $('#div-text').attr("value"),
-                                                            parent: clickedNode.id,
-                                                            type: "2",
-                                                            //turl:obj.text
+                                                            parent: obj.parent
                                                         },
-                                                        function (data) {
-                                                            //alert(data);
-                                                            //$(inst.get_node(newNode)).attr("id",data);
+                                                        function () {
 
                                                         }
                                                     );
-                                                    $('#using_json').jstree().destroy();
-                                                    tzs.index.doCreateTree();
+
+
                                                 } else {
                                                     alert("操作无效")
                                                 }
@@ -406,14 +433,14 @@
 								delete items.cut;
 								delete items.delete;
 								delete items.addTemplate;
-							} else if (node.type == 1) { //如果是图谱
-								delete items.copy;
-								delete items.cut;
-							} else if (node.type == 2) { //如果是图谱页
+							}  else if (node.type == 2 ||node.type == 3) { //如果是图谱页
 								delete items.add;
 								delete items.addTemplate;
 								delete items.paste;
-							}
+							}else { //如果是图谱
+                                delete items.copy;
+                                delete items.cut;
+                            }
 							return items; //注意要有返回值
 						}
             
