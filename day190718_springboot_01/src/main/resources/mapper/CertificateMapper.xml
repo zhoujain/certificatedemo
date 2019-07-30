@@ -30,4 +30,8 @@
     <select id="queryMaxCnumber" resultType="String">
         SELECT cnumber FROM tb_certificate where cisdel!=0 order by cid desc limit 1
     </select>
+
+    <update id="editCertificate" parameterType="Certificate">
+        update tb_certificate set cnumber=#{cnumber},ccompany=#{ccompany},ctoolname=#{ctoolname},cmodel=#{cmodel},coutnumber=#{coutnumber},cmanufacturer=#{cmanufacturer},cdelegate=#{cdelegate},ccheckdate=#{ccheckdate},ccheckdepartment=#{ccheckdepartment} where cid=#{cid}
+    </update>
 </mapper>
