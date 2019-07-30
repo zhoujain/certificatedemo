@@ -41,4 +41,10 @@ public class CertificateServiceImpl implements CertificateService {
         Integer result = certificateMapper.addCertificate(certificate);
         return certificate.getCid();
     }
+
+    @Override
+    public Integer editCertificate(Certificate certificate){
+        Integer result = certificateMapper.editCertificate(certificate);
+        return result;
+    }
 }

@@ -51,4 +51,6 @@ public interface CertificateMapper {
     List<Certificate> getCertificateByLogics(String where);
 
     String queryMaxCnumber();
+
+    int editCertificate(Certificate certificate);
 }

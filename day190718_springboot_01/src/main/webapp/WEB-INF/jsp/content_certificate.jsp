@@ -1,25 +1,24 @@
 <%--
   Created by IntelliJ IDEA.
   User: 雨木林风
-  Date: 2019/7/27
-  Time: 11:39
+  Date: 2019/7/30
+  Time: 10:55
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>模板2证书</title>
+    <title>证书的详细页面</title>
     <script src="../../js/jquery.min.js?v=2.1.4"></script>
 </head>
 <body>
 <input id="btn_save" type="button" value="保存证书" onclick="return saveCertificate()"/>
-<input id="btn_next" type="button" value="下一份证书" onclick="return nextCertificate()"/>
 <input id="Button1" type="button" value="隐藏/显示 标题栏"  onclick="return Button1_onclick()" />
 <input id="Button2" type="button" value="隐藏/显示 菜单栏" onclick="return Button2_onclick()" />
 <input id="Button3" type="button" value="隐藏/显示 自定义工具栏"  onclick="return Button3_onclick()" />
 <input id="Button4" type="button" value="隐藏/显示 Office工具栏"  onclick="return Button4_onclick()" />
-<div>${po_t2c}</div>
-<div><a id="cGo" target="_self" style="display: none;" href="">HiddenLink</a></div>
+<div>${po_cc}</div>
+<div style="display: none;">${sessionScope.cerid}</div>
 <script>
     function BeforeBrowserClosed(){
         if (document.getElementById("PageOfficeCtrl1").IsDirty){
@@ -40,14 +39,11 @@
         var bVisible = document.getElementById("PageOfficeCtrl1").Titlebar;
         document.getElementById("PageOfficeCtrl1").Titlebar = !bVisible;
     }
-
     // 隐藏/显示 菜单栏
     function Button2_onclick() {
         var bVisible = document.getElementById("PageOfficeCtrl1").Menubar;
         document.getElementById("PageOfficeCtrl1").Menubar = !bVisible;
     }
-
-
     // 隐藏/显示 自定义工具栏
     function Button3_onclick() {
         var bVisible = document.getElementById("PageOfficeCtrl1").CustomToolbar;
@@ -62,18 +58,6 @@
     function saveCertificate() {
         alert("保存证书")
         document.getElementById("PageOfficeCtrl1").WebSave();
-    }
-
-    function nextCertificate() {
-        if(confirm("请确认文档已经保存")){
-            var s= "<%=session.getAttribute("tid")%>";
-            alert(s);
-            $("#cGo").attr("href","/openWordwithNumchanged?id="+s);
-            $("#cGo")[0].click();
-        }else{
-            return false;
-        }
-
     }
 </script>
 </body>
