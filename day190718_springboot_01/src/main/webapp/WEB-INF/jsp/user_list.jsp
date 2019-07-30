@@ -52,6 +52,16 @@
 
             <div class="ibox">
                 <div class="ibox-content">
+
+                    <%--表格加载动画--%>
+                    <div id="loadGif" class="sk-spinner sk-spinner-wave">
+                        <div class="sk-rect1"></div>
+                        <div class="sk-rect2"></div>
+                        <div class="sk-rect3"></div>
+                        <div class="sk-rect4"></div>
+                        <div class="sk-rect5"></div>
+                    </div>
+
                     <%--用户列表表格 开始--%>
                     <table id="table" data-pagination="true" data-page-size="10" data-page-list="[5, 10, 15, 20,30]">
 
