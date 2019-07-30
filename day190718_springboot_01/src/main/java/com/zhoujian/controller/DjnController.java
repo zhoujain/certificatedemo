@@ -226,4 +226,58 @@ public class DjnController {
         fs.saveToFile(path1);
         fs.close();
     }
+
+    @RequestMapping(value = "/content_certificate",method = RequestMethod.GET)
+    public String content_certificate(HttpServletRequest request,Map<String,Object> map,@RequestParam("id")String id){
+        PageOfficeCtrl poCtrl1 = new PageOfficeCtrl(request);
+        poCtrl1.setServerPage("/poserver.zz");
+        WordDocument doc = new WordDocument();
+        poCtrl1.setWriter(doc);
+        String str ="/uploads/aacc" + id+".doc";
+        String newPath = request.getSession().getServletContext().getRealPath(str);
+        poCtrl1.setSaveDataPage("/editCertificate?cerid="+id);
+        poCtrl1.setSaveFilePage("/save");
+        poCtrl1.webOpen(newPath,OpenModeType.docNormalEdit,"张三");
+        map.put("po_cc",poCtrl1.getHtmlCode("PageOfficeCtrl1"));
+
+        return "content_certificate";
+    }
+
+    @RequestMapping(value = "/editCertificate")
+    public void editCertificate(HttpServletRequest request, HttpServletResponse response,String cerid){
+        com.zhuozhengsoft.pageoffice.wordreader.WordDocument doc = new com.zhuozhengsoft.pageoffice.wordreader.WordDocument(request,response);
+        com.zhuozhengsoft.pageoffice.wordreader.DataRegion dataRegion = doc.openDataRegion("PO_cnumber");
+        Certificate certificate = new Certificate();
+        certificate.setCnumber(dataRegion.getValue().trim());
+        dataRegion = doc.openDataRegion("PO_ccompany");
+        certificate.setCcompany(dataRegion.getValue().trim());
+        dataRegion = doc.openDataRegion("PO_ctoolname");
+        certificate.setCtoolname(dataRegion.getValue().trim());
+        dataRegion = doc.openDataRegion("PO_cmodel");
+        certificate.setCmodel(dataRegion.getValue().trim());
+        dataRegion = doc.openDataRegion("PO_coutnumber");
+        certificate.setCoutnumber(dataRegion.getValue().trim());
+        dataRegion = doc.openDataRegion("PO_cmanufacturer");
+        certificate.setCmanufacturer(dataRegion.getValue().trim());
+        dataRegion = doc.openDataRegion("PO_cdelegate");
+        certificate.setCdelegate(dataRegion.getValue().trim());
+        dataRegion = doc.openDataRegion("PO_ccheckdate");
+        //String 2 Date
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String str = dataRegion.getValue();
+        Date date = null;
+        try {
+            date = format.parse(str);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        certificate.setCcheckdate(date);
+        dataRegion = doc.openDataRegion("PO_ccheckdepartment");
+        certificate.setCcheckdepartment(dataRegion.getValue().trim());
+        certificate.setCid(Integer.parseInt(cerid));
+        System.out.println(certificate);
+        Integer result = certificateService.editCertificate(certificate);
+        System.out.println(result);
+        doc.close();
+    }
 }

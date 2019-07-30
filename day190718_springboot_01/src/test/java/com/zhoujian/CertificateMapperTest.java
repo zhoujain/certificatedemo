@@ -21,6 +21,8 @@ import javax.annotation.Resource;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -131,5 +133,31 @@ public class CertificateMapperTest {
             e.printStackTrace();
         }
 
+    }
+
+    @Test
+    public void testEditCertificate(){
+        Certificate certificate = new Certificate();
+        certificate.setCid(24);
+        certificate.setCnumber("800136128");
+        certificate.setCcompany("证书单位");
+        certificate.setCtoolname("器具名称");
+        certificate.setCmodel("型号规格");
+        certificate.setCoutnumber("出厂编号");
+        certificate.setCmanufacturer("制造厂商");
+        certificate.setCdelegate("委托单号");
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String str = "2019-7-30";
+        Date date = null;
+        try {
+            date = format.parse(str);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        certificate.setCcheckdate(date);
+        certificate.setCcheckdepartment("检测部门");
+        Integer result = certificateMapper.editCertificate(certificate);
+        System.out.println(result);
+        System.out.println(certificate.getCcheckdate());
     }
 }
