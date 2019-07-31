@@ -25,6 +25,17 @@ function delCertificate(cid) {
     }
 }
 
+function toAnother(id) {
+    //alert("11")
+    layer.open({
+        type: 2,
+        area: ['1000px', '600px'],
+        fixed: false, //不固定
+        maxmin: true,
+        content: '/content_certificate?id='+id
+    });
+}
+
 function queryCertificatesByLogic() {
     if($('#isQueryAllCertificate').is(':checked')){
         $.get('/getCertificatesDataJSON',function (data) {
@@ -205,3 +216,5 @@ $(function () {
 
 
 });
+
+

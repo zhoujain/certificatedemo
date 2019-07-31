@@ -80,23 +80,17 @@
                         "state", "types", "wholerow"],//types：设置样式，contextmenu：右键菜单可用
                     "types":{
                         "default":{
-                            "a_attr":{
-                                "style":"color:red"
-                            },
                             "icon": "fa fa-folder tree-item-icon-color icon-lg"
                         },
                         "1":{
-                            "a_attr":{
-                                "style":"color:blue"
-                            },
+
                             "icon": "fa fa-folder tree-item-icon-color icon-lg"
                         },
                         "2":{
-                            "icon":"fa fa-file tree-item-icon-color icon-lg",
                             "a_attr":{
-                                "style":"color:black"
-                            }
-
+                                "style":"color:red"
+                            },
+                            "icon":"fa fa-file tree-item-icon-color icon-lg",
 
                         },
                         "3":{
@@ -110,8 +104,11 @@
             $('#using_json').on("changed.jstree",function (e,selected) {
                 //当前点击的对象的id
                 //alert(selected.event.type);
+                if(selected.event == undefined){
+                    return 0;
+                }
                 if('click'==selected.event.type){
-                    if(selected.node.type ==2){
+                    if(selected.node.type ==2 ||selected.node.type ==3){
                         $("#aGo").attr("href","/openWordwithNumchanged?id="+selected.node.id);
                         //alert("/word1?text="+selected.node.text)
                         $("#aGo")[0].click();

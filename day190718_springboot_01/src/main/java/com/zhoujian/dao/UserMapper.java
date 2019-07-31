@@ -53,6 +53,7 @@ public interface UserMapper {
      */
     String findUpwdByUsername(String username);
 
+    Integer findUidByUsername(String username);
     /**
      * 修改用户
      */

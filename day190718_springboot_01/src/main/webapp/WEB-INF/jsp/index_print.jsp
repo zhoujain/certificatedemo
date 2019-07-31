@@ -39,7 +39,7 @@
                     证书查询
                 </div>
                 <div class="ibox-content">
-                    <form method="post" action="/queryCerBy">
+<%--                    <form method="post" action="/queryCerBy">--%>
                         <div class="input-group">
                             <select name="cid" class="form-control selectlogic">
                                 <option selected="selected">请选择</option>
@@ -50,8 +50,9 @@
 <%--                            <input name="cid" id="cid" type="text" style="display: none" value="$('.form-control').val()" >--%>
                             <input name="cnumber" id="cnumber" type="text" class="form-control" placeholder="请输入条件" aria-describedby="Cerlabel">
                         </div>
-                        <button style="margin-top: 10px;"  class="btn btn-success btn-block">查询</button>
-                    </form>
+                        <button style="margin-top: 10px;"  class="btn btn-success btn-block" onclick="queryCer()">查询</button>
+                        <button style="margin-top: 10px;"  class="btn btn-success btn-block" onclick="queryList()">全部打印</button>
+<%--                    </form>--%>
 
 
 
@@ -61,20 +62,23 @@
                 <div class="ibox-title">结果</div>
                 <div class="ibox-content">
                     <div class="list-group">
-                        <c:forEach var="cer" items="${CerList}">
-                            <div style="border: 1px black solid;">
+<%--                        <c:forEach var="cer" items="${CerList}">--%>
+<%--                            <div style="border: 1px black solid;">--%>
 
-                                <div id ="div-check" class="checkbox i-checks" >
-                                    <label>
-                                        <input type="checkbox" value="${cer.cnumber}"> <i>${cer.cnumber}</i> </label><br />
+<%--                                <div id ="div-check" class="checkbox i-checks" >--%>
+<%--                                    <a target="mainFrame" href="/content_certificate?id=${cer.cid}">--%>
+<%--                                        <label>--%>
+<%--                                            <input type="checkbox" value="${cer.cnumber}"> <i>${cer.cnumber}</i> </label><br />--%>
 
-                                    <span style="color: blue;margin-left: 25px;font-size: 20px;">
-        						<b>${cer.ctoolname}</b>
-        					</span>
-                                </div>
+<%--                                        <span style="color: blue;margin-left: 25px;font-size: 20px;">--%>
+<%--        						        <b>${cer.ctoolname}</b>--%>
+<%--        					            </span>--%>
+<%--                                    </a>--%>
 
-                            </div>
-                        </c:forEach>
+<%--                                </div>--%>
+
+<%--                            </div>--%>
+<%--                        </c:forEach>--%>
 
                     </div>
                 </div>
@@ -83,52 +87,139 @@
         </div>
 
 
-
+        <a id="aGo" target="mainFrame" style="display: none;" href="">隐藏链接</a>
         <div class="col-sm-9 animated fadeInRight">
+            <iframe name="mainFrame" width="100%" height="600px" frameborder="0">
 
+            </iframe>
+        </div>
+    </div>
+</div>
+<%--进度条--%>
+<div id="ProgressBarSide" style="color: Silver; width: 200px; visibility: hidden;
+        position: absolute;  left: 40%; top: 50%; margin-top: -32px">
+    <span style="color: gray; font-size: 12px; text-align: center;">正在生成并打印请稍候...</span><br />
+    <div style=" border:solid 1px green;">
+        <div id="ProgressBar" style="background-color: Green; height: 16px; width: 0%; border-width: 1px;border-style: Solid;">
         </div>
     </div>
 </div>
 
-
-
+<%--iframe隐藏域--%>
+<div style="width: 1px; height: 1px; overflow: hidden;">
+    <iframe id="iframe1" name="iframe1" src="" ></iframe>
+</div>
 <script src="../../js/jquery.min.js?v=2.1.4"></script>
 <script src="../../js/bootstrap.min.js?v=3.3.6"></script>
 <script src="../../js/content.min.js?v=1.0.0"></script>
 <script src="../../js/plugins/iCheck/icheck.min.js"></script>
 <script src="../../js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
 <script>
+    var checkBoxArr = [];
+    var all;
+    var count =1;
     $(document).ready(function(){
+
+        // $('.checkbox').click(function(){
+        //     //alert("111")
+        //     $('#aGo').attr("href","/content_certificate?");
+        //     $('#aGo')[0].click();
+        // });
+
+
+
+    });
+    function func() {
+        if(checkBoxArr.length==0){
+            alert("请选择文档打印！！");
+            return;
+        }
+        if(count<checkBoxArr.length+1){
+            //设置进度条
+            document.getElementById("ProgressBarSide").style.visibility = "visible";
+            document.getElementById("ProgressBar").style.width = (count) * 25 - 1 + "%";
+
+            //加载文档打印页面（可传参）
+            document.getElementById("iframe1").src = "/Print?id=" + checkBoxArr[count-1];
+            count++;
+        }else{
+            document.getElementById("ProgressBarSide").style.visibility = "hidden";
+        //重置进度条
+            count=1;
+            checkBoxArr = [];
+            document.getElementById("ProgressBar").style.width = "0%";
+            alert("打印成功！！");
+            return;
+        }
+
+    }
+    //点击
+    function queryList() {
+
+        $('input[name="optionName"]:checked').each(function() {
+            checkBoxArr.push($(this).val());
+        });
+        alert(checkBoxArr);
+        func();
+
+    }
+    function queryCer() {
+        //alert("11")
+        if($('.form-control').val()=="请选择"&&$('#cnumber').val()!=null&&$('#cnumber').val()!=""){
+            alert("选择查询条件");
+            return;
+        }
+        $.ajaxSettings.async = false;
+        $.post("/queryCerBy",
+            {
+                cid:$('.form-control').val(),
+                cnumber:$('#cnumber').val()
+            },
+            function(rst){
+                var optionData = rst;
+                var str='暂无数据';
+                if(optionData !=null&&optionData!=""){
+                    str = '<div><input type="checkbox" id="allOptionId" value="all"/>全选</div>';
+                    for(var i = 0;i<optionData.length;i++){
+                        str+='<div id="all-div" style="">\n' +
+                            '                                <div id ="div-check" class="checkbox i-checks" >\n' +
+                            '                                    <a href="/content_certificate?id='+optionData[i].cid+'" target="mainFrame">\n' +
+                            '                                            <label><input type="checkbox" name="optionName" value="'+optionData[i].cid+'"> <i>'+optionData[i].cnumber+'</i> </label><br />\n' +
+                            '                                        <span style="color: blue;margin-left: 25px;font-size: 20px;"><b>'+optionData[i].ctoolname+'</b></span>\n' +
+                            '                                    </a>\n' +
+                            '                                </div>\n' +
+                            '                            </div>'
+                    }
+                }
+                $('.list-group').html(str);
+            }
+
+        );
+        $.ajaxSettings.async=true;
+        $("#allOptionId").on('ifChecked',function (event) {
+            $('input').iCheck('check')
+        });
+
+        $('#allOptionId').on('ifUnchecked',function (event) {
+            $('input').iCheck('uncheck')
+        });
         $("input").iCheck({
             checkboxClass:"icheckbox_square-green",
             radioClass:"iradio_square-green",
         });
 
-        $('.checkbox').mouseover(function(){
+        $('#all-div').mouseover(function(){
             //alert("111")
-            $('.checkbox').attr("style","background:yellow");
+            $(this).attr("style","background:aliceblue");
         });
-        $('.checkbox').mouseout(function(){
+        $('#all-div').mouseout(function(){
             //alert("111")
-            $('.checkbox').attr("style","");
+            $(this).attr("style","background:white");
         });
 
-        <%--function queryCer() {--%>
-        <%--    $.post("/queryCerById",--%>
 
-        <%--        {--%>
-        <%--            id:$('.form-control').val(),--%>
-        <%--            text:$('#queryCertext').val()--%>
-        <%--        },--%>
-        <%--        function(data){--%>
-        <%--            <%--%>
-        <%--                request.getSession().setAttribute("cer",);--%>
-        <%--            %>--%>
-        <%--        }--%>
 
-        <%--    );--%>
-        <%--}--%>
-    });
+    }
 
 </script>
 

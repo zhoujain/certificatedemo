@@ -61,6 +61,13 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    window.onload = function () {
+        if(${not empty requestScope.message}){
+            alert("用户名密码错误");
+        }
+    }
+</script>
 </body>
 
 
