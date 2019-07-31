@@ -42,7 +42,7 @@
                                     <c:if test="${utid==2}">
                                         审核
                                     </c:if>
-                                    <c:if test="${utid==2}">
+                                    <c:if test="${utid==3}">
                                         普通人员
                                     </c:if>
                                     <b class="caret"></b></span>

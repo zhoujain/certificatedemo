@@ -50,7 +50,7 @@
                 <p class="m-t-md">证书ERP打印系统</p>
                 <input type="text" class="form-control uname" name="username" placeholder="用户名" />
                 <input type="password" class="form-control pword m-b" name="upwd" placeholder="密码" />
-                <a href="#">忘记密码了？</a>
+<%--                <a href="#">忘记密码了？</a>--%>
                 <button class="btn btn-success btn-block">登录</button>
             </form>
         </div>
