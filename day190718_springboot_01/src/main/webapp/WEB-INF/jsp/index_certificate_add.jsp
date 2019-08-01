@@ -51,6 +51,7 @@
 <script src="../../js/content.min.js?v=1.0.0"></script>
 <script src="../../js/plugins/iCheck/icheck.min.js"></script>
 <script src="../../js/plugins/jsTree/jstree.min.js"></script>
+<script type="text/javascript" src="pageoffice.js" id="po_js_main"></script>
 
 <script>
     tzs = {};
@@ -109,7 +110,12 @@
                 }
                 if('click'==selected.event.type){
                     if(selected.node.type ==2 ||selected.node.type ==3){
-                        $("#aGo").attr("href","/openWordwithNumchanged?id="+selected.node.id);
+                        if(!!window.ActiveXObject || "ActiveXObject" in window){
+                            $("#aGo").attr("href","/openWordwithNumchanged?id="+selected.node.id);
+                        }else {
+                            $("#aGo").attr("href","javascript:POBrowser.openWindowModeless('/openWordwithNumchanged?id="+selected.node.id+"','width=1200px;height=800px;');");
+                        }
+                        //$("#aGo").attr("href","/openWordwithNumchanged?id="+selected.node.id);
                         //alert("/word1?text="+selected.node.text)
                         $("#aGo")[0].click();
                     }

@@ -62,6 +62,7 @@
 <script src="../../js/content.min.js?v=1.0.0"></script>
 <script src="../../js/plugins/iCheck/icheck.min.js"></script>
 <script src="../../js/plugins/jsTree/jstree.min.js"></script>
+<script type="text/javascript" src="pageoffice.js" id="po_js_main"></script>
 </script>
 <script>
     $(document).ready(function () {
@@ -141,9 +142,14 @@
             $('#using_json').on("changed.jstree",function (e,selected) {
                 //当前点击的对象的id
                 //alert(selected.event.type);
-                if('click'==selected.event.type){
+                if('click'==selected.event.type||selected.node.type ==3){
                     if(selected.node.type ==2){
-                        $("#aGo").attr("href","/wordcheck?id="+selected.node.id);
+                        if(!!window.ActiveXObject || "ActiveXObject" in window){
+                            $("#aGo").attr("href","/wordcheck?id="+selected.node.id);
+                        }else {
+                            $("#aGo").attr("href","javascript:POBrowser.openWindowModeless('/wordcheck?id="+selected.node.id+"','width=1200px;height=800px;');");
+                        }
+                        //$("#aGo").attr("href","/wordcheck?id="+selected.node.id);
                         $("#div-id").attr("value",selected.node.id)
                         //alert("/word1?text="+selected.node.text)
                         $("#aGo")[0].click();

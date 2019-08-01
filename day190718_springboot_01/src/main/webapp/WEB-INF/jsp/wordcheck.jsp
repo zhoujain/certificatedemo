@@ -18,7 +18,7 @@
 <input id="Button2" class="btn btn-info"  type="button" value="隐藏/显示 菜单栏" onclick="return Button2_onclick()" />
 <input id="Button3" class="btn btn-primary" type="button" value="隐藏/显示 自定义工具栏"  onclick="return Button3_onclick()" />
 <input id="Button4" class="btn btn-info" type="button" value="隐藏/显示 Office工具栏"  onclick="return Button4_onclick()" />
-<div style="width:1000px;height:700px;" >${pageofficecheck}</div>
+<div style="width:1200px;height:800px;" >${pageofficecheck}</div>
 <script type="text/javascript">
     
     //发送通过审核的消息
@@ -42,7 +42,7 @@
 
     }
     function CloseFile(){
-        window.close();
+        window.external.close();
     }
 
     function BeforeBrowserClosed(){

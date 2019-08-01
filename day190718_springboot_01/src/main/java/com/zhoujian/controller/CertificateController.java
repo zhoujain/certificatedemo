@@ -296,7 +296,7 @@ public class CertificateController {
             String puname=punameByUid==null?"无":punameByUid;
             String cprintdate=c.getCprintdate()==null?"无": df.format(c.getCprintdate());
             String cmoney=c.getCmoney()==null?"无": c.getCmoney().toString();
-            certificateVoList.add(new CertificateVo(cid,cnumber,ccompany,ctoolname,cmodel,coutnumber,cmanufacturer,cdelegate,cccheckdate,ccheckdepartment,uname,puname,cprintdate,cmoney,"<button onclick=\"toAnother("+c.getCid()+")\" style=\"border:1px solid blue;color:blue\">详细</button>&nbsp;<button onclick=\"delCertificate("+c.getCid()+")\" style=\"border:1px solid red;color:red\">删除</button>"));
+            certificateVoList.add(new CertificateVo(cid,cnumber,ccompany,ctoolname,cmodel,coutnumber,cmanufacturer,cdelegate,cccheckdate,ccheckdepartment,uname,puname,cprintdate,cmoney,"<button onclick='toAnother("+c.getCid()+")' style=\"border:1px solid blue;color:blue\">详细</button>&nbsp;<button onclick=\"delCertificate("+c.getCid()+")\" style=\"border:1px solid red;color:red\">删除</button>"));
         }
 
         return certificateVoList;

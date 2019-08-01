@@ -153,6 +153,7 @@
 <script src="../../js/plugins/iCheck/icheck.min.js"></script>
 <script src="../../js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
 <script src="../../js/plugins/layer/layer.js"></script>
+<script type="text/javascript" src="pageoffice.js" id="po_js_main"></script>
 <script src="../../js/index_query.js" type="text/javascript"></script>
 
 </body>

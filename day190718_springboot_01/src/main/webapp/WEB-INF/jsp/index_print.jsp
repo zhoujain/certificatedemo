@@ -114,6 +114,7 @@
 <script src="../../js/content.min.js?v=1.0.0"></script>
 <script src="../../js/plugins/iCheck/icheck.min.js"></script>
 <script src="../../js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+<script type="text/javascript" src="pageoffice.js" id="po_js_main"></script>
 <script>
     var checkBoxArr = [];
     var all;
@@ -177,14 +178,19 @@
             },
             function(rst){
                 var optionData = rst;
+                //var a = /;
                 var str='暂无数据';
                 if(optionData !=null&&optionData!=""){
                     str = '<div><input type="checkbox" id="allOptionId" value="all"/>全选</div>';
                     for(var i = 0;i<optionData.length;i++){
-                        str+='<div id="all-div" style="">\n' +
-                            '                                <div id ="div-check" class="checkbox i-checks" >\n' +
-                            '                                    <a href="/content_certificate?id='+optionData[i].cid+'" target="mainFrame">\n' +
-                            '                                            <label><input type="checkbox" name="optionName" value="'+optionData[i].cid+'"> <i>'+optionData[i].cnumber+'</i> </label><br />\n' +
+                        str+='<div id="all-div" style=""><div id ="div-check" class="checkbox i-checks" >\n'
+                                if(!!window.ActiveXObject || "ActiveXObject" in window){
+                                    str+='<a href="/content_certificate?id='+optionData[i].cid+'" target="mainFrame" >\n'
+                                }else {
+                                    str+='<a href="javascript:POBrowser.openWindowModeless(\'/content_certificate?id='+optionData[i].cid+'\',\'width=1200px;height=800px;\');">\n'
+                                }
+
+                            str+='<label><input type="checkbox" name="optionName" value="'+optionData[i].cid+'"> <i>'+optionData[i].cnumber+'</i> </label><br />\n' +
                             '                                        <span style="color: blue;margin-left: 25px;font-size: 20px;"><b>'+optionData[i].ctoolname+'</b></span>\n' +
                             '                                    </a>\n' +
                             '                                </div>\n' +
