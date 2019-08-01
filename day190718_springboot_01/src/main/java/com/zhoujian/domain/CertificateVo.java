@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class CertificateVo implements Serializable {
-    private Integer cid;
+    private String cid;
     private String cnumber;
     private String ccompany;
     private String ctoolname;
@@ -17,10 +17,10 @@ public class CertificateVo implements Serializable {
     private String uname;
     private String puname;
     private String cprintdate;
-    private Double cmoney;
+    private String cmoney;
     private String actions;
 
-    public CertificateVo(Integer cid, String cnumber, String ccompany, String ctoolname, String cmodel, String coutnumber, String cmanfacturer, String cdelegate, String ccheckdate, String ccheckdepartment, String uname, String puname, String cprintdate, Double cmoney, String actions) {
+    public CertificateVo(String cid, String cnumber, String ccompany, String ctoolname, String cmodel, String coutnumber, String cmanfacturer, String cdelegate, String ccheckdate, String ccheckdepartment, String uname, String puname, String cprintdate, String cmoney, String actions) {
         this.cid = cid;
         this.cnumber = cnumber;
         this.ccompany = ccompany;
@@ -41,11 +41,11 @@ public class CertificateVo implements Serializable {
     public CertificateVo() {
     }
 
-    public Integer getCid() {
+    public String getCid() {
         return cid;
     }
 
-    public void setCid(Integer cid) {
+    public void setCid(String cid) {
         this.cid = cid;
     }
 
@@ -145,11 +145,11 @@ public class CertificateVo implements Serializable {
         this.cprintdate = cprintdate;
     }
 
-    public Double getCmoney() {
+    public String getCmoney() {
         return cmoney;
     }
 
-    public void setCmoney(Double cmoney) {
+    public void setCmoney(String cmoney) {
         this.cmoney = cmoney;
     }
 

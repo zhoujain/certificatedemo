@@ -35,11 +35,10 @@ import static java.lang.System.out;
 @Controller
 public class CertificateController {
     SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
-
-
     @Resource(name = "certificateService")
     private CertificateService certificateService;
     @Resource(name = "userService")
+
     private UserService userService;
     @RequestMapping("/index_query")
     public String to_index_query() {
@@ -49,33 +48,24 @@ public class CertificateController {
     public String to_index_add() {
         return "index_add";
     }
-    @RequestMapping("/getCertificatesDataJSON")
+    @RequestMapping("/index_update")
+    public String toIndex_Update(){
+        return "index_update";
+    }
+
 
     /**
      * 查询全部的Certificate数据以json字符串形式返回
      */
+    @RequestMapping("/getCertificatesDataJSON")
     @ResponseBody
     public List<CertificateVo> getCertificatesDataJSON(HttpSession session) {
-        /*因为前端所需要的表格数据的一些列名与后台直接查询所得数据中的字段不对应
-        所以需要转换一些字段名及对应的数据*/
-        List<CertificateVo> certificateVoList = new ArrayList<>();
+
         //因为本次是全部查询，所以将session里的where对应的值置为“特殊值”，该特殊值的意义在于表示查询所有Certificate数据
         //session里的where是为了在后台导出查询所得表格数据而准备的
         session.setAttribute("where","queryAllCertificates");
         List<Certificate> certificateList=certificateService.queryAllCertificates();
-        //这里开始循环原列表进行转换
-        for (Certificate c : certificateList) {
-            String uname=userService.usernameByUid(c.getUid());
-            String puname=userService.usernameByUid(c.getPuid());
-            certificateVoList.add(new CertificateVo(c.getCid(),c.getCnumber(),c.getCcompany(),c.getCtoolname(),c.getCmodel(),c.getCoutnumber(),c.getCmanufacturer(),c.getCdelegate(),df.format(c.getCcheckdate()).toString(),c.getCcheckdepartment(),uname,puname,df.format(c.getCprintdate()).toString(),c.getCmoney(),"<button onclick=\"\" style=\"border:1px solid blue;color:blue\">详细</button>&nbsp;<button onclick=\"delCertificate("+c.getCid()+")\" style=\"border:1px solid red;color:red\">删除</button>"));
-        }
-        //返回时转为json返回到前端
-        return certificateVoList;
-    }
-
-    @RequestMapping("/index_update")
-    public String toIndex_Update(){
-        return "index_update";
+        return toVoList(certificateList);
     }
 
     @RequestMapping("/delCertificateByCid")
@@ -83,8 +73,6 @@ public class CertificateController {
     public List<CertificateVo> delCertificateByCid(Integer cid,HttpSession session){
 
         certificateService.delCertificateByCid(cid);
-
-        List<CertificateVo> certificateVoList=new ArrayList<>();
 
         String where = (String) session.getAttribute("where");
         List<Certificate> certificateList;
@@ -94,12 +82,8 @@ public class CertificateController {
         }else {
             certificateList = certificateService.queryCertificatesByLogics(where);
         }
-        for (Certificate c : certificateList) {
-            String uname=userService.usernameByUid(c.getUid());
-            String puname=userService.usernameByUid(c.getPuid());
-            certificateVoList.add(new CertificateVo(c.getCid(),c.getCnumber(),c.getCcompany(),c.getCtoolname(),c.getCmodel(),c.getCoutnumber(),c.getCmanufacturer(),c.getCdelegate(),df.format(c.getCcheckdate()).toString(),c.getCcheckdepartment(),uname,puname,df.format(c.getCprintdate()).toString(),c.getCmoney(),"<button onclick=\"\" style=\"border:1px solid blue;color:blue\">详细</button>&nbsp;<button onclick=\"delCertificate("+c.getCid()+")\" style=\"border:1px solid red;color:red\">删除</button>"));
-        }
-        return certificateVoList;
+
+        return toVoList(certificateList);
     }
 
     /**
@@ -110,7 +94,6 @@ public class CertificateController {
     @RequestMapping("/getCertificatesDataJSONByLogics")
     @ResponseBody
     public List<CertificateVo> getCertificatesDataJSONByLogics(@RequestBody List<QueryCertificateLogics> logicsList, HttpSession session) {
-        List<CertificateVo> certificateVoList = new ArrayList<>();
 
         String where="where ";
         //根据从前端所得查询逻辑拼接字符串
@@ -135,26 +118,9 @@ public class CertificateController {
         session.setAttribute("where",where);
         List<Certificate> certificateList=certificateService.queryCertificatesByLogics(where);
         //将一些字段换为前端所需要的字段
-        for (Certificate c : certificateList) {
-            String uname=userService.usernameByUid(c.getUid());
-            String puname=userService.usernameByUid(c.getPuid());
-            certificateVoList.add(new CertificateVo(c.getCid(),c.getCnumber(),c.getCcompany(),c.getCtoolname(),c.getCmodel(),c.getCoutnumber(),c.getCmanufacturer(),c.getCdelegate(),df.format(c.getCcheckdate()).toString(),c.getCcheckdepartment(),uname,puname,df.format(c.getCprintdate()).toString(),c.getCmoney(),"<button style=\"border:1px solid blue;color:blue\">详细</button>&nbsp;<button style=\"border:1px solid red;color:red\">删除</button>"));
-        }
-        return certificateVoList;
+
+        return toVoList(certificateList);
     }
-
-    /*@RequestMapping("/tableJsonToExcel")
-    @ResponseBody
-    public String tableJsonToExcel(@RequestBody List<CertificateVo> certificateVoList){
-        try {
-            FileOutputStream outputStream1=excelWrite(certificateVoList);
-
-            return "导出成功";
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "出现异常，导出失败";
-        }
-    }*/
 
     /**
      * 响应前台的下载请求，读取session里的查询条件并将结果回馈前端进行下载
@@ -175,11 +141,8 @@ public class CertificateController {
         }else {
             certificateList = certificateService.queryCertificatesByLogics(where);
         }
-        for (Certificate c : certificateList) {
-            String uname=userService.usernameByUid(c.getUid());
-            String puname=userService.usernameByUid(c.getPuid());
-            certificateVoList.add(new CertificateVo(c.getCid(),c.getCnumber(),c.getCcompany(),c.getCtoolname(),c.getCmodel(),c.getCoutnumber(),c.getCmanufacturer(),c.getCdelegate(),df.format(c.getCcheckdate()).toString(),c.getCcheckdepartment(),uname,puname,df.format(c.getCprintdate()).toString(),c.getCmoney(),"1"));
-        }
+
+        certificateVoList=toVoList(certificateList);
 
         //将查询所得的列表通过poi转为byte[]
         byte[] bytes = new byte[0];
@@ -306,4 +269,36 @@ public class CertificateController {
         return b;
     }
 
+
+    /**
+     * 因为前端所需要的表格数据的一些列名与后台直接查询所得数据中的字段不对应
+     * 所以需要转换一些字段名及对应的数据
+     */
+    private List<CertificateVo> toVoList(List<Certificate> certificateList){
+         /*因为前端所需要的表格数据的一些列名与后台直接查询所得数据中的字段不对应
+        所以需要转换一些字段名及对应的数据*/
+        List<CertificateVo> certificateVoList = new ArrayList<>();
+        //这里开始循环原列表进行转换
+        for (Certificate c : certificateList) {
+            String unameByUid=userService.usernameByUid(c.getUid());
+            String punameByUid=userService.usernameByUid(c.getPuid());
+            String cid=c.getCid()==null?"无":c.getCid().toString();
+            String cnumber=c.getCnumber()==null?"无": c.getCnumber();
+            String ccompany=c.getCcompany()==null?"无": c.getCcompany();
+            String ctoolname=c.getCtoolname()==null?"无": c.getCtoolname();
+            String cmodel=c.getCmodel()==null?"无": c.getCmodel();
+            String coutnumber=c.getCoutnumber()==null?"无": c.getCoutnumber();
+            String cmanufacturer=c.getCmanufacturer()==null?"无": c.getCmanufacturer();
+            String cdelegate=c.getCdelegate()==null?"无": c.getCdelegate();
+            String cccheckdate=c.getCcheckdate()==null?"无": df.format(c.getCcheckdate());
+            String ccheckdepartment=c.getCcheckdepartment()==null?"无": c.getCcheckdepartment();
+            String uname=unameByUid==null?"无":unameByUid;
+            String puname=punameByUid==null?"无":punameByUid;
+            String cprintdate=c.getCprintdate()==null?"无": df.format(c.getCprintdate());
+            String cmoney=c.getCmoney()==null?"无": c.getCmoney().toString();
+            certificateVoList.add(new CertificateVo(cid,cnumber,ccompany,ctoolname,cmodel,coutnumber,cmanufacturer,cdelegate,cccheckdate,ccheckdepartment,uname,puname,cprintdate,cmoney,"<button onclick='toAnother("+c.getCid()+")' style=\"border:1px solid blue;color:blue\">详细</button>&nbsp;<button onclick=\"delCertificate("+c.getCid()+")\" style=\"border:1px solid red;color:red\">删除</button>"));
+        }
+
+        return certificateVoList;
+    }
 }

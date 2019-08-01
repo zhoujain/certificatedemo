@@ -24,6 +24,7 @@
     <link href="../../css/animate.min.css" rel="stylesheet">
     <link href="../../css/style.min862f.css?v=4.1.0" rel="stylesheet">
     <link href="../../css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
+    <link href="../../js/plugins/layer/theme/default/layer.css" rel="stylesheet">
     <style>
     </style>
 </head>
@@ -151,6 +152,8 @@
 <script src="../../js/content.min.js?v=1.0.0"></script>
 <script src="../../js/plugins/iCheck/icheck.min.js"></script>
 <script src="../../js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+<script src="../../js/plugins/layer/layer.js"></script>
+<script type="text/javascript" src="pageoffice.js" id="po_js_main"></script>
 <script src="../../js/index_query.js" type="text/javascript"></script>
 
 </body>

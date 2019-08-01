@@ -32,6 +32,7 @@ public class UserController {
     public String loginUser (Model model,HttpServletResponse response, @RequestParam(value = "username") String username, @RequestParam(value = "upwd") String upwd, HttpSession session)throws Exception{
         Boolean islogin = userService.loginUser(username,upwd);
         if(islogin){
+            session.setAttribute("uid",userService.findUserByUsername(username).getUid());
             session.setAttribute("username",username);
             session.setAttribute("utid",userService.uTidByUsername(username));
             String uaccess=userService.uAccessByUsername(username);
@@ -39,9 +40,10 @@ public class UserController {
             //1 表示管理员
             //2 表示有审核功能人员
             //3 表示普通人员
-            return "index";
+            return "redirect:/index";
         }
-        return "login";
+        model.addAttribute("message","用户名或密码错误");
+        return "/login";
 
     }
 

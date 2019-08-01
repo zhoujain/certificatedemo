@@ -51,6 +51,13 @@
         where username=#{username} and ustate=1
     </select>
 
+    <select id="findUidByUsername" resultType="Integer">
+        select
+        uid
+        from tb_user
+        where username=#{username} and ustate=1
+    </select>
+
     <insert id="insertUser">
         insert into tb_user (username,upwd,utid,uaccess,ustate)
         values (#{username},#{upwd},#{utid},#{uaccess},1)

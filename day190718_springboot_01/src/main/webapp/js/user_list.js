@@ -1,10 +1,13 @@
 $(function () {
     var $table = $('#table');
+    $table.hide();
     $.ajax({
         url: '/getUsersDataJSON',
         type: 'post',
         dataType: 'json',
         success: function (d) {
+            $("#loadGif").hide();
+            $table.show();
             $table.bootstrapTable({
                 data: d
             });
@@ -13,6 +16,10 @@ $(function () {
     $('#updateUserModal').modal("hide");
 });
 
+/**
+ * 将数据带到用户更新弹出框
+ * @param username
+ */
 function updateUser(username) {
     $('#username').val(username);
 
@@ -30,6 +37,10 @@ function updateUser(username) {
     });
 }
 
+/**
+ * 删除用户
+ * @param uid
+ */
 function delUser(uid) {
     var r=confirm("确认删除？");
     if (r===true) {
@@ -52,6 +63,9 @@ function delUser(uid) {
     }
 }
 
+/**
+ * 通过查询条件查询用户
+ */
 function queryUserByLikeUsername() {
     var username = $.trim($('#usernametext').val());
     if (username===""){
@@ -78,6 +92,9 @@ function queryUserByLikeUsername() {
     }
 }
 
+/**
+ * 提交更新用户
+ */
 function commitUpdateUser() {
     var uid=$.trim($('#uid').val());
     var username=$.trim($('#username').val());
@@ -117,6 +134,9 @@ function commitUpdateUser() {
     }
 }
 
+/**
+ * 刷新表格
+ */
 function refreshUserList() {
     queryUserByLikeUsername();
 }

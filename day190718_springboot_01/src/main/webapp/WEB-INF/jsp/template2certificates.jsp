@@ -12,14 +12,16 @@
     <script src="../../js/jquery.min.js?v=2.1.4"></script>
 </head>
 <body>
-<input id="btn_save" type="button" value="保存证书" onclick="return saveCertificate()"/>
-<input id="btn_next" type="button" value="下一份证书" onclick="return nextCertificate()"/>
-<input id="Button1" type="button" value="隐藏/显示 标题栏"  onclick="return Button1_onclick()" />
-<input id="Button2" type="button" value="隐藏/显示 菜单栏" onclick="return Button2_onclick()" />
-<input id="Button3" type="button" value="隐藏/显示 自定义工具栏"  onclick="return Button3_onclick()" />
-<input id="Button4" type="button" value="隐藏/显示 Office工具栏"  onclick="return Button4_onclick()" />
+<input id="btn_save" class="btn btn-primary" type="button" value="保存证书" onclick="return saveCertificate()"/>
+<input id="btn_next" class="btn btn-info" type="button" value="下一份证书" onclick="return nextCertificate()"/>
+<input id="ButtonClose" class="btn btn-primary"  type="button" value="关闭"  onclick="return CloseFile()" />
+<input id="Button1" class="btn btn-info" type="button" value="隐藏/显示 标题栏"  onclick="return Button1_onclick()" />
+<input id="Button2" class="btn btn-primary" type="button" value="隐藏/显示 菜单栏" onclick="return Button2_onclick()" />
+<input id="Button3" class="btn btn-info" type="button" value="隐藏/显示 自定义工具栏"  onclick="return Button3_onclick()" />
+<input id="Button4" class="btn-primary" type="button" value="隐藏/显示 Office工具栏"  onclick="return Button4_onclick()" />
 <div>${po_t2c}</div>
 <div><a id="cGo" target="_self" style="display: none;" href="">HiddenLink</a></div>
+<script type="text/javascript" src="pageoffice.js" id="po_js_main"></script>
 <script>
     function BeforeBrowserClosed(){
         if (document.getElementById("PageOfficeCtrl1").IsDirty){
@@ -63,12 +65,20 @@
         alert("保存证书")
         document.getElementById("PageOfficeCtrl1").WebSave();
     }
+    function CloseFile(){
+        window.external.close();
+    }
 
     function nextCertificate() {
         if(confirm("请确认文档已经保存")){
             var s= "<%=session.getAttribute("tid")%>";
             alert(s);
-            $("#cGo").attr("href","/openWordwithNumchanged?id="+s);
+            if(!!window.ActiveXObject || "ActiveXObject" in window){
+                $("#aGo").attr("href","/openWordwithNumchanged?id="+selected.node.id);
+            }else {
+                $("#aGo").attr("href","javascript:POBrowser.openWindowModeless('/openWordwithNumchanged?id="+selected.node.id+"','width=1200px;height=800px;');");
+            }
+            //$("#cGo").attr("href","/openWordwithNumchanged?id="+s);
             $("#cGo")[0].click();
         }else{
             return false;
