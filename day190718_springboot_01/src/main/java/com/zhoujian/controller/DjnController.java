@@ -43,7 +43,7 @@ public class DjnController {
         //打开数据区域
         DataRegion dataRegion1 = doc.openDataRegion("PO_cnumber");
         Integer cnum = certificateService.queryMaxCnumber()+1;
-        dataRegion1.setEditing(true);
+        dataRegion1.setEditing(false);
         //给数据区域赋值
         dataRegion1.setValue(cnum.toString());
 
@@ -108,7 +108,6 @@ public class DjnController {
         //取值
         com.zhuozhengsoft.pageoffice.wordreader.WordDocument doc = new com.zhuozhengsoft.pageoffice.wordreader.WordDocument(request,response);
         com.zhuozhengsoft.pageoffice.wordreader.DataRegion dataRegion = doc.openDataRegion("PO_cnumber");
-//        System.out.println(dataRegion.getValue());
         Certificate certificate = new Certificate();
         certificate.setCnumber(dataRegion.getValue().trim());
         dataRegion = doc.openDataRegion("PO_ccompany");
@@ -142,12 +141,20 @@ public class DjnController {
         certificate.setTid(tid);//设置模板id
         certificate.setUid(1);//设置用户id
 //        System.out.println(certificate);
-
-        //插入数据库
-        Integer cid = certificateService.addCertificate(certificate);
-//        System.out.println(cid);
-        request.getSession().setAttribute("cid",cid);
-        //复制文件，保存证书
+        if(certificateService.queryCnumber(certificate.getCnumber())==null){
+            //数据库中没有数据
+            //插入数据库
+            Integer cid = certificateService.addCertificate(certificate);
+            //request.getSession().setAttribute("cid",cid);
+            certificate.setCid(cid);
+        }else{
+            //数据库中已有数据
+            //根据cid更新数据库
+            Integer cid = certificateService.queryCnumber(certificate.getCnumber()).getCid();
+            certificate.setCid(cid);
+            certificateService.editCertificate(certificate);
+        }
+        request.getSession().setAttribute("cid",certificate.getCid());
         doc.close();
     }
 
@@ -211,19 +218,24 @@ public class DjnController {
     */
     @RequestMapping(value = "/SaveCertificateFile")
     public void SaveCertificateFile(HttpServletRequest request,HttpServletResponse response){
-        int tid = Integer.parseInt(request.getSession().getAttribute("tid").toString());
+        FileSaver fs = new FileSaver(request,response);
+        //String cid = request.getSession().getAttribute("cid").toString();
         int cid = Integer.parseInt(request.getSession().getAttribute("cid").toString());
-        String fileName = null;
-        try {
-            fileName = CopyFile(request,cid,tid);
-        } catch (SysException e) {
-            e.printStackTrace();
+        System.out.println(cid);
+        String path = request.getSession().getServletContext().getRealPath("/uploads")+"/aacc"+cid+".doc";
+        System.out.println(path);
+        File file = new File(path);
+        if (!file.exists()){
+            //复制文件，保存文件
+            int tid = Integer.parseInt(request.getSession().getAttribute("tid").toString());
+            //String fileName = null;
+            try {
+                CopyFile(request,cid,tid);
+            } catch (SysException e) {
+                e.printStackTrace();
+            }
         }
-        System.out.println(fileName);
-        FileSaver fs = new FileSaver(request, response);
-        String path1 = request.getSession().getServletContext().getRealPath("/uploads") + "/"+fileName;
-        System.out.println(path1);
-        fs.saveToFile(path1);
+        fs.saveToFile(path);
         fs.close();
     }
 
