@@ -160,4 +160,13 @@ public class CertificateMapperTest {
         System.out.println(result);
         System.out.println(certificate.getCcheckdate());
     }
+
+    @Test
+    public void testQueryCnumber(){
+        String cnumber = "800136119";
+        System.out.println(certificateService.queryCnumber(cnumber));
+        cnumber = "800136118";
+        Certificate c = certificateService.queryCnumber(cnumber);
+        System.out.println(c);
+    }
 }

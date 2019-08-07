@@ -53,4 +53,6 @@ public interface CertificateMapper {
     String queryMaxCnumber();
 
     int editCertificate(Certificate certificate);
+
+    Certificate queryCnumber(String cnumber);
 }

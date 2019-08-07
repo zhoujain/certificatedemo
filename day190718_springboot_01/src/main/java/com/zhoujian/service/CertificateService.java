@@ -18,4 +18,6 @@ public interface CertificateService {
     Integer addCertificate(Certificate certificate);
 
     Integer editCertificate(Certificate certificate);
+
+    Certificate queryCnumber(String cnumber);
 }

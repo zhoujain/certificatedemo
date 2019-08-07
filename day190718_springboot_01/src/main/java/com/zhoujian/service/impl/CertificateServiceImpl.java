@@ -47,4 +47,10 @@ public class CertificateServiceImpl implements CertificateService {
         Integer result = certificateMapper.editCertificate(certificate);
         return result;
     }
+
+    @Override
+    public Certificate queryCnumber(String cnumber){
+        Certificate result = certificateMapper.queryCnumber(cnumber);
+        return result;
+    }
 }
