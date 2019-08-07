@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhoujian.dao.TtemplateMapper">
+    <select id="queryTtemplateList" resultType="Ttemplate">
+        select * from tb_ttemplate where ttisdel = 1
+    </select>
+
+    <insert id="addTtemplate">
+        insert into tb_ttemplate (ttname,tturl,ttpid,tttype,ttisdel) values (#{ttname},#{tturl},#{ttpid},#{tttype},1)
+    </insert>
+
+    <insert id="addTtemplateToTtid" useGeneratedKeys="true" keyProperty="ttid">
+
+        insert into tb_ttemplate (ttname,tturl,ttpid,tttype,ttisdel) values (#{ttname},#{tturl},#{ttpid},#{tttype},1)
+    </insert>
+
+    <update id="editTtemplate">
+        update tb_ttemplate set ttname=#{ttname},tturl=#{tturl},ttpid=#{ttpid},tttype=#{tttype},ttisdel=#{ttisdel} where ttid=#{ttid} and ttisdel = 1
+    </update>
+
+    <update id="deleteTtemplate">
+        update tb_ttemplate set ttisdel=0 where ttid=#{ttid} and ttisdel =1
+    </update>
+
+    <select id="getTtemplateById" resultType="Ttemplate">
+        select * from tb_ttemplate where ttid=#{ttid} and ttisdel=1
+    </select>
+</mapper>
