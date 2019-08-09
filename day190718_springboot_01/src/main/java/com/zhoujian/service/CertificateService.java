@@ -20,4 +20,6 @@ public interface CertificateService {
     Integer editCertificate(Certificate certificate);
 
     Certificate queryCnumber(String cnumber);
+
+    Certificate getCertificateByID(int cid);
 }

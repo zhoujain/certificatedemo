@@ -1,19 +1,28 @@
 package com.zhoujian.controller;
 
+import com.zhoujian.domain.Certificate;
+import com.zhoujian.service.CertificateService;
 import com.zhuozhengsoft.pageoffice.FileSaver;
 import com.zhuozhengsoft.pageoffice.OpenModeType;
 import com.zhuozhengsoft.pageoffice.PageOfficeCtrl;
+import com.zhuozhengsoft.pageoffice.wordwriter.DataRegion;
+import com.zhuozhengsoft.pageoffice.wordwriter.WordDocument;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 @Controller
 public class Record_MapperController {
+
+    @Resource(name = "certificateService")
+    private CertificateService certificateService;
+
     @RequestMapping("/record_v1")
     public String Record_v1(){
         return "record_v1";
@@ -94,34 +103,37 @@ public class Record_MapperController {
     @RequestMapping(value="/record_add_word1", method= RequestMethod.GET)
     //@ResponseBody
     public String openWord_add(HttpServletRequest request, Map<String,Object> map, @RequestParam(value = "id")String id,@RequestParam(value = "cid")String cid){
-        //System.out.println(map);
         //--- PageOffice的调用代码 开始 -----
         PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
-
         poCtrl.setServerPage("/poserver.zz");//设置授权程序
+
+        Certificate certificate = certificateService.getCertificateByID(Integer.parseInt(cid));
+        System.out.println(certificate);
+        WordDocument doc = new WordDocument();
+        DataRegion dataRegion = doc.openDataRegion("PO_sccompany");
+        dataRegion.setValue(certificate.getCcompany());
+        dataRegion = doc.openDataRegion("PO_sctoolname");
+        dataRegion.setValue(certificate.getCtoolname());
+        dataRegion = doc.openDataRegion("PO_scmodel");
+        dataRegion.setValue(certificate.getCmodel());
+        dataRegion = doc.openDataRegion("PO_scoutnumber");
+        dataRegion.setValue(certificate.getCoutnumber());
+        dataRegion = doc.openDataRegion("PO_scmanufacturer");
+        dataRegion.setValue(certificate.getCmanufacturer());
+        poCtrl.setWriter(doc);
 
         poCtrl.addCustomToolButton("保存","Save",1); //添加自定义按钮
         poCtrl.addCustomToolButton("关闭","CloseFile()",21);
         poCtrl.setSaveFilePage("/save1");//设置保存的action
         //获得文件路径
-        //String newPath = request.getSession().getServletContext().getRealPath("/uploads" + fileName);
         String str ="/uploads/bbaa" + id+".doc";
-        //String str1 ="/uploads/bbaa" + id+".xlsx";
         String newPath = request.getSession().getServletContext().getRealPath(str);
-        //String newPath1 = request.getSession().getServletContext().getRealPath(str1);
         System.out.println(newPath);
-        // System.out.println(newPath1);
+
         poCtrl.webOpen(newPath, OpenModeType.docAdmin,"张三");
-        //poCtrl1.webOpen(newPath1,OpenModeType.xlsNormalEdit,"张三");
         map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
-        //map.put("pageoffice1",poCtrl1.getHtmlCode("PageOfficeCtrl2"));
-        //map.put("pageoffice1",poCtrl.getHtmlCode("PageOfficeCtrl1"));
-        //System.out.println(map);
+        //传id用于打开Excel
         map.put("id",id);
-        //--- PageOffice的调用代码 结束 -----
-        //ModelAndView mv = new ModelAndView();
-        //mv.setViewName("wrod1");
-        //mv.addObject("")
         return "record_add_word1";
     }
 

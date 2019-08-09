@@ -133,7 +133,7 @@
                 //var a = /;
                 var str='暂无数据';
                 if(optionData !=null&&optionData!=""){
-                    str = '<div id="div-cid" style="display: none">'+optionData[0].cid+'</div>';
+                    str = '<div id="div-cid" style="display: none" value="'+optionData[0].cid+'"></div>';
                     for(var i = 0;i<optionData.length;i++){
                         if(i==0){
                             str+='<div class="all-div" value="'+optionData[i].cid+'" style="background: #00FFFF">\n'

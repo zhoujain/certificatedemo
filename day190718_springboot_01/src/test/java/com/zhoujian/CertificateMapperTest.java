@@ -122,7 +122,7 @@ public class CertificateMapperTest {
         for (Certificate c : certificateList) {
             String uname=userService.usernameByUid(c.getUid());
             String puname=userService.usernameByUid(c.getPuid());
-            certificateVoList.add(new CertificateVo(c.getCid(),c.getCnumber(),c.getCcompany(),c.getCtoolname(),c.getCmodel(),c.getCoutnumber(),c.getCmanufacturer(),c.getCdelegate(),df.format(c.getCcheckdate()).toString(),c.getCcheckdepartment(),uname,puname,df.format(c.getCprintdate()).toString(),c.getCmoney(),"<a>删除</a><a>详细</a>"));
+            //certificateVoList.add(new CertificateVo(c.getCid(),c.getCnumber(),c.getCcompany(),c.getCtoolname(),c.getCmodel(),c.getCoutnumber(),c.getCmanufacturer(),c.getCdelegate(),df.format(c.getCcheckdate()).toString(),c.getCcheckdepartment(),uname,puname,df.format(c.getCprintdate()).toString(),c.getCmoney(),"<a>删除</a><a>详细</a>"));
 
         }
         try {

@@ -53,4 +53,10 @@ public class CertificateServiceImpl implements CertificateService {
         Certificate result = certificateMapper.queryCnumber(cnumber);
         return result;
     }
+
+    @Override
+    public Certificate getCertificateByID(int cid){
+
+        return certificateMapper.getCertificateById(cid);
+    }
 }
