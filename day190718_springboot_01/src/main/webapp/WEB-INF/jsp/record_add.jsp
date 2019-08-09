@@ -26,6 +26,7 @@
     <link href="../../css/plugins/jsTree/style.min.css" rel="stylesheet">
     <link href="../../css/plugins/iCheck/custom.css" rel="stylesheet">
     <link href="../../css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <link href="../../js/plugins/layer/theme/default/layer.css" rel="stylesheet">
     <link href="../../css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
     <style>
     </style>
@@ -95,6 +96,7 @@
 <script src="../../js/plugins/jsTree/jstree.min.js"></script>
 <script src="../../js/content.min.js?v=1.0.0"></script>
 <script src="../../js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+<script src="../../js/plugins/layer/layer.js"></script>
 <script type="text/javascript" src="pageoffice.js" id="po_js_main"></script>
 <script>
     //var checkBoxArr = [];
@@ -261,7 +263,7 @@
                         if(!!window.ActiveXObject || "ActiveXObject" in window){
                             $("#aGo").attr("href","/wordcheck?id="+selected.node.id);
                         }else {
-                            $("#aGo").attr("href","javascript:POBrowser.openWindowModeless('/record_add_word1?id="+selected.node.id+"?cid="+$('#div-cid').arr("value")+"','width=1200px;height=1000px;');");
+                            $("#aGo").attr("href","javascript:POBrowser.openWindowModeless('/record_add_word1?id="+selected.node.id+"&cid="+$('#div-cid').attr("value")+"','width=1200px;height=1000px;');");
                         }
                         //$("#aGo").attr("href","/wordcheck?id="+selected.node.id);
                         $("#div-id").attr("value",selected.node.id)

@@ -30,10 +30,10 @@
     function ToExecl() {
         if(!!window.ActiveXObject || "ActiveXObject" in window){
             var id =${id};
-            $("#aGo1").attr("href","/record_word2?id="+id);
+            $("#aGo1").attr("href","/record_add_word2?id="+id);
         }else {
             var id =${id};
-            $("#aGo1").attr("href","/record_word2?id="+id);
+            $("#aGo1").attr("href","/record_add_word2?id="+id);
             //$("#aGo1").attr("href","javascript:POBrowser.openWindowModeless('/record_word2?id="+id+"','width=1200px;height=800px;');");
         }
 
