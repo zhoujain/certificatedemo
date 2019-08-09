@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhoujian.dao.RecordMapper">
+    <select id="getAllRecords" resultType="Record">
+        select * from tb_record where scisdel!=0
+    </select>
+    <select id="getRecordById" resultType="com.zhoujian.domain.Record" parameterType="Integer">
+        select * from tb_record where scid=#{scid} and scisdel!=0
+    </select>
+
+    <select id="getRecordByLogics" resultType="com.zhoujian.domain.Record" parameterType="String">
+        select * from tb_record ${value} and scisdel!=0
+    </select>
+
+
+    <insert id="addRecord" useGeneratedKeys="true" keyProperty="scid">
+        insert into tb_record (scname,cid,scnumber,sccompany,sctoolname,scmodel,scoutnumber,scmanufacturer,scdelegate,sccheckdate,sccheckdepartment,uid,puid,scprintdate,scmoney,tid,scstate,scisdel)
+        values (#{scname},0,#{scnumber},#{sccompany},#{sctoolname},#{scmodel},#{scoutnumber},#{scmanufacturer},#{scdelegate},#{sccheckdate},#{sccheckdepartment},#{uid},#{puid},#{scprintdate},#{scmoney},#{tid},#{scstate},1)
+    </insert>
+
+    <update id="delRecord" parameterType="Integer">
+        update tb_record set scisdel="0" where scid=#{scid}
+    </update>
+
+    <update id="updateRecord" parameterType="Record">
+        update tb_record set scname=#{scname},scnumber=#{scnumber},sccompany=#{sccompany},sctoolname=#{sctoolname},scmodel=#{scmodel},scoutnumber=#{scoutnumber},scmanufacturer=#{scmanufacturer},scdelegate=#{scdelegate},sccheckdate=#{sccheckdate},sccheckdepartment=#{sccheckdepartment},uid=#{uid},puid=#{puid},scprintdate=#{scprintdate},scmoney=#{scmoney},tid=#{tid} where scid=#{scid}
+    </update>
+
+    <select id="queryMaxScnumber" resultType="String">
+        SELECT scnumber FROM tb_record where scisdel!=0 order by scid desc limit 1
+    </select>
+
+<!--    <update id="editCertificate" parameterType="Certificate">-->
+<!--        update tb_certificate set cnumber=#{cnumber},ccompany=#{ccompany},ctoolname=#{ctoolname},cmodel=#{cmodel},coutnumber=#{coutnumber},cmanufacturer=#{cmanufacturer},cdelegate=#{cdelegate},ccheckdate=#{ccheckdate},ccheckdepartment=#{ccheckdepartment} where cid=#{cid}-->
+<!--    </update>-->
+
+    <select id="queryScnumber" parameterType="String" resultType="Record">
+        select scid from tb_record where scnumber = #{scnumber}
+    </select>
+</mapper>
