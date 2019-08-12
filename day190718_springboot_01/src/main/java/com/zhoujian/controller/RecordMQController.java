@@ -50,6 +50,10 @@ public class RecordMQController {
     public String to_record_update() {
         return "record_update";
     }
+    @RequestMapping("/record_upload")
+    public String to_record_upload() {
+        return "record_upload";
+    }
 
 
     /**

@@ -172,8 +172,8 @@ $(function () {
             '                                </select></td>\n' +
             '                            <td><select class="form-control selectlogic">\n' +
             '                                <option selected="selected">请选择</option>\n' +
-            '                                <option value="scnumber">证书编号</option>\n' +
-            '                                <option value="sccompany">证书单位</option>\n' +
+            '                                <option value="scnumber">记录编号</option>\n' +
+            '                                <option value="sccompany">记录单位</option>\n' +
             // '                                <option value="ctoolname">器具名称</option>\n' +
             // '                                <option value="cmodel">型号规格</option>\n' +
             // '                                <option value="coutnumber">出厂编号</option>\n' +
