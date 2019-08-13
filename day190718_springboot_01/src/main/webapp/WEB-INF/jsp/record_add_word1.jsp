@@ -43,6 +43,16 @@
     function Save() {
         document.getElementById("PageOfficeCtrl1").WebSave();
     }
+    function ToCer(){
+        <%--window.location.href="/saveAsCertificate?id="+${id};--%>
+
+        $.post("/saveAsCertificate",
+        {
+        },
+        function(){
+
+        });
+    }
     function PrintFile(){
         document.getElementById("PageOfficeCtrl1").ShowDialog(4);
 

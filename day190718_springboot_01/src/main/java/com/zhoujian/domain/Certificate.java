@@ -200,6 +200,7 @@ public class Certificate implements Serializable {
                 ", cprintdate=" + cprintdate +
                 ", cmoney=" + cmoney +
                 ", tid=" + tid +
+                ", cstate=" + cstate +
                 '}';
     }
 }

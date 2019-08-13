@@ -36,6 +36,11 @@
 <!--    </update>-->
 
     <select id="queryScnumber" parameterType="String" resultType="Record">
-        select scid from tb_record where scnumber = #{scnumber}
+        select scid from tb_record where scnumber = #{scnumber} and scisdel=1
     </select>
+
+    <update id="updateCid" parameterType="map">
+        update tb_record set cid=#{cid} where scid=#{scid} and scisdel=1
+    </update>
+
 </mapper>

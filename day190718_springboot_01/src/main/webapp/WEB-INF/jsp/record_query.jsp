@@ -55,8 +55,8 @@
                             </td>
                             <td><select class="form-control selectlogic">
                                 <option selected="selected">请选择</option>
-                                <option value="scnumber">证书编号</option>
-                                <option value="sccompany">证书单位</option>
+                                <option value="scnumber">记录编号</option>
+                                <option value="sccompany">记录单位</option>
                                 <%--      <option value="ctoolname">器具名称</option>
                                       <option value="cmodel">型号规格</option>
                                       <option value="coutnumber">出厂编号</option>
@@ -116,8 +116,8 @@
                         <tr>
                             <th data-field="scid">序号</th>
                             <th data-field="scdelegate">委托单号</th>
-                            <th data-field="scnumber">证书编号</th>
-                            <th data-field="sccompany">证书单位</th>
+                            <th data-field="scnumber">记录编号</th>
+                            <th data-field="sccompany">记录单位</th>
                             <th data-field="sctoolname">器具名称</th>
                             <th data-field="scmodel">型号规格</th>
                             <th data-field="scoutnumber">出厂编号</th>
@@ -132,13 +132,6 @@
                     </table>
                     <%--证书列表表格 结束--%>
 
-                    <%--说明--%>
-                    <hr>
-                    <p>说明</p>
-                    <p>1：默认查询一个月内证书，勾上“查询所有证书后查询所有证书”</p>
-                    <p>2：是否入库查询仅代表该证书有出入库记录，不代表证书还在库房，有可能已出库</p>
-                    <p>3：原始记录生成的证书不允许直接删除，只能通过删除相应的原始记录来同步的删除证书</p>
-                    <p>4：证书编号<span style="color: green">绿色</span>代表该证书是由原始记录生成的</p>
                 </div>
             </div>
         </div>
