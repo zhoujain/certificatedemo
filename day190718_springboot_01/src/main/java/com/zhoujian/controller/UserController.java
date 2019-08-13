@@ -63,7 +63,7 @@ public class UserController {
         if (session.getAttribute("menuHtml")!=null) {
             session.removeAttribute("menuHtml");
         }
-        return "login";
+        return "redirect:/login";
     }
 
     /**

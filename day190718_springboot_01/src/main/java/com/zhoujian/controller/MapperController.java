@@ -107,6 +107,11 @@ public class MapperController {
 
         return "login";
     }
+    @RequestMapping("/index_first")
+    public String login_first() {
+
+        return "index_first";
+    }
 
     @RequestMapping("/word")
     public String word() {
