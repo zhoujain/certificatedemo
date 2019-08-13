@@ -63,6 +63,7 @@
     function CloseFile(){
         window.external.close();
     }
+
 </script>
 </body>
 </html>

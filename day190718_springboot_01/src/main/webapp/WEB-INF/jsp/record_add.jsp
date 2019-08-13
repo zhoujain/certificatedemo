@@ -179,7 +179,7 @@
                }
                if(this.style.background!="#00FFFF"){
                    this.style.background="#00FFFF";
-                   document.getElementById("div-cid").innerText = this.getAttribute("value");
+                   document.getElementById("div-cid").setAttribute("value",this.getAttribute("value"));
                }else {
                    this.style.background="";
                }
