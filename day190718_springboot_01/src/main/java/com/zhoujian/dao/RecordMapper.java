@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 
 @Component("recordMapper")
 @Mapper
@@ -56,4 +57,6 @@ public interface RecordMapper {
 
 
     Record queryScnumber(String cnumber);
+
+    Integer updateCid(Map map);
 }

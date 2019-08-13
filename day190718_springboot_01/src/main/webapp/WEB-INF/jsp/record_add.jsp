@@ -261,7 +261,7 @@
                 if('click'==selected.event.type){
                     if(selected.node.type ==2||selected.node.type ==3){
                         if(!!window.ActiveXObject || "ActiveXObject" in window){
-                            $("#aGo").attr("href","/wordcheck?id="+selected.node.id);
+                            $("#aGo").attr("href","/record_add_word1?id="+selected.node.id+"&cid="+$('#div-cid').attr("value"))
                         }else {
                             $("#aGo").attr("href","javascript:POBrowser.openWindowModeless('/record_add_word1?id="+selected.node.id+"&cid="+$('#div-cid').attr("value")+"','width=1200px;height=1000px;');");
                         }
