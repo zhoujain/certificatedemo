@@ -28,11 +28,11 @@
         if(!!window.ActiveXObject || "ActiveXObject" in window){
             var scid =${scid};
             alert(scid);
-            $("#aGo1").attr("href","/record_display_word1?scid="+scid);
+            $("#aGo1").attr("href","/record_dispaly_word1?scid="+scid);
         }else {
             alert(scid);
             var scid =${scid};
-            $("#aGo1").attr("href","/record_display_word1?scid="+scid);
+            $("#aGo1").attr("href","/record_dispaly_word1?scid="+scid);
             //$("#aGo1").attr("href","javascript:POBrowser.openWindowModeless('/record_word2?id="+id+"','width=1200px;height=800px;');");
         }
 

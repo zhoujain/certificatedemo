@@ -65,25 +65,42 @@
 <script type="text/javascript" src="pageoffice.js" id="po_js_main"></script>
 </script>
 <script>
-    $(document).ready(function () {
-        window.addEventListener('message',function (e) {
-            alert("找到审核了")
-            if(e.data ==1){
-                alert(" 审核验证了")
-                $.post("/template/updateTtype",
-                    {
-                        id:$("#div-id").attr("value")
-                    },
-                    function (data) {
-                        alert("进来了")
-                        var div_id = $("#div-id").attr("value");
-                       $('#'+div_id ).children("a").css({"color":"black"});
-                    })
-            }
-        })
-});
+//     $(document).ready(function () {
+//         window.addEventListener('message',function (e) {
+//             alert("找到审核了")
+//             if(e.data ==1){
+//                 alert(" 审核验证了")
+//                 $.post("/template/updateTtype",
+//                     {
+//                         id:$("#div-id").attr("value")
+//                     },
+//                     function (data) {
+//                         alert("进来了")
+//                         var div_id = $("#div-id").attr("value");
+//                        $('#'+div_id ).children("a").css({"color":"black"});
+//                     })
+//             }
+//         })
+// });
 </script>
 <%--<script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>--%>
+<script>
+    function updateCount(value) {
+        if(value ==1){
+            //alert(" 审核验证了")
+            $.post("/ttemplate/tupdateTtype",
+                {
+                    id:$("#div-id").attr("value")
+                },
+                function (data) {
+                    //alert("进来了")
+                    var div_id = $("#div-id").attr("value");
+                    $('#'+div_id ).children("a").css({"color":"black"});
+                })
+        }
+        return 1;
+    }
+</script>
 <script>
     tzs = {};
     tzs.index = {

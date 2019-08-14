@@ -12,7 +12,7 @@
     <link href="../../css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
 </head>
 <body>
-<input id="ButtonCheck" class="btn btn-primary"  type="button" value="审核"  onclick="return CheckFile()" />
+<input id="ButtonCheck" class="btn btn-primary"  type="button" value="审核"  onclick="return CheckFile(value)" />
 <input id="ButtonClose" class="btn btn-info"  type="button" value="关闭"  onclick="return CloseFile()" />
 <input id="Button1" class="btn btn-primary" type="button" value="隐藏/显示 标题栏"  onclick="return Button1_onclick()" />
 <input id="Button2" class="btn btn-info"  type="button" value="隐藏/显示 菜单栏" onclick="return Button2_onclick()" />
@@ -23,12 +23,12 @@
     
     //发送通过审核的消息
     function CheckFile() {
-        var btn = document.getElementById('ButtonCheck');
-        btn.addEventListener('click',function (e) {
-            e.preventDefault();
-            //alert("1");
-            window.parent.postMessage("1",'*');
-        })
+        var sResult = window.external.CallParentFunc("updateCount("+value+");");
+        if(sResult=='poerror:parentlost'){
+            alert('父页面关闭或跳转刷新了，导致父页面函数没有调用成功！');
+            return false;
+        }
+        document.getElementById("PageOfficeCtrl1").Alert("审核成功");
     }
     function Save() {
         document.getElementById("PageOfficeCtrl1").WebSave();
