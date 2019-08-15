@@ -357,7 +357,7 @@
                             var obj = ref.get_node(sel);
                             $('#div-id').attr("value",obj.id);
                             $('#div-text').attr("value",obj.text);
-                            $('#div-iscopy').attr("value",1);
+                            $('#div-iscopy').attr("value",2);
                             ref.delete_node(sel);
 
 
@@ -374,26 +374,27 @@
                             sel= sel[0];
                             var text1 = $('#div-text').attr("value");
                             var idcopy = $('#div-iscopy').attr("value");
-                            var tree_id;
-                            $.ajaxSettings.async = false;
-                            $.post("/ttemplate/tnode_add",
 
-                                {
-                                    id:1,
-                                    text:1,
-                                    parent:1,
-                                    type:"2",
-                                    turl:1
-                                },
-                                function(data){
-                                    //alert(data+" 111");
-                                    tree_id = data;
-                                }
-
-                            );
-                            $.ajaxSettings.async = true;
-                            sel = ref.create_node(sel,{"type":"2","text":text1,"id":tree_id});
                             if (idcopy == 1) {
+                                var tree_id;
+                                $.ajaxSettings.async = false;
+                                $.post("/ttemplate/tnode_add",
+
+                                    {
+                                        id:1,
+                                        text:1,
+                                        parent:1,
+                                        type:"2",
+                                        turl:1
+                                    },
+                                    function(data){
+                                        //alert(data+" 111");
+                                        tree_id = data;
+                                    }
+
+                                );
+                                $.ajaxSettings.async = true;
+                                sel = ref.create_node(sel,{"type":"2","text":text1,"id":tree_id});
                                 var obj = ref.get_node(sel);
                                 $.post("/ttemplate/tnode_add1_copy",
                                     {
@@ -407,6 +408,7 @@
                                     }
                                 );
                             } else if (idcopy == 2) {
+                                sel = ref.create_node(sel,{"type":"2","text":text1,"id":$('#div-id').attr("value")});
                                 var obj = ref.get_node(sel);
                                 $.post("/ttemplate/tnode_add1_cut",
                                     {

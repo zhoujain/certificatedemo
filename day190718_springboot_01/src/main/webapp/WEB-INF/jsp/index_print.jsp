@@ -61,7 +61,7 @@
             <div class="ibox">
                 <div class="ibox-title">结果</div>
                 <div class="ibox-content">
-                    <div class="list-group">
+                    <div class="list-group" style="overflow-y:auto;overflow-x: auto; height:400px ;width:100%;">
 <%--                        <c:forEach var="cer" items="${CerList}">--%>
 <%--                            <div style="border: 1px black solid;">--%>
 

@@ -13,7 +13,6 @@
 </head>
 <body>
 <input id="ButtonSave" class="btn btn-primary"  type="button" value="保存Execl"  onclick="return Save()" />
-<input id="ButtonClose" class="btn btn-info"  type="button" value="关闭"  onclick="return CloseFile()" />
 <input id="Button1" class="btn btn-primary" type="button" value="隐藏/显示 标题栏"  onclick="return Button1_onclick()" />
 <input id="Button2" class="btn btn-info"  type="button" value="隐藏/显示 菜单栏" onclick="return Button2_onclick()" />
 <input id="Button3" class="btn btn-primary" type="button" value="隐藏/显示 自定义工具栏"  onclick="return Button3_onclick()" />
@@ -21,16 +20,21 @@
 <input id="doc" class="btn btn-primary"  type="button" value="返回"  onclick="ToDoc()" />
 <div style="width:1200px;height:800px;" >${pageoffice1}</div>
 <a id="aGo1" target="_self" style="display: none;" href="">隐藏链接</a>
+<div id="div-issave" style="display: none" value="1">是否保存的标志</div>
 <script src="../../js/jquery.min.js?v=2.1.4"></script>
 
 <script type="text/javascript">
     function ToDoc() {
+        if($('#div-issave').attr("value")==1){
+            alert("请进行execl保存");
+            return false;
+        }
         if(!!window.ActiveXObject || "ActiveXObject" in window){
             var scid =${scid};
-            alert(scid);
+            //alert(scid);
             $("#aGo1").attr("href","/record_display_word1?scid="+scid);
         }else {
-            alert(scid);
+            //alert(scid);
             var scid =${scid};
             $("#aGo1").attr("href","/record_display_word1?scid="+scid);
             //$("#aGo1").attr("href","javascript:POBrowser.openWindowModeless('/record_word2?id="+id+"','width=1200px;height=800px;');");
@@ -40,6 +44,8 @@
         $("#aGo1")[0].click();
     }
     function Save() {
+        alert("保存成功");
+        $('#div-issave').attr("value","2");
         document.getElementById("PageOfficeCtrl2").WebSave();
     }
     function PrintFile(){

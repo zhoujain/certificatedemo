@@ -13,7 +13,6 @@
 </head>
 <body>
 <input id="ButtonSave" class="btn btn-primary"  type="button" value="保存Execl"  onclick="return Save()" />
-<input id="ButtonClose" class="btn btn-info"  type="button" value="关闭"  onclick="return CloseFile()" />
 <input id="Button1" class="btn btn-primary" type="button" value="隐藏/显示 标题栏"  onclick="return Button1_onclick()" />
 <input id="Button2" class="btn btn-info"  type="button" value="隐藏/显示 菜单栏" onclick="return Button2_onclick()" />
 <input id="Button3" class="btn btn-primary" type="button" value="隐藏/显示 自定义工具栏"  onclick="return Button3_onclick()" />
@@ -25,19 +24,23 @@
 
 <script type="text/javascript">
     function ToDoc() {
-        if(!!window.ActiveXObject || "ActiveXObject" in window){
-            var scid =${scid};
-            alert(scid);
-            $("#aGo1").attr("href","/record_dispaly_word1?scid="+scid);
-        }else {
-            alert(scid);
-            var scid =${scid};
-            $("#aGo1").attr("href","/record_dispaly_word1?scid="+scid);
-            //$("#aGo1").attr("href","javascript:POBrowser.openWindowModeless('/record_word2?id="+id+"','width=1200px;height=800px;');");
+        var r = confirm("请确保execl已经保存");
+        if(r ==true){
+            if(!!window.ActiveXObject || "ActiveXObject" in window){
+                var scid =${scid};
+                //alert(scid);
+                $("#aGo1").attr("href","/record_display_word1?scid="+scid);
+            }else {
+                //alert(scid);
+                var scid =${scid};
+                $("#aGo1").attr("href","/record_display_word1?scid="+scid);
+                //$("#aGo1").attr("href","javascript:POBrowser.openWindowModeless('/record_word2?id="+id+"','width=1200px;height=800px;');");
+            }
+
+            //alert("/word1?text="+selected.node.text)
+            $("#aGo1")[0].click();
         }
 
-        //alert("/word1?text="+selected.node.text)
-        $("#aGo1")[0].click();
     }
     function Save() {
         document.getElementById("PageOfficeCtrl2").WebSave();

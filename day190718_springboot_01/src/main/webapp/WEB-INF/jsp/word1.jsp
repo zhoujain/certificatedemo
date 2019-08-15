@@ -22,6 +22,7 @@
 <script type="text/javascript">
 
     function Save() {
+        alert("保存成功");
         document.getElementById("PageOfficeCtrl1").WebSave();
     }
     function PrintFile(){
@@ -33,7 +34,9 @@
 
     }
     function CloseFile(){
-        window.external.close();
+
+            window.external.close();
+
     }
 
     function BeforeBrowserClosed(){
