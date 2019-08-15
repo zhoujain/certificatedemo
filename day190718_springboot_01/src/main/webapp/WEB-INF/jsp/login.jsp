@@ -57,7 +57,7 @@
     </div>
     <div class="signup-footer">
         <div class="pull-left">
-            &copy; 2015 All Rights Reserved. H+
+            &copy; 淮微软件技术有限公司
         </div>
     </div>
 </div>

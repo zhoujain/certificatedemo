@@ -38,12 +38,12 @@
                         <br>
                         <div class="input-group">
                             <span class="input-group-addon">密码</span>
-                            <input id="upwdtext" type="password" class="form-control" placeholder="请输入用户名">
+                            <input id="upwdtext" type="password" class="form-control" placeholder="请输入密码">
                         </div>
                         <br>
                         <div class="input-group">
                             <span class="input-group-addon">确认密码</span>
-                            <input id="upwd2text" type="password" class="form-control" placeholder="请再次输入用户名">
+                            <input id="upwd2text" type="password" class="form-control" placeholder="请再次输入密码">
                         </div>
                         <br>
                         <div class="input-group">
