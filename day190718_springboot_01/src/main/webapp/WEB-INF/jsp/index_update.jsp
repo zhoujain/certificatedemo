@@ -101,6 +101,7 @@
                     <div class="row text-center">
                         <button class="btn btn-primary" onclick="queryCertificatesByLogic()">查询</button>
                         <button class="btn btn-info" onclick="downloadExcel()">导出</button>
+                        <button class="btn btn-success" onclick="queryCertificatesByLogic()">刷新表格</button>
                     </div>
                 </div>
             </div>
