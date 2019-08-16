@@ -122,7 +122,7 @@
                             <th data-field="sctoolname">器具名称</th>
                             <th data-field="scmodel">型号规格</th>
                             <th data-field="scoutnumber">出厂编号</th>
-                            <th data-field="scmanfacturer">制造厂商</th>
+                            <th data-field="scmanufacturer">制造厂商</th>
 
                             <th data-field="sccheckdepartment">检测部门</th>
                             <th data-field="uname">添加人</th>
