@@ -3,8 +3,10 @@ package com.zhoujian.controller;
 import com.zhoujian.domain.Certificate;
 import com.zhoujian.exception.SysException;
 import com.zhoujian.service.CertificateService;
+import com.zhoujian.service.RecordService;
 import com.zhuozhengsoft.pageoffice.wordwriter.DataRegion;
 import com.zhuozhengsoft.pageoffice.wordwriter.WordDocument;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,6 +30,8 @@ import com.zhuozhengsoft.pageoffice.*;
 public class DjnController {
     @Resource(name = "certificateService")
     private CertificateService certificateService;
+    @Autowired
+    private RecordService recordService;
 
     @RequestMapping("/index_certificate_add")
     public String index_certificate_add(){
@@ -42,7 +46,10 @@ public class DjnController {
 
         //打开数据区域
         DataRegion dataRegion1 = doc.openDataRegion("PO_cnumber");
-        Integer cnum = certificateService.queryMaxCnumber()+1;
+        Integer cnumber = certificateService.queryMaxCnumber()+1;
+        Integer scnumber = recordService.queryMaxScnumber()+1;
+        Integer cnum = cnumber>=scnumber?cnumber:scnumber;
+        //Integer cnum = certificateService.queryMaxCnumber()+1;
         dataRegion1.setEditing(false);
         //给数据区域赋值
         dataRegion1.setValue(cnum.toString());
@@ -67,17 +74,25 @@ public class DjnController {
         dataRegion6.setEditing(true);
         dataRegion6.setValue("");
 
-        DataRegion dataRegion7 = doc.openDataRegion("PO_cdelegate");
+        /*DataRegion dataRegion7 = doc.openDataRegion("PO_cdelegate");
         dataRegion7.setEditing(true);
-        dataRegion7.setValue("");
+        dataRegion7.setValue("");*/
 
-        DataRegion dataRegion8 = doc.openDataRegion("PO_ccheckdate");
+        DataRegion dataRegion8 = doc.openDataRegion("PO_ccheckdepartment");
         dataRegion8.setEditing(true);
         dataRegion8.setValue("");
 
-        DataRegion dataRegion9 = doc.openDataRegion("PO_ccheckdepartment");
+        DataRegion dataRegion9 = doc.openDataRegion("PO_ccheckyear");
         dataRegion9.setEditing(true);
         dataRegion9.setValue("");
+
+        DataRegion dataRegion10 = doc.openDataRegion("PO_ccheckmonth");
+        dataRegion10.setEditing(true);
+        dataRegion10.setValue("");
+
+        DataRegion dataRegion11 = doc.openDataRegion("PO_ccheckday");
+        dataRegion11.setEditing(true);
+        dataRegion11.setValue("");
 
         poCtrl1.setWriter(doc);
 
@@ -120,12 +135,19 @@ public class DjnController {
         certificate.setCoutnumber(dataRegion.getValue().trim());
         dataRegion = doc.openDataRegion("PO_cmanufacturer");
         certificate.setCmanufacturer(dataRegion.getValue().trim());
-        dataRegion = doc.openDataRegion("PO_cdelegate");
-        certificate.setCdelegate(dataRegion.getValue().trim());
-        dataRegion = doc.openDataRegion("PO_ccheckdate");
+        /*dataRegion = doc.openDataRegion("PO_cdelegate");
+        certificate.setCdelegate(dataRegion.getValue().trim());*/
+
+
+        dataRegion = doc.openDataRegion("PO_ccheckyear");
+        String year = dataRegion.getValue().trim();
+        dataRegion = doc.openDataRegion("PO_ccheckmonth");
+        String month = dataRegion.getValue().trim();
+        dataRegion = doc.openDataRegion("PO_ccheckday");
+        String day = dataRegion.getValue().trim();
         //String 2 Date
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        String str = dataRegion.getValue();
+        String str = year+"-"+month+"-"+day;
         Date date = null;
         try {
             date = format.parse(str);
@@ -133,9 +155,11 @@ public class DjnController {
             e.printStackTrace();
         }
         certificate.setCcheckdate(date);
+
+
         dataRegion = doc.openDataRegion("PO_ccheckdepartment");
         certificate.setCcheckdepartment(dataRegion.getValue().trim());
-        certificate.setCname("周建是sb检测证书");
+        certificate.setCname("检测证书");
         certificate.setCstate(1);
         Integer tid = Integer.parseInt(request.getSession().getAttribute("tid").toString());
         certificate.setTid(tid);//设置模板id
@@ -271,12 +295,19 @@ public class DjnController {
         certificate.setCoutnumber(dataRegion.getValue().trim());
         dataRegion = doc.openDataRegion("PO_cmanufacturer");
         certificate.setCmanufacturer(dataRegion.getValue().trim());
-        dataRegion = doc.openDataRegion("PO_cdelegate");
-        certificate.setCdelegate(dataRegion.getValue().trim());
-        dataRegion = doc.openDataRegion("PO_ccheckdate");
+        /*dataRegion = doc.openDataRegion("PO_cdelegate");
+        certificate.setCdelegate(dataRegion.getValue().trim());*/
+
+
+        dataRegion = doc.openDataRegion("PO_ccheckyear");
+        String year = dataRegion.getValue().trim();
+        dataRegion = doc.openDataRegion("PO_ccheckmonth");
+        String month = dataRegion.getValue().trim();
+        dataRegion = doc.openDataRegion("PO_ccheckday");
+        String day = dataRegion.getValue().trim();
         //String 2 Date
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        String str = dataRegion.getValue();
+        String str = year+"-"+month+"-"+day;
         Date date = null;
         try {
             date = format.parse(str);
@@ -284,6 +315,8 @@ public class DjnController {
             e.printStackTrace();
         }
         certificate.setCcheckdate(date);
+
+
         dataRegion = doc.openDataRegion("PO_ccheckdepartment");
         certificate.setCcheckdepartment(dataRegion.getValue().trim());
         certificate.setCid(Integer.parseInt(cerid));

@@ -162,21 +162,14 @@ public class record_TemplateController {
      * @param oldid
      * @param text
      * @param parent
-     * @param type
+     * @param
      * @return
      */
     @RequestMapping("/tnode_add1_cut")
     //@ResponseBody
-    public void nodeAdd1Cut(@RequestParam(value = "oldId")int oldid,@RequestParam(value = "text")String text,@RequestParam(value = "parent")int parent,@RequestParam(value = "type")String type){
-        //JstreeVO jstreeVO = new JstreeVO();
-        //jstreeVO.setId(id);
-        //jstreeVO.setText(text);
-        //jstreeVO.setParent(parent);
-        //jstreeVO.setTurl(turl);
-        //jstreeVO.setType(type);
-        //System.out.println(jstreeVO);
+    public void nodeAdd1Cut(@RequestParam(value = "oldId")int oldid,@RequestParam(value = "text")String text,@RequestParam(value = "parent")int parent){
+
         ttemplateService.nodeUpdatePid(oldid,parent);
-        //System.out.println(tid);
 
 
 

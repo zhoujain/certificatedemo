@@ -22,12 +22,17 @@
 <input id="execl" class="btn btn-primary"  type="button" value="Execl"  onclick="ToExecl()" />
 <div style="width:1200px;height:800px;" >${pageoffice}</div>
 <a id="aGo1" target="_self" style="display: none;" href="">隐藏链接</a>
+<div id="div-issave" style="display: none" value="1">是否保存的标志</div>
 <%--<iframe name="frame" width="100%" height="800px" frameborder="0">--%>
 <%--    --%>
 <%--</iframe>--%>
 <script src="../../js/jquery.min.js?v=2.1.4"></script>
 <script type="text/javascript">
     function ToExecl() {
+        if($('#div-issave').attr("value")==1){
+            alert("请进行word保存");
+            return false;
+        }
         if(!!window.ActiveXObject || "ActiveXObject" in window){
             var id =${id};
             $("#aGo1").attr("href","/record_add_word2?id="+id);
@@ -41,6 +46,8 @@
         $("#aGo1")[0].click();
     }
     function Save() {
+        alert("保存成功");
+        $('#div-issave').attr("value","2");
         document.getElementById("PageOfficeCtrl1").WebSave();
     }
     function ToCer(){
@@ -49,8 +56,8 @@
         $.post("/saveAsCertificate",
         {
         },
-        function(){
-
+        function(data){
+            alert("证书生成成功");
         });
     }
     function PrintFile(){

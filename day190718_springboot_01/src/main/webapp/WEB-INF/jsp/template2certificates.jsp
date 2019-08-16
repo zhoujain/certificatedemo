@@ -10,6 +10,7 @@
 <head>
     <title>模板2证书</title>
     <script src="../../js/jquery.min.js?v=2.1.4"></script>
+    <link href="../../css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
 </head>
 <body>
 <input id="btn_save" class="btn btn-primary" type="button" value="保存证书" onclick="return saveCertificate()"/>
@@ -62,10 +63,11 @@
     }
 
     function saveCertificate() {
-        alert("保存证书")
+        alert("保存成功")
         document.getElementById("PageOfficeCtrl1").WebSave();
     }
     function CloseFile(){
+
         window.external.close();
     }
 
@@ -73,12 +75,12 @@
         if(confirm("请确认文档已经保存")){
             var s= "<%=session.getAttribute("tid")%>";
             alert(s);
-            if(!!window.ActiveXObject || "ActiveXObject" in window){
-                $("#aGo").attr("href","/openWordwithNumchanged?id="+selected.node.id);
-            }else {
-                $("#aGo").attr("href","javascript:POBrowser.openWindowModeless('/openWordwithNumchanged?id="+selected.node.id+"','width=1200px;height=800px;');");
-            }
-            //$("#cGo").attr("href","/openWordwithNumchanged?id="+s);
+            // if(!!window.ActiveXObject || "ActiveXObject" in window){
+            //     $("#aGo").attr("href","/openWordwithNumchanged?id="+s);
+            // }else {
+            //     $("#aGo").attr("href","javascript:POBrowser.openWindowModeless('/openWordwithNumchanged?id="+s+"','width=1200px;height=800px;');");
+            // }
+            $("#cGo").attr("href","/openWordwithNumchanged?id="+s);
             $("#cGo")[0].click();
         }else{
             return false;

@@ -17,6 +17,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -449,7 +450,8 @@ public class Record_MapperController {
     }
 
     @RequestMapping("/saveAsCertificate")
-    public void saveAsCertificate(HttpServletRequest request){
+    @ResponseBody
+    public String saveAsCertificate(HttpServletRequest request){
         Integer scid = Integer.parseInt(request.getSession().getAttribute("scid").toString());
         System.out.println(scid);
         Record record = recordService.getRecordById(scid);
@@ -497,6 +499,7 @@ public class Record_MapperController {
         }catch (SysException e){
             e.printStackTrace();
         }
+        return "1";
     }
 
     @RequestMapping("/saveExcelFile")
@@ -630,7 +633,7 @@ public class Record_MapperController {
         record.setUid(uid);
 //        int tid = Integer.parseInt(id);
 //        record.setTid(tid);
-        System.out.println(record);
+        //System.out.println(record);
 //        if(recordService.queryScnumber(record.getScnumber())==null){
 //            Integer scid = recordService.addRecord(record);
 //            record.setScid(scid);
@@ -659,16 +662,17 @@ public class Record_MapperController {
         FileSaver fs= new FileSaver(request,response);
         String path = request.getSession().getServletContext().getRealPath("/uploads/"+fs.getFileName());
         fs.saveToFile(path);
+        fs.close();
         String wordpath = request.getSession().getServletContext().getRealPath("/uploads/eTow"+scid+".doc");
-
         WordUtil.excelToWord(wordpath,path,"table_1");
 
     }
     //display的证书上传
     @RequestMapping("/saveAsCertificate_display")
-    public void saveAsCertificate_display(HttpServletRequest request,@RequestParam("scid")Integer scid){
+    @ResponseBody
+    public String saveAsCertificate_display(HttpServletRequest request,@RequestParam("scid")Integer scid){
 
-        System.out.println(scid);
+        //System.out.println(scid);
         Record record = recordService.getRecordById(scid);
         Certificate certificate = new Certificate();
         //certificate.setCid(record.getScid());
@@ -702,7 +706,7 @@ public class Record_MapperController {
             certificateService.editCertificate(certificate);
         }
         //更新记录表中的cid
-        System.out.println(cid);
+        //System.out.println(cid);
         Map<String,Integer> map = new HashMap();
         map.put("scid",scid);
         map.put("cid",cid);
@@ -714,6 +718,8 @@ public class Record_MapperController {
         }catch (SysException e){
             e.printStackTrace();
         }
+        return "1";
     }
+
 
 }

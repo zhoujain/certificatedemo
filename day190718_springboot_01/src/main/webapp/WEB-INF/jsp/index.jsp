@@ -50,7 +50,7 @@
                         </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
                             <li class="divider"></li>
-                            <li><a href="/logoutUser">安全退出</a>
+                            <li><a onclick="logoutUser()">安全退出</a>
                             </li>
                         </ul>
                     </div>
@@ -102,7 +102,7 @@
             <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="/index_first" frameborder="0" data-id="index_v1.html" seamless></iframe>
         </div>
         <div class="footer">
-            <div class="pull-right">&copy; 淮微软件技术有限公司
+            <div class="pull-right">&copy; 2019-2020 <a href="" target="_blank">LZD</a>
             </div>
         </div>
     </div>

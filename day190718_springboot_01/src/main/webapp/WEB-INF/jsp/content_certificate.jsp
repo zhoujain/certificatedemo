@@ -10,6 +10,7 @@
 <head>
     <title>证书的详细页面</title>
     <script src="../../js/jquery.min.js?v=2.1.4"></script>
+    <link href="../../css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
 </head>
 <body>
 <input id="btn_save" class="btn btn-primary" type="button" value="保存证书" onclick="return saveCertificate()"/>

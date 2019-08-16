@@ -26,7 +26,7 @@ function delCertificate(cid) {
 }
 
 function toAnother(id) {
-    alert(id);
+    //alert(id);
     if(!!window.ActiveXObject || "ActiveXObject" in window){
         //$("#aGo").attr("href","/wordcheck?id="+selected.node.id);
         layer.open({

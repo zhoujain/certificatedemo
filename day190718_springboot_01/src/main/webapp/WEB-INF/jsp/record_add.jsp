@@ -63,7 +63,7 @@
             <div class="ibox">
                 <div class="ibox-title">结果</div>
                 <div class="ibox-content">
-                    <div class="list-group">
+                    <div class="list-group" style="overflow-y:auto;overflow-x: auto; height:400px ;width:100%;" >
 
 
                     </div>
@@ -261,15 +261,20 @@
                 }
                 if('click'==selected.event.type){
                     if(selected.node.type ==2||selected.node.type ==3){
-                        if(!!window.ActiveXObject || "ActiveXObject" in window){
-                            $("#aGo").attr("href","/record_add_word1?id="+selected.node.id+"&cid="+$('#div-cid').attr("value"))
-                        }else {
-                            $("#aGo").attr("href","javascript:POBrowser.openWindowModeless('/record_add_word1?id="+selected.node.id+"&cid="+$('#div-cid').attr("value")+"','width=1200px;height=1000px;');");
+                        if($('#div-cid').attr("value") == undefined){
+                            alert("请点击查询并进行选择");
+                        }else{
+                            if(!!window.ActiveXObject || "ActiveXObject" in window){
+                                $("#aGo").attr("href","/record_add_word1?id="+selected.node.id+"&cid="+$('#div-cid').attr("value"))
+                            }else {
+                                $("#aGo").attr("href","javascript:POBrowser.openWindowModeless('/record_add_word1?id="+selected.node.id+"&cid="+$('#div-cid').attr("value")+"','width=1200px;height=1000px;');");
+                            }
+                            //$("#aGo").attr("href","/wordcheck?id="+selected.node.id);
+                            $("#div-id").attr("value",selected.node.id)
+                            //alert("/word1?text="+selected.node.text)
+                            $("#aGo")[0].click();
                         }
-                        //$("#aGo").attr("href","/wordcheck?id="+selected.node.id);
-                        $("#div-id").attr("value",selected.node.id)
-                        //alert("/word1?text="+selected.node.text)
-                        $("#aGo")[0].click();
+
                     }
                 }
                 // alert(e.which);

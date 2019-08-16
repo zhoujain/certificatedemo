@@ -36,8 +36,8 @@
 
     <div class="error-desc">
         ${errorMessage}
-        <br/>您可以返回主页看看
-        <br/><a href="/index_v1" class="btn btn-primary m-t">主页</a>
+        <br/>
+        <br/>
     </div>
 </div>
 <script src="../../js/jquery.min.js?v=2.1.4"></script>

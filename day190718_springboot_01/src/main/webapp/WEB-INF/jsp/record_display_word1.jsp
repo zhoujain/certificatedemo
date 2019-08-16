@@ -14,7 +14,6 @@
 <body>
 <input id="ButtonSave" class="btn btn-primary"  type="button" value="保存记录"  onclick="return Save()" />
 <input id="ButtonSave1" class="btn btn-primary"  type="button" value="生成证书"  onclick="return ToCer()" />
-<input id="ButtonClose" class="btn btn-info"  type="button" value="关闭"  onclick="return CloseFile()" />
 <input id="Button1" class="btn btn-primary" type="button" value="隐藏/显示 标题栏"  onclick="return Button1_onclick()" />
 <input id="Button2" class="btn btn-info"  type="button" value="隐藏/显示 菜单栏" onclick="return Button2_onclick()" />
 <input id="Button3" class="btn btn-primary" type="button" value="隐藏/显示 自定义工具栏"  onclick="return Button3_onclick()" />
@@ -28,17 +27,21 @@
 <script src="../../js/jquery.min.js?v=2.1.4"></script>
 <script type="text/javascript">
     function ToExecl() {
-        if(!!window.ActiveXObject || "ActiveXObject" in window){
-            var scid =${scid};
-            $("#aGo1").attr("href","/record_display_word2?scid="+scid);
-        }else {
-            var scid =${scid};
-            $("#aGo1").attr("href","/record_display_word2?scid="+scid);
-            //$("#aGo1").attr("href","javascript:POBrowser.openWindowModeless('/record_word2?id="+id+"','width=1200px;height=800px;');");
+        var r = confirm("请确保word已经保存");
+        if(r ==true){
+            if(!!window.ActiveXObject || "ActiveXObject" in window){
+                var scid =${scid};
+                $("#aGo1").attr("href","/record_display_word2?scid="+scid);
+            }else {
+                var scid =${scid};
+                $("#aGo1").attr("href","/record_display_word2?scid="+scid);
+                //$("#aGo1").attr("href","javascript:POBrowser.openWindowModeless('/record_word2?id="+id+"','width=1200px;height=800px;');");
+            }
+
+            //alert("/word1?text="+selected.node.text)
+            $("#aGo1")[0].click();
         }
 
-        //alert("/word1?text="+selected.node.text)
-        $("#aGo1")[0].click();
     }
     function Save() {
         document.getElementById("PageOfficeCtrl1").WebSave();
@@ -50,8 +53,8 @@
             {
                 scid:${scid}
             },
-            function(){
-
+            function(data){
+                alert("证书上传成功");
             });
     }
     function PrintFile(){

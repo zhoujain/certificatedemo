@@ -23,6 +23,7 @@
     <link href="../../css/animate.min.css" rel="stylesheet">
     <link href="../../css/style.min862f.css?v=4.1.0" rel="stylesheet">
     <link href="../../js/plugins/layer/theme/default/layer.css" rel="stylesheet">
+
 </head>
 <body class="gray-bg">
 <div class="wrapper wrapper-content">
@@ -52,7 +53,8 @@
 
         <div class="col-sm-9 animated fadeInRight">
             <iframe name="mainFrame" width="100%" height="600px" frameborder="0">
-
+<%--                <script src="../../js/jquery.min.js?v=2.1.4"></script>--%>
+<%--                <script type="text/javascript" src="pageoffice.js" id="po_js_main"></script>--%>
             </iframe>
 
         </div>
@@ -64,7 +66,9 @@
 <script src="../../js/plugins/iCheck/icheck.min.js"></script>
 <script src="../../js/plugins/jsTree/jstree.min.js"></script>
 <script src="../../js/plugins/layer/layer.js"></script>
+
 <script type="text/javascript" src="pageoffice.js" id="po_js_main"></script>
+
 </script>
 <script>
     $(document).ready(function () {
@@ -357,7 +361,7 @@
                                             var obj = ref.get_node(sel);
                                             $('#div-id').attr("value",obj.id);
                                             $('#div-text').attr("value",obj.text);
-                                            $('#div-iscopy').attr("value",1);
+                                            $('#div-iscopy').attr("value",2);
                                             ref.delete_node(sel);
 
 
@@ -374,26 +378,28 @@
                                                 sel= sel[0];
                                                 var text1 = $('#div-text').attr("value");
                                                 var idcopy = $('#div-iscopy').attr("value");
-                                                var tree_id;
-                                                $.ajaxSettings.async = false;
-                                                $.post("/template/node_add",
 
-                                                    {
-                                                        id:1,
-                                                        text:1,
-                                                        parent:1,
-                                                        type:"2",
-                                                        turl:1
-                                                    },
-                                                    function(data){
-                                                        //alert(data+" 111");
-                                                        tree_id = data;
-                                                    }
-
-                                                );
-                                                $.ajaxSettings.async = true;
-                                                sel = ref.create_node(sel,{"type":"2","text":text1,"id":tree_id});
                                                 if (idcopy == 1) {
+                                                    var tree_id;
+                                                    // 新增加一个结点获取他的id
+                                                    $.ajaxSettings.async = false;
+                                                    $.post("/template/node_add",
+
+                                                        {
+                                                            id:1,
+                                                            text:1,
+                                                            parent:1,
+                                                            type:"2",
+                                                            turl:1
+                                                        },
+                                                        function(data){
+                                                            //alert(data+" 111");
+                                                            tree_id = data;
+                                                        }
+
+                                                    );
+                                                    $.ajaxSettings.async = true;
+                                                    sel = ref.create_node(sel,{"type":"2","text":text1,"id":tree_id});
                                                     var obj = ref.get_node(sel);
                                                     $.post("/template/node_add1_copy",
                                                         {
@@ -407,6 +413,8 @@
                                                         }
                                                     );
                                                 } else if (idcopy == 2) {
+                                                    sel = ref.create_node(sel,{"type":"2","text":text1,"id":$('#div-id').attr("value")});
+                                                    //var obj = ref.get_node(sel);
                                                     var obj = ref.get_node(sel);
                                                     $.post("/template/node_add1_cut",
                                                         {
