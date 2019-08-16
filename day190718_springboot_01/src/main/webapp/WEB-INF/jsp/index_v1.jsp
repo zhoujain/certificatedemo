@@ -23,6 +23,7 @@
     <link href="../../css/animate.min.css" rel="stylesheet">
     <link href="../../css/style.min862f.css?v=4.1.0" rel="stylesheet">
     <link href="../../js/plugins/layer/theme/default/layer.css" rel="stylesheet">
+
 </head>
 <body class="gray-bg">
 <div class="wrapper wrapper-content">
@@ -52,7 +53,8 @@
 
         <div class="col-sm-9 animated fadeInRight">
             <iframe name="mainFrame" width="100%" height="600px" frameborder="0">
-
+<%--                <script src="../../js/jquery.min.js?v=2.1.4"></script>--%>
+<%--                <script type="text/javascript" src="pageoffice.js" id="po_js_main"></script>--%>
             </iframe>
 
         </div>
@@ -64,7 +66,9 @@
 <script src="../../js/plugins/iCheck/icheck.min.js"></script>
 <script src="../../js/plugins/jsTree/jstree.min.js"></script>
 <script src="../../js/plugins/layer/layer.js"></script>
+
 <script type="text/javascript" src="pageoffice.js" id="po_js_main"></script>
+
 </script>
 <script>
     $(document).ready(function () {

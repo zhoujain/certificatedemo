@@ -74,13 +74,13 @@
     function nextCertificate() {
         if(confirm("请确认文档已经保存")){
             var s= "<%=session.getAttribute("tid")%>";
-            //alert(s);
-            if(!!window.ActiveXObject || "ActiveXObject" in window){
-                $("#aGo").attr("href","/openWordwithNumchanged?id="+s);
-            }else {
-                $("#aGo").attr("href","javascript:POBrowser.openWindowModeless('/openWordwithNumchanged?id="+s+"','width=1200px;height=800px;');");
-            }
-            //$("#cGo").attr("href","/openWordwithNumchanged?id="+s);
+            alert(s);
+            // if(!!window.ActiveXObject || "ActiveXObject" in window){
+            //     $("#aGo").attr("href","/openWordwithNumchanged?id="+s);
+            // }else {
+            //     $("#aGo").attr("href","javascript:POBrowser.openWindowModeless('/openWordwithNumchanged?id="+s+"','width=1200px;height=800px;');");
+            // }
+            $("#cGo").attr("href","/openWordwithNumchanged?id="+s);
             $("#cGo")[0].click();
         }else{
             return false;
