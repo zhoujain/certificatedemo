@@ -1,11 +1,14 @@
 package com.zhoujian.day190718_springboot_01;
 
+import javafx.application.Application;
 import org.apache.ibatis.annotations.Mapper;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
@@ -44,4 +47,6 @@ public class Day190718Springboot01Application {
         srb.addUrlMappings("/sealsetup.exe");
         return srb;
     }
+
+
 }

@@ -63,7 +63,7 @@
 <script src="../../js/plugins/iCheck/icheck.min.js"></script>
 <script src="../../js/plugins/jsTree/jstree.min.js"></script>
 <script type="text/javascript" src="pageoffice.js" id="po_js_main"></script>
-</script>
+
 <script>
 //     $(document).ready(function () {
 //         window.addEventListener('message',function (e) {

@@ -69,7 +69,7 @@
 
 <script type="text/javascript" src="pageoffice.js" id="po_js_main"></script>
 
-</script>
+
 <script>
     $(document).ready(function () {
         $(".i-checks").iCheck({checkboxClass: "icheckbox_square-green", radioClass: "iradio_square-green",})
