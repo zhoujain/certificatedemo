@@ -153,7 +153,7 @@ public class WordUtil {
 //            //table.addCell("111");
 //            document.add(new Paragraph("用户信息"));
 //            document.add(table);
-
+            out.close();
             document.close();
         }catch(Exception e){
             e.printStackTrace();

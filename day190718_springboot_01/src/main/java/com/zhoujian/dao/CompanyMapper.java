@@ -12,8 +12,8 @@ public interface CompanyMapper {
 
 
     //插入
-    @Insert("insert into tb_company (id,name,linkMan,linkPhone,adate,pdate,adress,aid)" +
-            "values(#{id},#{name},#{linkMan},#{linkPhone},#{adate},#{pdate),#{adress},#{aid}")
+    @Insert("insert into tb_company (name,linkMan,linkPhone,adate,pdate,adress,aid)" +
+            "values(#{name},#{linkMan},#{linkPhone},#{adate},#{pdate},#{adress},#{aid}")
     void save(Company company);
 
     @Select("select * from tb_company")

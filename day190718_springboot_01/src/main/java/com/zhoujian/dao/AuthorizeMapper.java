@@ -9,8 +9,8 @@ import java.util.List;
 @Mapper
 public interface AuthorizeMapper {
     //插入
-    @Insert("insert into tb_authorize (id,toolname,model,,outnumber,toolId,manufacturer,number,cnumber,coid)" +
-            "values(#{id},#{toolname},#{model},#{outnumber},#{toolId},#{manufacturer),#{number},#{cnumber},#{coid}")
+    @Insert("insert into tb_authorize (toolname,model,,outnumber,toolId,manufacturer,number,cnumber,coid)" +
+            "values(#{toolname},#{model},#{outnumber},#{toolId},#{manufacturer},#{number},#{cnumber},#{coid})")
     void save(Authorize authorize);
     //查询
     @Select("select * from tb_authorize")
