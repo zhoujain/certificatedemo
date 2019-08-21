@@ -54,7 +54,14 @@ public class MapperController {
     public User findUserByUsername(@RequestParam(value = "username")String username){
         return userService.findUserByUsername(username);
     }
-
+    @RequestMapping("/company")
+    public String toCompany(){
+        return "company";
+    }
+    @RequestMapping("/company_query")
+    public String toCompanyQuery(){
+        return "company_query";
+    }
     @RequestMapping("/index")
     public String index(){
         return "index";

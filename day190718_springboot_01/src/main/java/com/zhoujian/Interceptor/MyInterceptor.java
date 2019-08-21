@@ -3,6 +3,7 @@ package com.zhoujian.Interceptor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -25,15 +26,19 @@ public class MyInterceptor implements HandlerInterceptor {
         String currentURL = request.getRequestURI();
         //System.out.println(currentURL);
         String ctxPath = request.getContextPath();
+        //System.out.println(ctxPath);
         //除掉项目名称时访问页面当前路径
         String targetURL = currentURL.substring(ctxPath.length());
+        //System.out.println(targetURL);
         HttpSession session = request.getSession(false);
         //对当前页面进行判断，如果当前页面不为登陆页面
+        //StringBuilder path = new StringBuilder();
         if("/login".equals(targetURL)){
             return  true;
         }else {
             if("/loginUser".equals(targetURL)){
                 //Servlet验证
+
                 return true;
             }else {
                 //在不为登陆页面时，进行判断，如果不是登陆页面也没有Session则跳转登陆页面
