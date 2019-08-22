@@ -46,4 +46,25 @@ public class CompanyServiceImpl implements ICompanyService {
         authorizeMapper.save(authorize);
         companyMapper.updateById(authorize.getCompany());
     }
+
+    @Override
+    public List<Authorize> findAllAuth() {
+        return authorizeMapper.findAll();
+    }
+
+    @Override
+    public List<Authorize> findAllByLikeCnumber(String cnumber) {
+        return authorizeMapper.findAllByLikeCnumber(cnumber);
+    }
+
+    @Override
+    public List<Authorize> findAllByLikeaid(String aid) {
+        return authorizeMapper.findAllByLikeaid(aid);
+    }
+
+    @Override
+    public Authorize findAById(Integer id) {
+        return authorizeMapper.findById(id);
+    }
+
 }

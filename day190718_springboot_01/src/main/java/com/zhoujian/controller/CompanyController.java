@@ -70,5 +70,21 @@ public class CompanyController {
 
         return  "1";
     }
+    @RequestMapping("queryAllByLike")
+    @ResponseBody
+    public List<Authorize> queryAllByLike(@RequestParam(value = "cid")String cid,@RequestParam(value = "cnumber")String cnumber){
+        List<Authorize> list = null;
+        if(cid.equals("1")){
+            //根据登记号进行查询
+            list = companyService.findAllByLikeCnumber(cnumber);
+        }else if(cid.equals("2")){
+            //根据委托号进行查询
+            list = companyService.findAllByLikeaid(cnumber);
+        }else{
+            //查询所有
+            list = companyService.findAllAuth();
+        }
+        return list;
+    }
 
 }

@@ -123,7 +123,7 @@
             return;
         }
         $.ajaxSettings.async = false;
-        $.post("/queryCerBy",
+        $.post("/company/queryAllByLike",
             {
                 cid:$('.form-control').val(),
                 cnumber:$('#cnumber').val()
@@ -134,12 +134,12 @@
                 //var a = /;
                 var str='暂无数据';
                 if(optionData !=null&&optionData!=""){
-                    str = '<div id="div-cid" style="display: none" value="'+optionData[0].cid+'"></div>';
+                    str = '<div id="div-cid" style="display: none" value="'+optionData[0].id+'"></div>';
                     for(var i = 0;i<optionData.length;i++){
                         if(i==0){
-                            str+='<div class="all-div" value="'+optionData[i].cid+'" style="background: #00FFFF">\n'
+                            str+='<div class="all-div" value="'+optionData[i].id+'" style="background: #00FFFF">\n'
                         }else{
-                            str+='<div class="all-div" value="'+optionData[i].cid+'" style="">\n'
+                            str+='<div class="all-div" value="'+optionData[i].id+'" style="">\n'
                         }
                         // if(!!window.ActiveXObject || "ActiveXObject" in window){
                         //     str+='<a href="/content_certificate?id='+optionData[i].cid+'" target="mainFrame" >\n'
@@ -148,8 +148,8 @@
                         // }
 
                         str+='<label style="font-size: 10px"><input type="hidden" name="optionName" > <i>'+optionData[i].cnumber+'</i> </label><br />\n' +
-                            ' <span style="color: blue;margin-left: 10px;font-size: 20px;"><b>'+optionData[i].ctoolname+'</b></span><br/>\n' +
-                            ' <span style="color: #00BFFF;margin-left: 10px;font-size: 15px;"><b>'+optionData[i].ccompany+'</b></span>\n' +
+                            ' <span style="color: blue;margin-left: 10px;font-size: 20px;"><b>'+optionData[i].toolname+'</b></span><br/>\n' +
+                            ' <span style="color: #00BFFF;margin-left: 10px;font-size: 15px;"><b>'+optionData[i].company.name+'</b></span>\n' +
                             ' </div>'
                     }
                 }

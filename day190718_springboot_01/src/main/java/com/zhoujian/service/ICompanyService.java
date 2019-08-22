@@ -18,4 +18,12 @@ public interface ICompanyService {
 
 
     void saveAuth(Authorize authorize);
+
+    List<Authorize> findAllAuth();
+
+    List<Authorize> findAllByLikeCnumber(String cnumber);
+
+    List<Authorize> findAllByLikeaid(String aid);
+
+    Authorize findAById(Integer id);
 }
