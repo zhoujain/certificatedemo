@@ -15,7 +15,7 @@ public class Company implements Serializable {
     private Date pdate;//打印日期
     private String pdateStr;//打印日期字符串
     private String adress;
-    private Integer aid;//委托号
+    private String aid;//委托号
 
     public Integer getId() {
         return id;
@@ -54,6 +54,7 @@ public class Company implements Serializable {
     }
 
     public void setAdate(Date adate) {
+
         this.adate = adate;
     }
 
@@ -95,11 +96,11 @@ public class Company implements Serializable {
         this.adress = adress;
     }
 
-    public Integer getAid() {
+    public String getAid() {
         return aid;
     }
 
-    public void setAid(Integer aid) {
+    public void setAid(String aid) {
         this.aid = aid;
     }
 

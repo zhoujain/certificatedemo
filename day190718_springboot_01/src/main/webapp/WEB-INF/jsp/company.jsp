@@ -21,6 +21,7 @@
     <link href="../../css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
     <link href="../../css/animate.min.css" rel="stylesheet">
     <link href="../../css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <link href="../../js/plugins/layer/theme/default/layer.css" rel="stylesheet">
     <style>
         .button_in_table_add{
             margin-top: 1px;
@@ -67,10 +68,10 @@
                                 </ul>
                             </div>
                         </div>
-                        <span class="help-block m-b-none"><i class="fa fa-info-circle"></i>下拉框</span>
+<%--                        <span class="help-block m-b-none"><i class="fa fa-info-circle"></i>下拉框</span>--%>
                     </div>
                     <div class="col-sm-1">
-                        <input class="btn btn-primary" id="btnadd" type="button" value="添加单位" onclick="window.href='/companyAdd.html'"/>
+                        <input class="btn btn-primary" id="btnadd" type="button" value="添加单位" onclick="toAnother()"/>
                     </div>
 
                 </div>
@@ -142,7 +143,7 @@
 
                     </div>
                 </div>
-                <button style="margin-left: 30px;" class="btn btn-primary" onclick="getTableData()">get</button>
+                <button style="margin-left: 30px;" class="btn btn-primary" onclick="getTableData()">提交</button>
             </div>
         </div>
     </div>
@@ -153,6 +154,7 @@
 <script src="../../js/plugins/jasny/jasny-bootstrap.min.js"></script>
 <script src="../../js/plugins/validate/jquery.validate.min.js"></script>
 <script src="../../js/plugins/validate/messages_zh.min.js"></script>
+<script src="../../js/plugins/layer/layer.js"></script>
 <script src="../../js/demo/form-validate-demo.min.js"></script>
 <script>
     $(function(){
@@ -197,6 +199,11 @@
 
     /*将表格数据转化为json*/
     function getTableData() {
+        var coid = $('#companyId').val();
+        if(coid == ""){
+            layer.alert('请添加单位',{icon:6});
+             return;
+        }
         var list=[];
         var rows=$('.oneRow');
         for (var i=0;i<rows.length;i++) {
@@ -207,11 +214,40 @@
             var toolId = $(r).find('.toolId').val();
             var manufacturer = $(r).find('.manufacturer').val();
             var number = $(r).find('.number').val();
-            var one={'toolname':toolname,'model':model,'outnumber':outnumber,'toolId':toolId,'manufacturer':manufacturer,'number':number};
+            var name = $('#test_data').val();
+            var linkMan = $('#linkMan').val();
+            var linkPhone = $('#linkPhone').val();
+            var adate = $('#adate').val();
+            var pdate = $('#pdate').val();
+            var adress = $('#adress').val();
+            var aid = $('#aid').val();
+            var company ={'id':coid,'name':name,'linkMan':linkMan,'linkPhone':linkPhone,'adate':adate,'pdate':pdate,'adress':adress,'aid':aid};
+            var one={'toolname':toolname,'model':model,'outnumber':outnumber,'toolId':toolId,'manufacturer':manufacturer,'number':number,'company':company};
             list.push(one)
         }
         console.log(list);
-        return list
+        $.ajax({
+            type: "POST",
+            url:'/company/saveAuth',
+            dataType:"json",
+            contentType:"application/json",
+            data:JSON.stringify(list),
+            success:function (data) {
+                if(data ==1){
+                    layer.alert('添加成功，在查询中查看登记号',{icon:6});
+                }
+            }
+            })
+        // $.post('/company/saveAuth',
+        //     {
+        //         list:JSON.stringify(list)
+        //     },
+        //     function (data) {
+        //         if(data ==1){
+        //             layer.alert('添加成功，在查询中查看登记号',{icon:6});
+        //         }
+        //     }
+        // )
     }
 </script>
 <script type="text/javascript">
@@ -231,8 +267,43 @@
     //      	{"id":"2","word":"meizu"},
     //      	{"id":"3","word":"flyme"}],
     //      	"defaults":"http://lzw.me"}
-  	});
+  	}).on("onSetSelectValue",function (e,keyword) {
+        ///console.log("选择完成"+keyword.id);
+        $.post("/company/findByName",
+            {
+                id:keyword.id
+            },
+            function (data) {
+                //console.log(data.linkPhone)
+                $('#linkPhone').val(data.linkPhone);
+                $('#linkMan').val(data.linkMan);
+                $('#adate').val(data.adateStr);
+                $('#pdate').val(data.pdateStr);
+                $('#adress').val(data.adress);
+                $('#aid').val(data.aid);
+                $('#companyId').val(data.id)
+            })
+    });
 </script>
+<script type="text/javascript">
+    function toAnother(id) {
+        //alert("11")
+            //$("#aGo").attr("href","/wordcheck?id="+selected.node.id);
+            layer.open({
+                type: 2,
+                area: ['1000px', '450px'],
+                fixed: false, //不固定
+                maxmin: true,
+                content: '/companyAdd',
+                end:function () {
+                    location.reload();
+                }
+            });
+
+    }
+
+</script>
+
 </body>
 </html>
 

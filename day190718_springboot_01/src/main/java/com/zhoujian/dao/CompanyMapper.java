@@ -13,14 +13,17 @@ public interface CompanyMapper {
 
     //插入
     @Insert("insert into tb_company (name,linkMan,linkPhone,adate,pdate,adress,aid)" +
-            "values(#{name},#{linkMan},#{linkPhone},#{adate},#{pdate},#{adress},#{aid}")
-    void save(Company company);
+            "values(#{name},#{linkMan},#{linkPhone},#{adate},#{pdate},#{adress},#{aid})")
+    Boolean save(Company company);
 
     @Select("select * from tb_company")
     List<Company>findAll();
 
     @Select("select * from tb_company where id =#{id}")
     Company findById(Integer id);
+
+    @Select("select * from tb_company where name =#{name}")
+    Company findByName(String name);
 
     @Update("update tb_company set name=#{name},linkMan=#{linkMan},linkPhone=#{linkPhone},adate=#{adate},pdate=#{pdate},adress=#{adress} where id=#{id}")
     void updateById(Company company);

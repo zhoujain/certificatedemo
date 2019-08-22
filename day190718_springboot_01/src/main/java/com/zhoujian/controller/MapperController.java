@@ -58,6 +58,10 @@ public class MapperController {
     public String toCompany(){
         return "company";
     }
+    @RequestMapping("/companyAdd")
+    public String toCompanyAdd(){
+        return "companyAdd";
+    }
     @RequestMapping("/company_query")
     public String toCompanyQuery(){
         return "company_query";

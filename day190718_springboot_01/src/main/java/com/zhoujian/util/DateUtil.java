@@ -1,5 +1,12 @@
 package com.zhoujian.util;
 
+import org.apache.tomcat.util.http.fileupload.FileUtils;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.util.ResourceUtils;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -23,5 +30,43 @@ public class DateUtil {
             e.printStackTrace();
         }
         return parse;
+    }
+    //获取随机7位带字母
+    public static String strMath(){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HHmmss");
+        String time = simpleDateFormat.format(new Date());
+        char c = (char)(int)(Math.random()*26+65);
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(c);
+        stringBuilder.append(time);
+        String str =  stringBuilder.toString();
+        return str;
+    }
+
+    //获取时间戳
+    public static String timeStr(){
+        String str =String.valueOf(new Date().getTime()/1000);
+        return str;
+    }
+
+    public static void createFile(){
+//       String demoing = "static/1.txt";
+//        ClassPathResource classPathResource = new ClassPathResource(demoing);
+//        String path = null;
+//        try {
+//            path = classPathResource.getURL().getPath();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        String parentpath = path.substring(0,path.lastIndexOf(demoing));
+//        //创建文件
+//        File newFile = new File(parentpath,"static/2.txt");
+//        FileUtils.touch
+    }
+
+    public static void main(String[] args) {
+//        System.out.println(strMath());
+//        System.out.println(timeStr());
+//        createFile();
     }
 }
