@@ -246,9 +246,9 @@
                             alert("请点击查询并进行选择");
                         }else{
                             if(!!window.ActiveXObject || "ActiveXObject" in window){
-                                $("#aGo").attr("href","/record_add_word1?id="+selected.node.id+"&cid="+$('#div-cid').attr("value"))
+                                $("#aGo").attr("href","/template2certificates?id="+selected.node.id+"&cid="+$('#div-cid').attr("value"))
                             }else {
-                                $("#aGo").attr("href","javascript:POBrowser.openWindowModeless('/record_add_word1?id="+selected.node.id+"&cid="+$('#div-cid').attr("value")+"','width=1200px;height=1000px;');");
+                                $("#aGo").attr("href","javascript:POBrowser.openWindowModeless('/template2certificates?id="+selected.node.id+"&cid="+$('#div-cid').attr("value")+"','width=1200px;height=1000px;');");
                             }
                             //$("#aGo").attr("href","/wordcheck?id="+selected.node.id);
                             $("#div-id").attr("value",selected.node.id)
