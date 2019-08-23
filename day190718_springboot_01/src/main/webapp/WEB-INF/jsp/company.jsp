@@ -254,6 +254,7 @@
     var testdataBsSuggest=$("#test_data").bsSuggest('init',{
         ignorecase: true, //忽略大小写
         clearable: true,
+        allowNoKeyword:false,//不允许无关键字查询
         idField:"id",
         keyField:"name",
         effectiveFields:["id","name"],
@@ -261,12 +262,6 @@
         indexId:2,
         indexKey:1,
         url:"/company/queryLike"
-    //      	data:{"value":[
-    //      	{"id":"0","word":"lzw"},
-    //      	{"id":"1","word":"lzwme"},
-    //      	{"id":"2","word":"meizu"},
-    //      	{"id":"3","word":"flyme"}],
-    //      	"defaults":"http://lzw.me"}
   	}).on("onSetSelectValue",function (e,keyword) {
         ///console.log("选择完成"+keyword.id);
         $.post("/company/findByName",

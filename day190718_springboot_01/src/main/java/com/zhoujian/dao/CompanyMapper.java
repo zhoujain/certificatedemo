@@ -26,5 +26,5 @@ public interface CompanyMapper {
     Company findByName(String name);
 
     @Update("update tb_company set name=#{name},linkMan=#{linkMan},linkPhone=#{linkPhone},adate=#{adate},pdate=#{pdate},adress=#{adress} where id=#{id}")
-    void updateById(Company company);
+    Boolean updateById(Company company);
 }

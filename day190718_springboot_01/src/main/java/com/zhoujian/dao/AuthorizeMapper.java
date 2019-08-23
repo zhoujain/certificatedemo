@@ -45,9 +45,11 @@ public interface AuthorizeMapper {
     })
     Authorize findById(Integer id);
     //删除
+    @Delete("delete from tb_authorize where id=#{id}")
+    Boolean deleteById(Integer id);
     //修改 多表修改没做
-    @Update("update tb_authorize set toolname=#{toolname},model=#{model},outnumber=#{outnumber},toolId=#{toolId},manufacturer=#{manufacturer},number=#{number},cnumber=#{cnumber} where id=#{id}")
-    void updateById(Authorize authorize);
+    @Update("update tb_authorize set toolname=#{toolname},model=#{model},outnumber=#{outnumber},toolId=#{toolId},manufacturer=#{manufacturer},number=#{number} where id=#{id}")
+    Boolean updateById(Authorize authorize);
     //根据登记号模糊查询
     @Select("select * from tb_authorize where cnumber like '%${value}%'")
     @Results({

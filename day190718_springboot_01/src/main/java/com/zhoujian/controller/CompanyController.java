@@ -7,10 +7,8 @@ import com.zhoujian.service.ICompanyService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
@@ -59,6 +57,31 @@ public class CompanyController {
         mv.setViewName("companyAdd");
         return mv;
     }
+    @InitBinder("company")
+    public void initCompany(WebDataBinder binder){
+        binder.setFieldDefaultPrefix("company.");
+    }
+    @InitBinder("authorize")
+    public void initAuthorize(WebDataBinder binder){
+        binder.setFieldDefaultPrefix("authorize.");
+    }
+    @RequestMapping("update")
+    public ModelAndView update(Authorize authorize,Company company){
+        authorize.setCompany(company);
+        Boolean result = companyService.update(authorize);
+        String message;
+        if(result){
+            message = "修改成功";
+        }else {
+            message = "修改失败";
+        }
+        Authorize authorize1 = companyService.findAById(authorize.getId());
+        ModelAndView mv =new ModelAndView();
+        mv.addObject("message",message);
+        mv.addObject("authorize",authorize1);
+        mv.setViewName("companyContent");
+        return mv;
+    }
 
     @RequestMapping("saveAuth")
     @ResponseBody
@@ -87,6 +110,14 @@ public class CompanyController {
             list = companyService.findAllAuth();
         }
         return list;
+    }
+    @RequestMapping("query2Update")
+    public ModelAndView queryUpdate(@RequestParam(value = "id")Integer id){
+        Authorize authorize = companyService.findAById(id);
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("authorize",authorize);
+        mv.setViewName("companyContent");
+        return mv;
     }
 
 }

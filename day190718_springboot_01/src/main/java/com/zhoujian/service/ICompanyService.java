@@ -26,4 +26,8 @@ public interface ICompanyService {
     List<Authorize> findAllByLikeaid(String aid);
 
     Authorize findAById(Integer id);
+
+    Boolean update(Authorize authorize);
+
+    void delAuthorizeById(Integer id);
 }

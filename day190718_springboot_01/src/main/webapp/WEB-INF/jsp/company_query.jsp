@@ -99,21 +99,17 @@
                         <thead>
                         <tr>
                             <th data-field="id">序号</th>
+                            <th data-field="cnumber">登记号</th>
                             <th data-field="toolname">器具名称</th>
                             <th data-field="model">器具规格</th>
                             <th data-field="outnumber">出厂编号</th>
                             <th data-field="toolId">设备编号</th>
                             <th data-field="manufacturer">制造厂商</th>
                             <th data-field="number">套数</th>
-                            <th data-field="cnumber">登记号</th>
                             <th data-field="company.name">委托单位</th>
                             <th data-field="company.linkMan">联系人</th>
-                            <th data-field="company.linkPhone">联系电话</th>
-                            <th data-field="company.adate">委托日期</th>
-                            <th data-field="company.adateStr">委托日期字符串</th>
-                            <th data-field="company.pdate">打印日期</th>
-                            <th data-field="company.pdateStr">打印日期字符串</th>
-                            <th data-field="company.address">客户要求单位地址</th>
+                            <th data-field="company.adateStr">委托日期</th>
+                            <th data-field="company.pdateStr">打印日期</th>
                             <th data-field="company.aid">委托号</th>
                             <th data-field="action">操作</th>
 

@@ -67,4 +67,17 @@ public class CompanyServiceImpl implements ICompanyService {
         return authorizeMapper.findById(id);
     }
 
+    @Override
+    public Boolean update(Authorize authorize) {
+        Boolean temp = true;
+        temp = companyMapper.updateById(authorize.getCompany());
+        temp =authorizeMapper.updateById(authorize);
+        return temp;
+    }
+
+    @Override
+    public void delAuthorizeById(Integer id) {
+        authorizeMapper.deleteById(id);
+    }
+
 }

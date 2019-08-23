@@ -5,6 +5,7 @@ import com.zhoujian.domain.QueryCertificateLogics;
 import com.zhoujian.service.ICompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -40,17 +41,17 @@ public class CompanyQueryController {
         return null;
     }
 
-    @RequestMapping("delAuthorizeByCnumber")
+    @RequestMapping("delAuthorizeById")
     @ResponseBody
-    public List<Authorize> delAuthorizeByCnumber(String cnumber){
-        
+    public List<Authorize> delAuthorizeById(Integer id){
+        iCompanyService.delAuthorizeById(id);
         List<Authorize> authorizeList= iCompanyService.findAllAuth();
         return addAction(authorizeList);
     }
 
     private List<Authorize> addAction(List<Authorize> authorizeList){
         for (Authorize authorize : authorizeList) {
-            authorize.setAction("<button class='btn_detail'>详情</button><button onclick='delAuthorize("+authorize.getCnumber()+")' class='btn_del'>删除</button>");
+            authorize.setAction("<button class='btn_detail' onclick='toAnother("+authorize.getId()+")' >详情</button><button onclick='delAuthorize("+authorize.getId()+")' class='btn_del'>删除</button>");
         }
         return authorizeList;
     }

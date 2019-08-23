@@ -1,14 +1,29 @@
 
-function delAuthorize(cnumber) {
+function delAuthorize(id) {
     var r=confirm("确认删除？");
     if (r==true){
-        $.get("/delAuthorizeByCnumber",{'cnumber':cnumber},function (data) {
+        $.get("/delAuthorizeById",{'id':id},function (data) {
             var $table = $('#table');
             $table.bootstrapTable('load',data);
         })
     }
 }
 
+function toAnother(id) {
+
+        layer.open({
+            type: 2,
+            area: ['1000px', '600px'],
+            fixed: false, //不固定
+            maxmin: true,
+            content: '/company/query2Update?id='+id,
+            end:function () {
+                location.reload();
+            }
+        });
+
+
+}
 
 function queryCertificatesByLogic() {
     if($('#isQueryAllCertificate').is(':checked')){
