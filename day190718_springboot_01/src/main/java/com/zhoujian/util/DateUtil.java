@@ -65,8 +65,6 @@ public class DateUtil {
     }
 
     public static void main(String[] args) {
-//        System.out.println(strMath());
-//        System.out.println(timeStr());
-//        createFile();
+        System.out.println(timeStr()+2);
     }
 }

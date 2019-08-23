@@ -17,7 +17,7 @@ public interface ICompanyService {
     Boolean save(Company company);
 
 
-    void saveAuth(Authorize authorize);
+    void saveAuth(Authorize authorize,int i);
 
     List<Authorize> findAllAuth();
 

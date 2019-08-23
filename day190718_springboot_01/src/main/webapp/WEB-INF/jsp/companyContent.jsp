@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: zhoujian
-  Date: 2019/8/20
-  Time: 19:42
+  Date: 2019/8/23
+  Time: 15:19
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -30,12 +30,12 @@
             <h5>委托添加</h5>
         </div>
         <div class="ibox-content">
-            <form class="form-horizontal m-t" id="signupForm" action="/company/save">
+            <form class="form-horizontal m-t" id="signupForm" action="/company/update">
                 <div class="form-group">
                     <label class="col-sm-1 control-label">委托单位：</label>
                     <div class="col-sm-9">
-                        <input id="companyName" name="name" class="form-control" type="text">
-                        <span class="help-block m-b-none"><i class="fa fa-info-circle"></i>下拉框</span>
+                        <input id="companyName" name="companyName" class="form-control" type="text">
+
                     </div>
                 </div>
                 <div class="form-group">
@@ -60,13 +60,47 @@
                 </div>
                 <div class="form-group">
                     <label class="col-sm-1 control-label">客户要求单位地址：</label>
-                    <div class="col-sm-9">
+                    <div class="col-sm-4">
                         <input id="adress" name="adress" class="form-control" type="text">
+                    </div>
+                    <label class="col-sm-1 control-label">委托单号：</label>
+                    <div class="col-sm-4">
+                        <input id="aid" name="aid" class="form-control" type="text" readonly="readonly">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-1 control-label">器具名称：</label>
+                    <div class="col-sm-4">
+                        <input id="toolname" name="toolname" type="text" class="form-control" placeholder="">
+                    </div>
+                    <label class="col-sm-1 control-label">型号规格：</label>
+                    <div class="col-sm-4">
+                        <input id="model" name="model" type="text" class="form-control" placeholder="">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-1 control-label">出厂编号：</label>
+                    <div class="col-sm-4">
+                        <input id="outnumber" name="outnumber" type="text" class="form-control" placeholder="">
+                    </div>
+                    <label class="col-sm-1 control-label">设备编号：</label>
+                    <div class="col-sm-4">
+                        <input id="toolId" name="toolId" type="text" class="form-control" placeholder="">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-1 control-label">制造厂商：</label>
+                    <div class="col-sm-4">
+                        <input id="manufacturer" name="manufacturer" type="text" class="form-control" placeholder="">
+                    </div>
+                    <label class="col-sm-1 control-label">套数：</label>
+                    <div class="col-sm-4">
+                        <input id="number" name="number" type="text" class="form-control" placeholder="">
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-1">
-                        <button class="btn btn-primary" type="submit">添加单位</button>
+                        <button class="btn btn-primary" type="submit">确认修改</button>
                     </div>
                 </div>
             </form>
@@ -80,16 +114,12 @@
 <script src="../../js/plugins/jasny/jasny-bootstrap.min.js"></script>
 <script src="../../js/plugins/validate/jquery.validate.min.js"></script>
 <script src="../../js/plugins/validate/messages_zh.min.js"></script>
-<script src="../../js/plugins/layer/layer.js"></script>
 <script src="../../js/demo/form-validate-demo.min.js"></script>
-
+<script src="../../js/plugins/layer/layer.js"></script>
 <script>
     if(${! empty message}){
-        layer.alert('${message}',{icon:6});
+        layer.alert('${message}',{icon:6})
     }
-</script>
-<script>
-
 </script>
 </body>
 </html>

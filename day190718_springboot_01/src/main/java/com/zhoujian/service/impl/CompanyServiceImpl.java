@@ -41,8 +41,8 @@ public class CompanyServiceImpl implements ICompanyService {
     }
 
     @Override
-    public void saveAuth(Authorize authorize) {
-        authorize.setCnumber(DateUtil.timeStr());
+    public void saveAuth(Authorize authorize,int i) {
+        authorize.setCnumber(DateUtil.timeStr()+i);
         authorizeMapper.save(authorize);
         companyMapper.updateById(authorize.getCompany());
     }

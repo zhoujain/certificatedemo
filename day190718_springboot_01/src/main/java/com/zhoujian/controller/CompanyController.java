@@ -63,8 +63,10 @@ public class CompanyController {
     @RequestMapping("saveAuth")
     @ResponseBody
     public String saveAuth(@RequestBody Authorize[] authorizes){
+        int i =0;
        for(Authorize authorize:authorizes){
-           companyService.saveAuth(authorize);
+          i++;
+           companyService.saveAuth(authorize,i);
 
        }
 
