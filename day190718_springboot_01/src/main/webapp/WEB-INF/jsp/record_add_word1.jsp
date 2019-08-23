@@ -14,6 +14,8 @@
 <body>
 <input id="ButtonSave" class="btn btn-primary"  type="button" value="保存记录"  onclick="return Save()" />
 <input id="ButtonSave1" class="btn btn-primary"  type="button" value="生成证书"  onclick="return ToCer()" />
+<input id="AddSeal" class="btn btn-primary" type="button" value="添加签名" onclick="return InsertSeal()"/>
+<input id="RemoveSeal" class="btn btn-primary" type="button" value="删除签名" onclick="return DeleteSeal()"/>
 <input id="ButtonClose" class="btn btn-info"  type="button" value="关闭"  onclick="return CloseFile()" />
 <input id="Button1" class="btn btn-primary" type="button" value="隐藏/显示 标题栏"  onclick="return Button1_onclick()" />
 <input id="Button2" class="btn btn-info"  type="button" value="隐藏/显示 菜单栏" onclick="return Button2_onclick()" />
@@ -108,6 +110,23 @@
     function Button4_onclick() {
         var bVisible = document.getElementById("PageOfficeCtrl1").OfficeToolbars;
         document.getElementById("PageOfficeCtrl1").OfficeToolbars = !bVisible;
+    }
+    
+    function InsertSeal() {
+        try {
+            document.getElementById("PageOfficeCtrl1").ZoomSeal.addSeal("","");
+        }catch (e) {
+
+        }
+    }
+    function DeleteSeal(){
+        var iCount = document.getElementById("PageOfficeCtrl1").ZoomSeal.Count;//获取当前文档中加盖的印章数量
+        if(iCount > 0){
+            document.getElementById("PageOfficeCtrl1").ZoomSeal.Item(iCount-1).DeleteSeal();//删除最后一个印章，Item 参数下标从 0 开始
+            alert("成功删除了最新加盖的印章。");
+        }else{
+            alert("请先在文档中加盖印章后，再执行删除操作。");
+        }
     }
 </script>
 </body>

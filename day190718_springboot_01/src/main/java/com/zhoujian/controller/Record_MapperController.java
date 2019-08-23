@@ -1,9 +1,11 @@
 package com.zhoujian.controller;
 
+import com.zhoujian.domain.Authorize;
 import com.zhoujian.domain.Certificate;
 import com.zhoujian.domain.Record;
 import com.zhoujian.exception.SysException;
 import com.zhoujian.service.CertificateService;
+import com.zhoujian.service.ICompanyService;
 import com.zhoujian.service.RecordService;
 import com.zhoujian.util.WordUtil;
 import com.zhuozhengsoft.pageoffice.FileSaver;
@@ -40,6 +42,9 @@ public class Record_MapperController {
     private CertificateService certificateService;
     @Resource(name = "recordService")
     private RecordService recordService;
+    @Resource(name="companyService")
+    private ICompanyService companyService;
+
 
     @RequestMapping("/record_v1")
     public String Record_v1(){
@@ -159,11 +164,11 @@ public class Record_MapperController {
         PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
         poCtrl.setServerPage("/poserver.zz");//设置授权程序
 
-        Certificate certificate = certificateService.getCertificateByID(Integer.parseInt(cid));
-//        System.out.println(certificate);
+        Authorize authorize = companyService.findAById(Integer.parseInt(cid));
+//        System.out.println(authorize);
         WordDocument doc = new WordDocument();
         DataRegion dataRegion = doc.openDataRegion("PO_sccompany");
-        dataRegion.setValue(certificate.getCcompany());
+        dataRegion.setValue(authorize.getCompany().getName());
         dataRegion = doc.openDataRegion("PO_table");
         //判断文件夹是否存在
         Object scidStr = request.getSession().getAttribute("scid");
@@ -180,23 +185,29 @@ public class Record_MapperController {
         }else {
             //第一次打开的时候
             dataRegion = doc.openDataRegion("PO_sctoolname");
-            dataRegion.setValue(certificate.getCtoolname());
+            dataRegion.setValue(authorize.getToolname());
             dataRegion = doc.openDataRegion("PO_scmodel");
-            dataRegion.setValue(certificate.getCmodel());
+            dataRegion.setValue(authorize.getModel());
             dataRegion = doc.openDataRegion("PO_scoutnumber");
-            dataRegion.setValue(certificate.getCoutnumber());
+            dataRegion.setValue(authorize.getOutnumber());
             dataRegion = doc.openDataRegion("PO_scmanufacturer");
-            dataRegion.setValue(certificate.getCmanufacturer());
+            dataRegion.setValue(authorize.getManufacturer());
+
             DataTag dataTag = doc.openDataTag("{证书编号}");
-            Integer cnumber = certificateService.queryMaxCnumber()+1;
-            Integer scnumber = recordService.queryMaxScnumber()+1;
-            Integer MaxNumber = cnumber>=scnumber?cnumber:scnumber;
-            dataTag.setValue(MaxNumber.toString());
+            String cnumber = authorize.getCnumber();
+            int number = authorize.getNumber();
+            if(number>1){
+                //模糊查询证书表结果
+                int result = certificateService.queryCertificatesByLogics("where cnumber like '"+cnumber+"%'").size();
+                //重新给cnumber定格式
+                cnumber = cnumber+"-"+(result+1);
+            }
+            dataTag.setValue(cnumber);
             poCtrl.setWriter(doc);
 
             poCtrl.addCustomToolButton("保存","Save",1); //添加自定义按钮
             poCtrl.addCustomToolButton("关闭","CloseFile()",21);
-            poCtrl.setSaveDataPage("/saveRecord?id="+id+"&scnumber="+MaxNumber);
+            poCtrl.setSaveDataPage("/saveRecord?id="+id+"&scnumber="+cnumber);
             poCtrl.setSaveFilePage("/saveRecordFile?id="+id);//设置保存的action
             //获得文件路径
             String str ="/uploads/bbaa" + id+".doc";

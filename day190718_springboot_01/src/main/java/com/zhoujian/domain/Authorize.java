@@ -12,6 +12,15 @@ public class Authorize implements Serializable {
     private Integer number;//套数
     private String cnumber;//登记号 插入时自动生成无重复 时间戳
     private Company company;//单位表关联
+    private String action;
+
+    public String getAction() {
+        return action;
+    }
+
+    public void setAction(String action) {
+        this.action = action;
+    }
 
     public Integer getId() {
         return id;

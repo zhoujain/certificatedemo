@@ -1,8 +1,10 @@
 package com.zhoujian.controller;
 
+import com.zhoujian.domain.Authorize;
 import com.zhoujian.domain.Certificate;
 import com.zhoujian.exception.SysException;
 import com.zhoujian.service.CertificateService;
+import com.zhoujian.service.ICompanyService;
 import com.zhoujian.service.RecordService;
 import com.zhuozhengsoft.pageoffice.wordwriter.DataRegion;
 import com.zhuozhengsoft.pageoffice.wordwriter.WordDocument;
@@ -32,6 +34,8 @@ public class DjnController {
     private CertificateService certificateService;
     @Autowired
     private RecordService recordService;
+    @Resource(name="companyService")
+    private ICompanyService companyService;
 
     @RequestMapping("/index_certificate_add")
     public String index_certificate_add(){
@@ -39,40 +43,43 @@ public class DjnController {
     }
 
     @RequestMapping(value="/openWordwithNumchanged",method = RequestMethod.GET)
-    public String openWordwithNumchanged(HttpServletRequest request, Map<String,Object> map, @RequestParam("id")String id){
+    public String openWordwithNumchanged(HttpServletRequest request, Map<String,Object> map, @RequestParam("id")String id,@RequestParam(value = "cid")String cid){
         PageOfficeCtrl poCtrl1=new PageOfficeCtrl(request);
         poCtrl1.setServerPage("/poserver.zz");
         WordDocument doc = new WordDocument();
 
+        Authorize authorize = companyService.findAById(Integer.parseInt(cid));
         //打开数据区域
         DataRegion dataRegion1 = doc.openDataRegion("PO_cnumber");
-        Integer cnumber = certificateService.queryMaxCnumber()+1;
-        Integer scnumber = recordService.queryMaxScnumber()+1;
-        Integer cnum = cnumber>=scnumber?cnumber:scnumber;
-        //Integer cnum = certificateService.queryMaxCnumber()+1;
+        String cnumber = authorize.getCnumber();
+        int number = authorize.getNumber();
+        if(number>1){
+            int result = certificateService.queryCertificatesByLogics("where cnumber like '"+cnumber+"%'").size();
+            cnumber = cnumber+"-"+(result+1);
+        }
         dataRegion1.setEditing(false);
         //给数据区域赋值
-        dataRegion1.setValue(cnum.toString());
+        dataRegion1.setValue(cnumber);
 
         DataRegion dataRegion2 = doc.openDataRegion("PO_ccompany");
         dataRegion2.setEditing(true);
-        dataRegion2.setValue("");
+        dataRegion2.setValue(authorize.getCompany().getName());
 
         DataRegion dataRegion3 = doc.openDataRegion("PO_ctoolname");
         dataRegion3.setEditing(true);
-        dataRegion3.setValue("");
+        dataRegion3.setValue(authorize.getToolname());
 
         DataRegion dataRegion4 = doc.openDataRegion("PO_cmodel");
         dataRegion4.setEditing(true);
-        dataRegion4.setValue("");
+        dataRegion4.setValue(authorize.getModel());
 
         DataRegion dataRegion5 = doc.openDataRegion("PO_coutnumber");
         dataRegion5.setEditing(true);
-        dataRegion5.setValue("");
+        dataRegion5.setValue(authorize.getOutnumber());
 
         DataRegion dataRegion6 = doc.openDataRegion("PO_cmanufacturer");
         dataRegion6.setEditing(true);
-        dataRegion6.setValue("");
+        dataRegion6.setValue(authorize.getManufacturer());
 
         /*DataRegion dataRegion7 = doc.openDataRegion("PO_cdelegate");
         dataRegion7.setEditing(true);
