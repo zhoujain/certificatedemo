@@ -248,7 +248,7 @@
                             if(!!window.ActiveXObject || "ActiveXObject" in window){
                                 $("#aGo").attr("href","/template2certificates?id="+selected.node.id+"&cid="+$('#div-cid').attr("value"))
                             }else {
-                                $("#aGo").attr("href","javascript:POBrowser.openWindowModeless('/template2certificates?id="+selected.node.id+"&cid="+$('#div-cid').attr("value")+"','width=1200px;height=1000px;');");
+                                $("#aGo").attr("href","javascript:POBrowser.openWindowModeless('/openWordwithNumchanged?id="+selected.node.id+"&cid="+$('#div-cid').attr("value")+"','width=1200px;height=1000px;');");
                             }
                             //$("#aGo").attr("href","/wordcheck?id="+selected.node.id);
                             $("#div-id").attr("value",selected.node.id)

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 
-@Service
+@Service("companyService")
 public class CompanyServiceImpl implements ICompanyService {
     @Autowired
     private CompanyMapper companyMapper;
