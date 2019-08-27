@@ -7,6 +7,7 @@ import com.zhoujian.domain.Ttemplate;
 import com.zhoujian.exception.SysException;
 
 import com.zhoujian.service.TtemplateService;
+import com.zhoujian.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -72,9 +73,12 @@ public class record_TemplateController {
 
     @RequestMapping("/tnode_delete")
     @ResponseBody
-    public String nodeDelete(@RequestParam(value = "id")Integer id){
+    public String nodeDelete(@RequestParam(value = "id")Integer id,HttpServletRequest request){
         //System.out.println(id);
         ttemplateService.nodeDelete(id);
+        //删除文件
+        String path = "aacc"+id+".doc";
+        FileUtil.deleteFile(request,path);
         return "1";
     }
 

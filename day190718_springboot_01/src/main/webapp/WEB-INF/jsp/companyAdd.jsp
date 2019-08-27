@@ -35,7 +35,7 @@
                     <label class="col-sm-1 control-label">委托单位：</label>
                     <div class="col-sm-9">
                         <input id="companyName" name="name" class="form-control" type="text">
-                        <span class="help-block m-b-none"><i class="fa fa-info-circle"></i>下拉框</span>
+
                     </div>
                 </div>
                 <div class="form-group">

@@ -61,6 +61,12 @@
     }
 
     function BeforeBrowserClosed(){
+        //对session进行清除
+<%--        <%--%>
+<%--            HttpSession session1 = request.getSession();--%>
+<%--            session1.removeAttribute("scid");--%>
+<%--        %>--%>
+<%--        alert("对session进行清除")--%>
         if (document.getElementById("PageOfficeCtrl2").IsDirty){
             if(confirm("提示：文档已被修改，是否继续关闭放弃保存 ？"))
             {

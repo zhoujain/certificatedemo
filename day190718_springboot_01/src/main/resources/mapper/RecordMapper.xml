@@ -3,14 +3,14 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zhoujian.dao.RecordMapper">
     <select id="getAllRecords" resultType="Record">
-        select * from tb_record where scisdel!=0 and cid=0
+        select * from tb_record where scisdel!=0
     </select>
     <select id="getRecordById" resultType="com.zhoujian.domain.Record" parameterType="Integer">
-        select * from tb_record where scid=#{scid} and scisdel!=0 and cid=0
+        select * from tb_record where scid=#{scid} and scisdel!=0
     </select>
 
     <select id="getRecordByLogics" resultType="com.zhoujian.domain.Record" parameterType="String">
-        select * from tb_record ${value} and scisdel!=0 and cid=0
+        select * from tb_record ${value} and scisdel!=0
     </select>
 
 

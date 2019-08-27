@@ -121,12 +121,6 @@
     var count =1;
     $(document).ready(function(){
 
-        // $('.checkbox').click(function(){
-        //     //alert("111")
-        //     $('#aGo').attr("href","/content_certificate?");
-        //     $('#aGo')[0].click();
-        // });
-
 
 
     });
@@ -160,7 +154,6 @@
         $('input[name="optionName"]:checked').each(function() {
             checkBoxArr.push($(this).val());
         });
-        alert(checkBoxArr);
         func();
 
     }

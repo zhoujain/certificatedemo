@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 //日期处理工具类
@@ -64,7 +65,24 @@ public class DateUtil {
 //        FileUtils.touch
     }
 
+    public static String getYear(){
+        //String string = new SimpleDateFormat("yyyy-MM-dd").format(new Date()).toString();
+        Calendar calendar = Calendar.getInstance();
+        return  String.valueOf(calendar.get(Calendar.YEAR));
+    }
+    public static String getMonth(){
+        //String string = new SimpleDateFormat("yyyy-MM-dd").format(new Date()).toString();
+        Calendar calendar = Calendar.getInstance();
+        return  String.valueOf(calendar.get(Calendar.MONTH)+1);
+    }
+    public static String getDay(){
+        //String string = new SimpleDateFormat("yyyy-MM-dd").format(new Date()).toString();
+        Calendar calendar = Calendar.getInstance();
+        return  String.valueOf(calendar.get(Calendar.DATE));
+    }
+
     public static void main(String[] args) {
-        System.out.println(timeStr()+2);
+        System.out.println(getMonth());
+        System.out.println(getDay());
     }
 }

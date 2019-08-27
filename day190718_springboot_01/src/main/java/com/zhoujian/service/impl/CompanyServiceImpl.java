@@ -41,10 +41,11 @@ public class CompanyServiceImpl implements ICompanyService {
     }
 
     @Override
-    public void saveAuth(Authorize authorize,int i) {
+    public String saveAuth(Authorize authorize,int i) {
         authorize.setCnumber(DateUtil.timeStr()+i);
         authorizeMapper.save(authorize);
         companyMapper.updateById(authorize.getCompany());
+        return DateUtil.timeStr()+i;
     }
 
     @Override
@@ -69,10 +70,10 @@ public class CompanyServiceImpl implements ICompanyService {
 
     @Override
     public Boolean update(Authorize authorize) {
-        Boolean temp = true;
-        temp = companyMapper.updateById(authorize.getCompany());
-        temp =authorizeMapper.updateById(authorize);
-        return temp;
+        Boolean temp1 = true;
+        temp1 = companyMapper.updateById(authorize.getCompany());
+        temp1 =authorizeMapper.updateById(authorize);
+        return temp1;
     }
 
     @Override

@@ -19,12 +19,11 @@
 <input id="Button3" class="btn btn-primary" type="button" value="隐藏/显示 自定义工具栏"  onclick="return Button3_onclick()" />
 <input id="Button4" class="btn btn-info" type="button" value="隐藏/显示 Office工具栏"  onclick="return Button4_onclick()" />
 <input id="execl" class="btn btn-primary"  type="button" value="Execl"  onclick="ToExecl()" />
+<input id="Button5" class="btn btn-primary" type="button" value="全屏"  onclick="return IsFullScreen()" />
 <div style="width:1200px;height:800px;" >${pageoffice}</div>
 
 <a id="aGo1" target="_self" style="display: none;" href="">隐藏链接</a>
-<%--<iframe name="frame" width="100%" height="800px" frameborder="0">--%>
-<%--    --%>
-<%--</iframe>--%>
+
 <script src="../../js/jquery.min.js?v=2.1.4"></script>
 <script type="text/javascript">
     function ToExecl() {
@@ -34,10 +33,8 @@
         }else {
             var id =${id};
             $("#aGo1").attr("href","/record_word2?id="+id);
-            //$("#aGo1").attr("href","javascript:POBrowser.openWindowModeless('/record_word2?id="+id+"','width=1200px;height=800px;');");
         }
 
-        //alert("/word1?text="+selected.node.text)
         $("#aGo1")[0].click();
     }
     function Save() {

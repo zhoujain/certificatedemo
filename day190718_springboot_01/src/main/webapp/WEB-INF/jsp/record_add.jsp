@@ -261,6 +261,8 @@
                 }
                 if('click'==selected.event.type){
                     if(selected.node.type ==2||selected.node.type ==3){
+                        //对session进行清除
+
                         if($('#div-cid').attr("value") == undefined){
                             alert("请点击查询并进行选择");
                         }else{

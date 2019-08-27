@@ -4,6 +4,7 @@ import com.zhoujian.domain.*;
 import com.zhoujian.service.CertificateService;
 import com.zhoujian.service.RecordMQService;
 import com.zhoujian.service.UserService;
+import com.zhoujian.util.FileUtil;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -78,9 +79,12 @@ public class RecordMQController {
      */
     @RequestMapping("/delRecordByCid")
     @ResponseBody
-    public List<RecordVo> delRecordByCid(Integer cid,HttpSession session){
+    public List<RecordVo> delRecordByCid(Integer cid,HttpSession session,HttpServletRequest request){
 
         recordMQService.delRecordByCid(cid);
+        //删除文件
+        String path = "aacc"+cid+".doc";
+        FileUtil.deleteFile(request,path);
 
         String where = (String) session.getAttribute("where");
         List<Record> recordList;

@@ -106,7 +106,7 @@ public class WordUtil {
 //                    String str = c.getStringCellValue();
 //                }
             }
-            document.add(new Paragraph("用户信息"));
+            //document.add(new Paragraph("用户信息"));
             document.add(table);
 //            //工作表对象
 //            Sheet sheet = workbook.getSheetAt(0);
@@ -153,21 +153,21 @@ public class WordUtil {
 //            //table.addCell("111");
 //            document.add(new Paragraph("用户信息"));
 //            document.add(table);
-            out.close();
+
             document.close();
         }catch(Exception e){
             e.printStackTrace();
 
+        }finally {
+            try {
+
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
-//    public static void main(String[] args) {
-//        FileOutputStream out = null;
-//        String wordPath = "F:\\1.doc";
-//        String excelPath = "F:\\2.xlsx";
-//        //for()
-//        excelToWord(wordPath,excelPath,"table_1");
-//
-//    }
+
 
     /**
      * 通过Excel表格中颜色index获取AWT中Color

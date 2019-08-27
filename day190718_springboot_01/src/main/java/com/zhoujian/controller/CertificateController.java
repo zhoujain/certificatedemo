@@ -5,6 +5,7 @@ import com.zhoujian.domain.CertificateVo;
 import com.zhoujian.domain.QueryCertificateLogics;
 import com.zhoujian.service.CertificateService;
 import com.zhoujian.service.UserService;
+import com.zhoujian.util.FileUtil;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -70,10 +71,12 @@ public class CertificateController {
 
     @RequestMapping("/delCertificateByCid")
     @ResponseBody
-    public List<CertificateVo> delCertificateByCid(Integer cid,HttpSession session){
+    public List<CertificateVo> delCertificateByCid(HttpServletRequest request,Integer cid,HttpSession session){
 
         certificateService.delCertificateByCid(cid);
-
+        //对文件进行删除
+        String path = "aacc"+cid+".doc";
+        FileUtil.deleteFile(request,path);
         String where = (String) session.getAttribute("where");
         List<Certificate> certificateList;
         //进行判断，两种情况。一种查询全部，一种按条件查询

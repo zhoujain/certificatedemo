@@ -54,44 +54,36 @@ public class Record_MapperController {
     public String Record_Add(){ return "record_add";}
     @RequestMapping("/record_check")
     public String Record_Check(){ return "record_check";}
+    //审核打开
     @RequestMapping(value="/recordcheck", method= RequestMethod.GET)
-    //@ResponseBody
     public String openWord_check(HttpServletRequest request, Map<String,Object> map, @RequestParam(value = "id")String id){
         //System.out.println(map);
         //--- PageOffice的调用代码 开始 -----
         PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
-        //PageOfficeCtrl poCtrl1=new PageOfficeCtrl(request);
+
         poCtrl.setServerPage("/poserver.zz");//设置授权程序
-        //poCtrl1.setServerPage("/poserver.zz");//设置授权程序
+
         poCtrl.addCustomToolButton("保存","Save",1); //添加自定义按钮
         poCtrl.addCustomToolButton("关闭","CloseFile()",21);
         poCtrl.setSaveFilePage("/save1");//设置保存的action
         //获得文件路径
-        //String newPath = request.getSession().getServletContext().getRealPath("/uploads" + fileName);
+
         String str ="/uploads/bbaa" + id+".doc";
-        //String str1 ="/uploads/bbaa" + id+".xlsx";
         String newPath = request.getSession().getServletContext().getRealPath(str);
-        //String newPath1 = request.getSession().getServletContext().getRealPath(str1);
-        System.out.println(newPath);
-        // System.out.println(newPath1);
+
+
         poCtrl.webOpen(newPath, OpenModeType.docAdmin,"张三");
         //poCtrl1.webOpen(newPath1,OpenModeType.xlsNormalEdit,"张三");
         map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
-        //map.put("pageoffice1",poCtrl1.getHtmlCode("PageOfficeCtrl2"));
-        //map.put("pageoffice1",poCtrl.getHtmlCode("PageOfficeCtrl1"));
-        //System.out.println(map);
+
         map.put("id",id);
-        //--- PageOffice的调用代码 结束 -----
-        //ModelAndView mv = new ModelAndView();
-        //mv.setViewName("wrod1");
-        //mv.addObject("")
+
         return "recordcheck";
     }
 
 
-
+    //记录模板打开
     @RequestMapping(value="/record_word1", method= RequestMethod.GET)
-    //@ResponseBody
     public String openWord(HttpServletRequest request, Map<String,Object> map, @RequestParam(value = "id")String id){
         //System.out.println(map);
         //--- PageOffice的调用代码 开始 -----
@@ -108,22 +100,16 @@ public class Record_MapperController {
         //String str1 ="/uploads/bbaa" + id+".xlsx";
         String newPath = request.getSession().getServletContext().getRealPath(str);
         //String newPath1 = request.getSession().getServletContext().getRealPath(str1);
-        System.out.println(newPath);
-       // System.out.println(newPath1);
+
         poCtrl.webOpen(newPath, OpenModeType.docAdmin,"张三");
         //poCtrl1.webOpen(newPath1,OpenModeType.xlsNormalEdit,"张三");
         map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
-        //map.put("pageoffice1",poCtrl1.getHtmlCode("PageOfficeCtrl2"));
-        //map.put("pageoffice1",poCtrl.getHtmlCode("PageOfficeCtrl1"));
-        //System.out.println(map);
+
         map.put("id",id);
-        //--- PageOffice的调用代码 结束 -----
-        //ModelAndView mv = new ModelAndView();
-        //mv.setViewName("wrod1");
-        //mv.addObject("")
+
         return "record_word1";
     }
-
+    //记录xlsx打开
     @RequestMapping(value="/record_word2", method= RequestMethod.GET)
     //@ResponseBody
     public String openWord2(HttpServletRequest request, Map<String,Object> map, @RequestParam(value = "id")String id){
@@ -147,17 +133,12 @@ public class Record_MapperController {
         poCtrl.webOpen(newPath, OpenModeType.xlsNormalEdit,"张三");
         //poCtrl1.webOpen(newPath1,OpenModeType.xlsNormalEdit,"张三");
         map.put("pageoffice1",poCtrl.getHtmlCode("PageOfficeCtrl2"));
-        //map.put("pageoffice1",poCtrl1.getHtmlCode("PageOfficeCtrl2"));
-        //map.put("pageoffice1",poCtrl.getHtmlCode("PageOfficeCtrl1"));
-        //System.out.println(map);
+
         map.put("id",id);
-        //--- PageOffice的调用代码 结束 -----
-        //ModelAndView mv = new ModelAndView();
-        //mv.setViewName("wrod1");
-        //mv.addObject("")
+
         return "record_word2";
     }
-
+    //记录添加打开
     @RequestMapping(value="/record_add_word1")
     public String openWord_add(HttpServletRequest request, Map<String,Object> map, @RequestParam(value = "id")String id,@RequestParam(value = "cid")String cid){
         //--- PageOffice的调用代码 开始 -----
@@ -167,40 +148,48 @@ public class Record_MapperController {
         Authorize authorize = companyService.findAById(Integer.parseInt(cid));
 //        System.out.println(authorize);
         WordDocument doc = new WordDocument();
-        DataRegion dataRegion = doc.openDataRegion("PO_sccompany");
+        DataRegion dataRegion = doc.openDataRegion("PO_单位");
         dataRegion.setValue(authorize.getCompany().getName());
-        dataRegion = doc.openDataRegion("PO_table");
+        DataRegion dataRegion12 = doc.openDataRegion("PO_要求单位");
+        dataRegion12.setValue(authorize.getCompany().getAdress());
+        dataRegion = doc.openDataRegion("PO_表格");
         //判断文件夹是否存在
-        Object scidStr = request.getSession().getAttribute("scid");
-        String wordpath ="";
-        if(!StringUtils.isEmpty(scidStr)){
+       // Object scidStr = request.getSession().getAttribute("scid");
+       // String wordpath ="";
+       // if(!StringUtils.isEmpty(scidStr)){
             //返回打开的时候
-            Integer scid = Integer.parseInt(scidStr.toString());
-            wordpath = request.getSession().getServletContext().getRealPath("/uploads/eTow"+scid+".doc");
-            File fileword = new File(wordpath);
-            if(fileword.exists()){
-                dataRegion.setValue("[word]"+wordpath+"[/word]");
-            }
+         //   Integer scid = Integer.parseInt(scidStr.toString());
+         //   wordpath = request.getSession().getServletContext().getRealPath("/uploads/eTow"+scid+".doc");
+          //  File fileword = new File(wordpath);
+           // if(fileword.exists()){
+            //    dataRegion.setValue("[word]"+wordpath+"[/word]");
+          //  }
 
-        }else {
+       // }else {
             //第一次打开的时候
-            dataRegion = doc.openDataRegion("PO_sctoolname");
+            dataRegion = doc.openDataRegion("PO_器具名称");
             dataRegion.setValue(authorize.getToolname());
-            dataRegion = doc.openDataRegion("PO_scmodel");
+            dataRegion = doc.openDataRegion("PO_型号");
             dataRegion.setValue(authorize.getModel());
-            dataRegion = doc.openDataRegion("PO_scoutnumber");
+            DataRegion dataRegion13 = doc.openDataRegion("PO_设备编号");
+            dataRegion13.setValue(authorize.getToolId());
+            dataRegion = doc.openDataRegion("PO_出厂编号");
             dataRegion.setValue(authorize.getOutnumber());
-            dataRegion = doc.openDataRegion("PO_scmanufacturer");
+            dataRegion = doc.openDataRegion("PO_制造单位");
             dataRegion.setValue(authorize.getManufacturer());
 
             DataTag dataTag = doc.openDataTag("{证书编号}");
             String cnumber = authorize.getCnumber();
             int number = authorize.getNumber();
             if(number>1){
-                //模糊查询证书表结果
+
                 int result = certificateService.queryCertificatesByLogics("where cnumber like '"+cnumber+"%'").size();
-                //重新给cnumber定格式
-                cnumber = cnumber+"-"+(result+1);
+                //套数》证书数量
+                if(number>result){
+                    result =result+1;
+                }
+                cnumber = cnumber+"-"+(result);
+
             }
             dataTag.setValue(cnumber);
             poCtrl.setWriter(doc);
@@ -218,14 +207,13 @@ public class Record_MapperController {
             map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
             //传id用于打开Excel
             map.put("id",id);
-
-        }
+       // }
 
 
         //request.getSession().setAttribute("tid",id);
         return "record_add_word1";
     }
-
+    //打开excel
     @RequestMapping(value="/record_add_word2")
     //@ResponseBody
     public String openWord_add(HttpServletRequest request, Map<String,Object> map, @RequestParam(value = "id")String id){
@@ -273,47 +261,77 @@ public class Record_MapperController {
         fs.saveToFile(request.getSession().getServletContext().getRealPath("/uploads") + "/" + fs.getFileName());
         fs.close();
     }
-
+    //保存记录
     @RequestMapping(value = "/saveRecord")
     public void saveRecord(HttpServletRequest request,HttpServletResponse response,@RequestParam(value = "id")String id,@RequestParam(value="scnumber")String scnumber){
         Record record = new Record();
         record.setScnumber(scnumber);
         //取值
         com.zhuozhengsoft.pageoffice.wordreader.WordDocument doc = new com.zhuozhengsoft.pageoffice.wordreader.WordDocument(request,response);
-        com.zhuozhengsoft.pageoffice.wordreader.DataRegion dataRegion = doc.openDataRegion("PO_sccompany");
-        record.setSccompany(dataRegion.getValue().trim());
+        //com.zhuozhengsoft.pageoffice.wordreader.DataRegion dataRegion = doc.openDataRegion("PO_sccompany");
+        com.zhuozhengsoft.pageoffice.wordreader.DataRegion dataRegion = null;
+        try {
+            dataRegion = doc.openDataRegion("PO_单位");
+            record.setSccompany(dataRegion.getValue().trim());
+        } catch (Exception e) {
 
-
-        dataRegion = doc.openDataRegion("PO_sctoolname");
-        record.setSctoolname(dataRegion.getValue().trim());
-        dataRegion = doc.openDataRegion("PO_scmodel");
-        record.setScmodel(dataRegion.getValue().trim());
-        dataRegion = doc.openDataRegion("PO_scoutnumber");
-        record.setScoutnumber(dataRegion.getValue().trim());
-        dataRegion = doc.openDataRegion("PO_scmanufacturer");
-        record.setScmanufacturer(dataRegion.getValue().trim());
-        dataRegion = doc.openDataRegion("PO_sccheckdepartment");
-        record.setSccheckdepartment(dataRegion.getValue().trim());
-        dataRegion = doc.openDataRegion("PO_sccheckyear");
-        String year = dataRegion.getValue().trim();
-        dataRegion = doc.openDataRegion("PO_sccheckmonth");
-        String month = dataRegion.getValue().trim();
-        dataRegion = doc.openDataRegion("PO_sccheckday");
-        String day = dataRegion.getValue().trim();
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        String str = year+"-"+month+"-"+day;
-        Date date = null;
-        try{
-            date = format.parse(str);
-        }catch(ParseException e){
-            e.printStackTrace();
         }
-        record.setSccheckdate(date);
+
+
+
+        try {
+            dataRegion = doc.openDataRegion("PO_器具名称");
+            record.setSctoolname(dataRegion.getValue().trim());
+        } catch (Exception e) {
+
+        }
+        try {
+            dataRegion = doc.openDataRegion("PO_型号");
+            record.setScmodel(dataRegion.getValue().trim());
+        } catch (Exception e) {
+
+        }
+        try {
+            dataRegion = doc.openDataRegion("PO_出厂编号");
+            record.setScoutnumber(dataRegion.getValue().trim());
+        } catch (Exception e) {
+
+        }
+        try {
+            dataRegion = doc.openDataRegion("PO_制造单位");
+            record.setScmanufacturer(dataRegion.getValue().trim());
+        } catch (Exception e) {
+
+        }
+        try {
+            dataRegion = doc.openDataRegion("PO_检测部门");
+            record.setSccheckdepartment(dataRegion.getValue().trim());
+        } catch (Exception e) {
+
+        }
+        try {
+            dataRegion = doc.openDataRegion("PO_检定年");
+            String year = dataRegion.getValue().trim();
+            dataRegion = doc.openDataRegion("PO_检定月");
+            String month = dataRegion.getValue().trim();
+            dataRegion = doc.openDataRegion("PO_检定日");
+            String day = dataRegion.getValue().trim();
+            DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            String str = year+"-"+month+"-"+day;
+            Date date = null;
+            try{
+                date = format.parse(str);
+            }catch(ParseException e){
+                e.printStackTrace();
+            }
+            record.setSccheckdate(date);
+        } catch (Exception e) {
+
+        }
         int uid = Integer.parseInt(request.getSession().getAttribute("uid").toString());
         record.setUid(uid);
         int tid = Integer.parseInt(id);
         record.setTid(tid);
-        System.out.println(record);
         if(recordService.queryScnumber(record.getScnumber())==null){
             Integer scid = recordService.addRecord(record);
             record.setScid(scid);
@@ -529,9 +547,10 @@ public class Record_MapperController {
         FileSaver fs = new FileSaver(request,response);
         fs.saveToFile(path);
         fs.close();
+        //生成原始记录临时word
         String wordpath = request.getSession().getServletContext().getRealPath("/uploads/eTow"+scid+".doc");
 
-        WordUtil.excelToWord(wordpath,path,"table_1");
+        WordUtil.excelToWord(wordpath,path,"PO_表格");
 
     }
 
@@ -543,7 +562,7 @@ public class Record_MapperController {
         poCtrl.setServerPage("/poserver.zz");//设置授权程序
 
         WordDocument doc = new WordDocument();
-        DataRegion dataRegion = doc.openDataRegion("PO_table");
+        DataRegion dataRegion = doc.openDataRegion("PO_表格");
        //判断文件夹是否存在
         //Object scidStr = request.getSession().getAttribute("scid");
          String wordpath ="";
@@ -612,33 +631,65 @@ public class Record_MapperController {
 //        record.setScnumber(scnumber);
         //取值
         com.zhuozhengsoft.pageoffice.wordreader.WordDocument doc = new com.zhuozhengsoft.pageoffice.wordreader.WordDocument(request,response);
-        com.zhuozhengsoft.pageoffice.wordreader.DataRegion dataRegion = doc.openDataRegion("PO_sccompany");
-        record.setSccompany(dataRegion.getValue().trim());
-        dataRegion = doc.openDataRegion("PO_sctoolname");
-        record.setSctoolname(dataRegion.getValue().trim());
-        dataRegion = doc.openDataRegion("PO_scmodel");
-        record.setScmodel(dataRegion.getValue().trim());
-        dataRegion = doc.openDataRegion("PO_scoutnumber");
-        record.setScoutnumber(dataRegion.getValue().trim());
-        dataRegion = doc.openDataRegion("PO_scmanufacturer");
-        record.setScmanufacturer(dataRegion.getValue().trim());
-        dataRegion = doc.openDataRegion("PO_sccheckdepartment");
-        record.setSccheckdepartment(dataRegion.getValue().trim());
-        dataRegion = doc.openDataRegion("PO_sccheckyear");
-        String year = dataRegion.getValue().trim();
-        dataRegion = doc.openDataRegion("PO_sccheckmonth");
-        String month = dataRegion.getValue().trim();
-        dataRegion = doc.openDataRegion("PO_sccheckday");
-        String day = dataRegion.getValue().trim();
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        String str = year+"-"+month+"-"+day;
-        Date date = null;
-        try{
-            date = format.parse(str);
-        }catch(ParseException e){
-            e.printStackTrace();
+        com.zhuozhengsoft.pageoffice.wordreader.DataRegion dataRegion = null;
+        try {
+            dataRegion = doc.openDataRegion("PO_单位");
+            record.setSccompany(dataRegion.getValue().trim());
+        } catch (Exception e) {
+
         }
-        record.setSccheckdate(date);
+
+
+
+        try {
+            dataRegion = doc.openDataRegion("PO_器具名称");
+            record.setSctoolname(dataRegion.getValue().trim());
+        } catch (Exception e) {
+
+        }
+        try {
+            dataRegion = doc.openDataRegion("PO_型号");
+            record.setScmodel(dataRegion.getValue().trim());
+        } catch (Exception e) {
+
+        }
+        try {
+            dataRegion = doc.openDataRegion("PO_出厂编号");
+            record.setScoutnumber(dataRegion.getValue().trim());
+        } catch (Exception e) {
+
+        }
+        try {
+            dataRegion = doc.openDataRegion("PO_制造单位");
+            record.setScmanufacturer(dataRegion.getValue().trim());
+        } catch (Exception e) {
+
+        }
+        try {
+            dataRegion = doc.openDataRegion("PO_检测部门");
+            record.setSccheckdepartment(dataRegion.getValue().trim());
+        } catch (Exception e) {
+
+        }
+        try {
+            dataRegion = doc.openDataRegion("PO_检定年");
+            String year = dataRegion.getValue().trim();
+            dataRegion = doc.openDataRegion("PO_检定月");
+            String month = dataRegion.getValue().trim();
+            dataRegion = doc.openDataRegion("PO_检定日");
+            String day = dataRegion.getValue().trim();
+            DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            String str = year+"-"+month+"-"+day;
+            Date date = null;
+            try{
+                date = format.parse(str);
+            }catch(ParseException e){
+                e.printStackTrace();
+            }
+            record.setSccheckdate(date);
+        } catch (Exception e) {
+
+        }
 
         int uid = Integer.parseInt(request.getSession().getAttribute("uid").toString());
         record.setUid(uid);
@@ -675,7 +726,7 @@ public class Record_MapperController {
         fs.saveToFile(path);
         fs.close();
         String wordpath = request.getSession().getServletContext().getRealPath("/uploads/eTow"+scid+".doc");
-        WordUtil.excelToWord(wordpath,path,"table_1");
+        WordUtil.excelToWord(wordpath,path,"PO_表格");
 
     }
     //display的证书上传

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.Servlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -54,6 +55,10 @@ public class MapperController {
     public User findUserByUsername(@RequestParam(value = "username")String username){
         return userService.findUserByUsername(username);
     }
+//    @RequestMapping("/loginseal.zz")
+//    public  String loginSeal(){
+//        return
+//    }
     @RequestMapping("/company")
     public String toCompany(){
         return "company";
@@ -135,8 +140,8 @@ public class MapperController {
 
         return "index_check";
     }
+    //模板打开
     @RequestMapping(value="/word1", method=RequestMethod.GET)
-    //@ResponseBody
     public String openWord(HttpServletRequest request, Map<String,Object> map,@RequestParam(value = "id")String id){
         //System.out.println(map);
         //--- PageOffice的调用代码 开始 -----
@@ -149,15 +154,8 @@ public class MapperController {
         //String newPath = request.getSession().getServletContext().getRealPath("/uploads" + fileName);
         String str ="/uploads/aabb" + id+".doc";
         String newPath = request.getSession().getServletContext().getRealPath(str);
-        System.out.println(newPath);
         poCtrl.webOpen(newPath, OpenModeType.docAdmin,"张三");
         map.put("pageoffice",poCtrl.getHtmlCode("PageOfficeCtrl1"));
-        //System.out.println(map);
-
-        //--- PageOffice的调用代码 结束 -----
-        //ModelAndView mv = new ModelAndView();
-        //mv.setViewName("wrod1");
-        //mv.addObject("")
         return "word1";
     }
 
@@ -167,27 +165,22 @@ public class MapperController {
         fs.saveToFile(request.getSession().getServletContext().getRealPath("/uploads") + "/" + fs.getFileName());
         fs.close();
     }
-
+    //审核打开word
     @RequestMapping(value="/wordcheck", method=RequestMethod.GET)
     //@ResponseBody
     public String openWordCheck(HttpServletRequest request, Map<String,Object> map,@RequestParam(value = "id")String id){
         //System.out.println(map);
         //--- PageOffice的调用代码 开始 -----
         PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
+        poCtrl.addCustomToolButton("保存","Save",1); //添加自定义按钮
+        poCtrl.addCustomToolButton("关闭","CloseFile()",21);
         poCtrl.setServerPage("/poserver.zz");//设置授权程序
-        //获得文件路径
-        //String newPath = request.getSession().getServletContext().getRealPath("/uploads" + fileName);
         String str ="/uploads/aabb" + id+".doc";
         String newPath = request.getSession().getServletContext().getRealPath(str);
         System.out.println(newPath);
         poCtrl.webOpen(newPath, OpenModeType.docAdmin,"张三");
         map.put("pageofficecheck",poCtrl.getHtmlCode("PageOfficeCtrl1"));
-        //System.out.println(map);
 
-        //--- PageOffice的调用代码 结束 -----
-        //ModelAndView mv = new ModelAndView();
-        //mv.setViewName("wrod1");
-        //mv.addObject("")
         return "wordcheck";
     }
 

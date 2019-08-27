@@ -32,7 +32,7 @@
         <div class="ibox-content">
             <form class="form-horizontal m-t" id="signupForm" action="/company/update">
                 <input type="hidden" id="companyId" name="company.id" value="${authorize.company.id}" />
-                <input type="hidden" id="authorizeId" name="authorize.id" value="${authorize.company.id}" />
+                <input type="hidden" id="authorizeId" name="authorize.id" value="${authorize.id}" />
                 <div class="form-group">
                     <label class="col-sm-1 control-label">委托单位：</label>
                     <div class="col-sm-9">

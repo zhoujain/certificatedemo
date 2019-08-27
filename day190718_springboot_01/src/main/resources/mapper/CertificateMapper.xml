@@ -32,10 +32,10 @@
     </select>
 
     <update id="editCertificate" parameterType="Certificate">
-        update tb_certificate set cnumber=#{cnumber},ccompany=#{ccompany},ctoolname=#{ctoolname},cmodel=#{cmodel},coutnumber=#{coutnumber},cmanufacturer=#{cmanufacturer},cdelegate=#{cdelegate},ccheckdate=#{ccheckdate},ccheckdepartment=#{ccheckdepartment} where cid=#{cid}
+        update tb_certificate set ccompany=#{ccompany},ctoolname=#{ctoolname},cmodel=#{cmodel},coutnumber=#{coutnumber},cmanufacturer=#{cmanufacturer},ccheckdate=#{ccheckdate},ccheckdepartment=#{ccheckdepartment} where cid=#{cid}
     </update>
 
     <select id="queryCnumber" parameterType="String" resultType="Certificate">
-        select cid from tb_certificate where cnumber = #{cnumber}
+        select cid from tb_certificate where cnumber = #{cnumber} and cisdel!=0
     </select>
 </mapper>

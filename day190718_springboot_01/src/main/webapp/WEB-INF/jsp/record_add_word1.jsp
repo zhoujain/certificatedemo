@@ -1,4 +1,4 @@
-<%--
+<%@ page import="org.springframework.web.context.request.SessionScope" %><%--
   Created by IntelliJ IDEA.
   User: zhoujian
   Date: 2019/7/23
@@ -75,6 +75,12 @@
     }
 
     function BeforeBrowserClosed(){
+        //对session进行清除
+<%--        <%--%>
+<%--            HttpSession session1 = request.getSession();--%>
+<%--            session1.removeAttribute("scid");--%>
+<%--        %>--%>
+<%--        alert("对session进行清除")--%>
         if (document.getElementById("PageOfficeCtrl1").IsDirty){
             if(confirm("提示：文档已被修改，是否继续关闭放弃保存 ？"))
             {

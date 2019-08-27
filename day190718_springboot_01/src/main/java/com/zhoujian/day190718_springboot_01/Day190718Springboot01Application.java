@@ -45,6 +45,9 @@ public class Day190718Springboot01Application {
         srb.addUrlMappings("/jquery.min.js");
         srb.addUrlMappings("/pobstyle.css");
         srb.addUrlMappings("/sealsetup.exe");
+        srb.addUrlMappings("/adminseal.zz");
+        srb.addUrlMappings("/loginseal.zz");
+
         return srb;
     }
 

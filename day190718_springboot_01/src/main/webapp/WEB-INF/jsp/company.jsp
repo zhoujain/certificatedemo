@@ -117,6 +117,7 @@
                             <thead>
                             <tr>
                                 <th>序号</th>
+                                <th>登记号</th>
                                 <th>器具名称</th>
                                 <th>器具规格</th>
                                 <th>出厂编号</th>
@@ -129,6 +130,7 @@
                             <tbody id="tbody1">
                             <tr class="oneRow">
                                 <td><span id="index"></span></td>
+                                <td><input type="text" class="cnumber" readonly="readonly" value="只读"></td>
                                 <td><input type="text" class="toolname"></td>
                                 <td><input type="text" class="model"></td>
                                 <td><input type="text" class="outnumber"></td>
@@ -163,6 +165,7 @@
         $(document).on("click",'.button_in_table_add',function(){
             $('#tbody1').append('<tr class="oneRow">\n' +
                 '                            <td><span>'+(++index)+'</span></td>\n' +
+                '                            <td><input type="text" class="cnumber" readonly="readonly" value="只读"></td>\n'+
                 '                            <td><input type="text" class="toolname"></td>\n' +
                 '                            <td><input type="text" class="model"></td>\n' +
                 '                            <td><input type="text" class="outnumber"></td>\n' +
@@ -182,6 +185,7 @@
             var number = $(thisRow).find('.number').val();
             $('#tbody1').append('<tr class="oneRow">\n' +
                 '                            <td><span>'+(++index)+'</span></td>\n' +
+                '                            <td><input type="text" class="cnumber" readonly="readonly" value="只读"></td>\n'+
                 '                            <td><input type="text" class="toolname" value="'+toolname+'"></td>\n' +
                 '                            <td><input type="text" class="model" value="'+model+'"></td>\n' +
                 '                            <td><input type="text" class="outnumber" value="'+outnumber+'"></td>\n' +
@@ -225,7 +229,6 @@
             var one={'toolname':toolname,'model':model,'outnumber':outnumber,'toolId':toolId,'manufacturer':manufacturer,'number':number,'company':company};
             list.push(one)
         }
-        console.log(list);
         $.ajax({
             type: "POST",
             url:'/company/saveAuth',
@@ -233,8 +236,17 @@
             contentType:"application/json",
             data:JSON.stringify(list),
             success:function (data) {
-                if(data ==1){
+                if(data){
                     layer.alert('添加成功，在查询中查看登记号',{icon:6});
+                    for(var i =0;i<rows.length;i++){
+                        var r = rows[i];
+                        $(r).find('.cnumber').val(data[i]);
+                    }
+                    $('#test_data').val("");
+                    $('#companyId').val("");
+
+                }else {
+                    layer.alert('添加失败',{icon:6});
                 }
             }
             })

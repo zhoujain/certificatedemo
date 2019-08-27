@@ -11,6 +11,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -85,15 +86,15 @@ public class CompanyController {
 
     @RequestMapping("saveAuth")
     @ResponseBody
-    public String saveAuth(@RequestBody Authorize[] authorizes){
+    public List<String> saveAuth(@RequestBody Authorize[] authorizes){
         int i =0;
+        List<String> list = new ArrayList<>();
        for(Authorize authorize:authorizes){
-          i++;
-           companyService.saveAuth(authorize,i);
-
+           i++;
+           String str = companyService.saveAuth(authorize,i);
+           list.add(i-1,str);
        }
-
-        return  "1";
+        return  list;
     }
     @RequestMapping("queryAllByLike")
     @ResponseBody
